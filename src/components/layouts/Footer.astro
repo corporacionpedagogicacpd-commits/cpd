@@ -1,0 +1,91 @@
+import { useEffect, useState } from 'astro/components';
+
+export let Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+  
+  return (
+    <header class="bg-surface border-b border-primary drop-shadow">
+      <div class="container flex items-center justify-between py-4">
+        <div class="flex items-center">
+          <img src="/logo.png" alt="CPD Logo" class="h-12 w-auto" />
+        </div>
+        <nav class="hidden md:flex space-x-8" aria-label="Main navigation">
+          <ul class="flex flex-col md:flex-row md:space-x-8">
+            <For each="link" in="[
+              { name: 'Inicio', href: '/' },
+              { name: 'Nosotros', href: '/nosotros' },
+              { name: 'Donaciones', href: '/donaciones' },
+              { name: 'Educación', href: '/educacion' },
+              { name: 'Galería', href: '/galeria' },
+              { name: 'Alianza', href: '/alianza' },
+              { name: 'Contacto', href: '/contacto' }
+            ]">
+              <lii>
+                <a class="text-primary hover:text-accent" href={link.href}>{link.name}</a>
+              </li>
+            </For>
+          </ul>
+        </nav>
+        <div class="md:hidden">
+          <button class="text-primary focus:outline-none" aria-label="Toggle menu" onClick={toggleMenu}>
+            <span class="sr-only">Toggle menu</span>
+            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16M5 5a2 2 0 012-2h3a2 2 0 012 2h3a2 2 0 012 2H19a2 2 0 012 22-2 2 0 01-2 2H5a2 2 0 01-2-2 2 2 0 012-2h14a2 2 0 012 2 2 2 0 01-2 2H9a2 2 0 01-2-2z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="md:hidden">
+        <div class="bg-surface py-4 px-4" aria-expanded={isOpen} role="dialog" style="overflow: auto">
+          <ul class="space-y-4">
+            <For each="link" in="[
+              { name: 'Inicio', href: '/' },
+              { name: 'Nosotros', href: '/nosotros' },
+              { name: 'Donaciones', href: '/donaciones' },
+              { name: 'Educación', href: '/educacion' },
+              { name: 'Galería', href: '/galeria' },
+              { name: 'Alianza', href: '/alianza' },
+              { name: 'Contacto', href: '/contacto' }
+            ]">
+              <lii>
+                <a class="text-primary hover:text-accent block py-2" href={link.href}>{link.name}</a>
+              </li>
+            </For>
+          </ul>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export let Footer = () => {
+  return (
+    <footer class="bg-accent text-white py-12">
+      <div class="container">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-8 md:mb-0">
+            <img src="/logo-white.png" alt="CPD Logo" class="h-12 w-auto" />
+            <p class="mt-4 text-sm text-white">© 2026 Corporación Pedagógica Diversidad. Todos los derechos reservados.</p>
+          </div>
+          <div class="flex space-x-8">
+            <a href="/contacto" class="text-white hover:text-primary text-sm">Contacto</a>
+            <a href="https://wa.me/573003079290" class="text-white hover:text-primary text-sm">WhatsApp</a>
+            <a href="https://instagram.com/corpodiversidad" class="text-white hover:text-primary text-sm">Instagram</a>
+            <a href="https://veeduria-ciudadana.vercel.app" class="text-white hover:text-primary text-sm">Veeduría</a>
+          </div>
+        </div>
+        <div class="mt-8 text-center text-xs text-white">
+          <p class="mb-4">Desarrollado con ♥️ y Astro ⚡️</p>
+          <div class="flex justify-center space-x-6">
+            <a href="https://github.com/N3KOSAURIO/corpedagogicadiversidad" class="text-white hover:text-primary"> GitHub</a>
+            <a href="https://cpd.mork.click" class="text-white hover:text-primary"> Visitar sitio</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};

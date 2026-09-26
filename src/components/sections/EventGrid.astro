@@ -1,0 +1,22 @@
+import { Astro } from 'astro';
+
+export let EventGrid = (props) => {
+  return (
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {props.events.map(event => (
+        <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow transition-all">
+          <div class="relative bg-primary h-48">
+            <img src="/event-placeholder.jpg" alt="Event image" class="object-cover w-full h-full">
+          </div>
+          <h5 class="text-2xl font-bold text-ink mt-4 mb-1">{event.name}</h5>
+          <p class="text-primary font-semibold">{new Date(event.date).toLocaleDateString('es-ES')}</p>
+          <p class="text-ink mt-4">{event.description}</p>
+          <div class="flex space-x-3 mb-4 pt-4">
+            <button class="bg-primary hover:bg-accent text-white px-4 py-2 rounded-lg transition-colors">Más info</button>
+            <a href="/contacto" class="bg-ink hover:bg-primary text-white px-4 py-2 rounded-lg transition-colors">Contactar</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};

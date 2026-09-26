@@ -1,0 +1,22 @@
+import Header from '../components/layouts/Header.astro';
+import Footer from '../components/layouts/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import StatsCounter from '../components/sections/StatsCounter.astro';
+
+export let Layout = () => {
+  return (
+    <Main>
+      <Header />
+      <Hero />
+      <div class="container py-16">
+        <h2 class="text-3xl font-bold text-ink text-center mb-16">Nosotros</h2>
+        <p class="text-lg text-ink mb-12">La Corporación Pedagógica Diversidad (C.P.D.) es una institución sin fines de lucro constituida el 27 de abril de 2012 en Medellín. Nace de un grupo de educadores comprometidos con la transformación de la educación inclusiva y el bienestar de los jóvenes en riesgo.</p>
+        <h3 class="text-2xl font-bold text-ink mb-8">Historia</h3>
+        <p class="text-lg text-ink mb-8">En 2017, un hito significativo fue la capacitación de agentes de tránsito de Itagüí en mediciones de alcoholemia. Esta acción demostró el impacto de nuestro trabajo en la comunidad y reafirmó nuestro compromiso con la educación preventiva.</p>
+        <h3 class="text-2xl font-bold text-ink mb-8">Misión</h3>
+        <p class="text-lg text-ink">Innovar en la educación inclusiva y en la salud mental. Ser una institución que apoya a adolescentes vulnerables a través de programas de prevención, reeducación y tratamiento psicosocial.</p>
+      </div>
+      <Footer />
+    </Main>
+  );
+};

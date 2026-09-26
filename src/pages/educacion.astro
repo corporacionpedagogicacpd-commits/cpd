@@ -1,0 +1,36 @@
+import Header from '../components/layouts/Header.astro';
+import Footer from '../components/layouts/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import StatsCounter from '../components/sections/StatsCounter.astro';
+
+export let Layout = () => {
+  return (
+    <Main>
+      <Header />
+      <Hero />
+      <div class="container py-16">
+        <h2 class="text-3xl font-bold text-ink text-center mb-16">Educación</h2>
+        <p class="text-lg text-ink mb-12">Nuestros programas de educación son un pilar fundamental en nuestro enfoque integral para el bienestar de los jóvenes.</p>
+        <h3 class="text-2xl font-bold text-ink mb-8">Nuestros programas</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow">
+            <img src="/educacion/imagen1.png" alt="Programas de educación" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink p-6">Programa de prevención escolar</h3>
+            <p class="text-ink p-6">Un programa integral que se implementa directamente en las escuelas para prevenir el uso de sustancias y promover hábitos saludables entre los estudiantes.</p>
+          </div>
+          <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow">
+            <img src="/educacion/imagen2.png" alt="Programas de educación" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink p-6">Taller de formación personal</h3>
+            <p class="text-ink p-6">Un taller intensivo que desarrolla habilidades de autocompasión, emocionalidad y resiliencia en los participantes.</p>
+          </div>
+          <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow">
+            <img src="/educacion/imagen3.png" alt="Programas de educación" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink p-6">Proyecto de mentoría</h3>
+            <p class="text-ink p-6">Un programa de mentoría que conecta a jóvenes vulnerables con mentores experimentados que los apoyan en su desarrollo personal y académico.</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    </Main>
+  );
+};

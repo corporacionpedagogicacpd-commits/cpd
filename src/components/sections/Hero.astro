@@ -1,0 +1,41 @@
+import { useEffect, useState } from 'astro/components';
+
+export let Hero = () => {
+  const slides = [
+    {
+      title: "Innovadores en educación inclusiva",
+      description: "Somos una institución sin fines de lucro que apoya a jóvenes en riesgo.",
+      image: "https://images.unsplash.com/photo-1501357008126-23d5a2f180f1?ixlib=rb-4.0.3&q=80&w=2000&auto=format&fit=crop",
+      alt: "Students using tablets"
+    },
+    {
+      title: "Salud mental para niños y adolescentes",
+      description: "Nuestro trabajo se centra en la prevención y tratamiento psicosocial.",
+      image: "https://images.unsplash.com/photo-1580998091351-e5160f521b78?ixlib=rb-4.0.3&q=80&w=2000&auto=format&fit=crop",
+      alt: "Children meditating in a classroom"
+    },
+    {
+      title: "Colaboramos con la Universidad de Antioquia",
+      description: "Proyectos educativos, capacitación profesional, y apoyo psicosocial.",
+      image: "https://images.unsplash.com/photo-1580805664874-d156ca6fbc46?ixlib=rb-4.0.3&q=80&w=2000&auto=format&fit=crop",
+      alt: "Students in a lab"
+    }
+  ];
+  
+  return (
+    <div class="relative h-96 overflow-hidden">
+      <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent">
+        </div>
+        <div class="absolute top-8 left-8 text-white z-10">
+          <h1 class="text-4xl font-bold">CPD
+          </h1>
+          <p class="text-xl">Corporación Pedagógica Diversidad</p>
+        </div>
+      </div>
+      <div class="absolute inset-0">
+        <img src="/hero-bg.jpg" alt="Her background image" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  );
+};

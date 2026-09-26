@@ -1,0 +1,30 @@
+import astroConfig from '../astro.config.mjs';
+
+export default {
+  title: 'CPD - Corporación Pedagógica Diversidad',
+  description: 'Innovadores en educación inclusiva y salud mental. Somos una institución sin fines de lucro que apoya a jóvenes en riesgo.',
+  image: '/og.png',
+  openGraph: {
+    title: 'CPD - Corporación Pedagógica Diversidad',
+    description: 'Innovadores en educación inclusiva y salud mental. Somos una institución sin fines de lucro que apoya a jóvenes en riesgo.',
+    url: 'https://cpd.mork.click',
+    siteName: 'CPD',
+    type: 'website',
+    locale: 'es_ES',
+    image: {
+      url: '/og.png',
+      width: 1200,
+      height: 630,
+      alt: 'CPD Logo'
+    }
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CPD - Corporación Pedagógica Diversidad',
+    description: 'Innovadores en educación inclusiva y salud mental. Somos una institución sin fines de lucro que apoya a jóvenes en riesgo.',
+    site: '@corpodiversidad',
+    image: '/og.png'
+  },
+  ...astroConfig.site,
+  url: 'https://cpd.mork.click'
+}

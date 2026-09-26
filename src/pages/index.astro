@@ -1,0 +1,28 @@
+import Header from '../components/layouts/Header.astro';
+import Footer from '../components/layouts/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import StatsCounter from '../components/sections/StatsCounter.astro';
+
+export let Layout = () => {
+  const stats = [
+    { label: 'Años de experiencia', value: '12' },
+    { label: 'Proyectos ejecutados', value: '28' },
+    { label: 'Jóvenes apoyados', value: '1,750' }
+  ];
+  
+  return (
+    <Main>
+      <Header />
+      <Hero />
+      <div class="container py-16">
+        <h2 class="text-3xl font-bold text-ink text-center mb-12">Nuestros ejes de acción</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+          <For each="stat" in="stats">
+            <StatsCounter value={stat.value} label={stat.label} />
+          </For>
+        </div>
+      </div>
+      <Footer />
+    </Main>
+  );
+};

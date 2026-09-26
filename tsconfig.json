@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noFallbackPolling": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noPublicMembros": true,
+    "noPrivateInObjectLiteral": true,
+    "noExplicitAny": true,
+    "resolveJsonModule": true,
+    "typeRoots": [
+      "./types",
+      "./src/@types"
+    ]
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "tmp"
+  ]
+}

@@ -1,0 +1,36 @@
+import Header from '../components/layouts/Header.astro';
+import Footer from '../components/layouts/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import StatsCounter from '../components/sections/StatsCounter.astro';
+
+export let Layout = () => {
+  return (
+    <Main>
+      <Header />
+      <Hero />
+      <div class="container py-16">
+        <h2 class="text-3xl font-bold text-ink text-center mb-16">Alianza UdeA</h2>
+        <p class="text-lg text-ink mb-12">La Corporación Pedagógica Diversidad (C.P.D.) establece una alianza estratégica con la Universidad de Antioquia (UdeA). Esta colaboración fortalece nuestro compromiso con la investigación académica, la innovación educativa y el impacto social en el sector juvenil.</p>
+        <h3 class="text-2xl font-bold text-ink mb-8">Nuestros proyectos</h3>
+        <p class="text-lg text-ink">Con la Universidad de Antioquia, desarrollamos programas conjuntos que buscan:</p>
+        <u>
+          <li>
+            <strong>Programas de capacitación profesional</strong>: Fortalecimiento de habilidades laborales y competencias clave para el acceso al mercado laboral.
+          </li>
+          <li>
+            <strong>Apoyo psicosocial</strong>: Implementación de estrategias de bienestar psicológico, atención a trastornos mentales y programas de recuperación.
+          </li>
+          <li>
+            <strong>Fomento de inclusión social</strong>: Acciones para reducir la desigualdad en el acceso a la educación y oportunidades.
+          </li>
+        </ul>
+        <h3 class="text-2xl font-bold text-ink mb-8">Formularios de contacto</h3>
+        <p class="text-lg text-ink">Para más información sobre la alianza, el trabajo conjunto, o para colaborar en nuevos proyectos:</p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd368Qd4562qR171qY9Z4q2q782Q084tWd5Z1074J2dR7166Q/viewform" target="_blank" rel="noopener noreferrer" class="mt-6 w-96 inline-flex items-center justify-center px-6 py-4 rounded-full bg-primary hover:bg-accent text-white font-semibold transition-all">
+          <span>Beneficiarios y aliados</span>
+        </a>
+        <Footer />
+      </div>
+    </Main>
+  );
+};

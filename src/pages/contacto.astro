@@ -1,0 +1,48 @@
+import Header from '../components/layouts/Header.astro';
+import Footer from '../components/layouts/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import StatsCounter from '../components/sections/StatsCounter.astro';
+
+export let Layout = () => {
+  return (
+    <Main>
+      <Header />
+      <Hero />
+      <div class="container py-16">
+        <h2 class="text-3xl font-bold text-ink text-center mb-16">Contacto</h2>
+        <p class="text-lg text-ink mb-12">Si deseas colaborar, tienes alguna pregunta o quieres contactar con nosotros, estaremos encantados de escucharte. Puedes escribirnos a través de cualquier canal disponible, o utilizar nuestro formulario en línea.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow">
+            <h3 class="text-2xl font-bold text-ink p-6 border-b border-ink/10">Información de contacto</h3>
+            <div class="p-6">
+              <p class="text-ink mb-4"><strong><span class="text-primary">Teléfono:</span> +57 300 3079290</strong>
+              <textarea rows="4" class="w-full p-3 border border-ink/30 rounded-md shadow-sm">+57 300 3079290</textarea>
+              <div class="mt-4">
+                <span class="text-primary">WhatsApp:</span> <a href="https://wa.me/573003079290" class="text-ink hover:text-primary">+57 300 3079290</a>
+              </div>
+              <div class="mt-4">
+                <span class="text-primary">Instagram:</span> <a href="https://instagram.com/corpodiversidad" class="text-ink hover:text-primary">@corpodiversidad</a>
+              </div>
+              <div class="mt-4">
+                <span class="text-primary">Correo electrónico:</span> <a href="mailto:info@corpedagogicadiversidad.org" class="text-ink hover:text-primary">info@corpedagogicadiversidad.org</a>
+              </div>
+              <div class="mt-4">
+                <span class="text-primary">Dirección:</span> <a href="https://maps.app.goo.gl/AB34567890123456" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-primary">Calle 47 #43-37, Medellín, Antioquia, Colombia</a>
+              </div>
+              <div class="mt-4">
+                <span class="text-primary">Horario:</span> Lunes a Viernes, 8:00 a.m. - 5:00 p.m.
+              </div>
+            </div>
+          </div>
+          <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow">
+            <h3 class="text-2xl font-bold text-ink p-6 border-b border-ink/10">Formulario de contacto</h3>
+            <div class="p-6">
+              <ContactForm />
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    </Main>
+  );
+};

@@ -1,0 +1,62 @@
+import Header from '../components/layouts/Header.astro';
+import Footer from '../components/layouts/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import StatsCounter from '../components/sections/StatsCounter.astro';
+
+export let Layout = () => {
+  return (
+    <Main>
+      <Header />
+      <Hero />
+      <div class="container py-16">
+        <h2 class="text-3xl font-bold text-ink text-center mb-16">Galería</h2>
+        <p class="text-lg text-ink mb-12">Una colección de momentos clave y actividades destacadas de nuestra labor en la comunidad.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white border border-ink/10 hover:border-ink/30 transition-all">
+            <img src="/galeria/imagen1.png" alt="Galeria de imagenes" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink mt-4 mb-2">Taller de prevención</h3>
+            <p class="text-ink">Jornada de concienciación sobre el consumo de sustancias en jóvenes</p>
+          </div>
+          <div class="bg-white border border-ink/10 hover:border-ink/30 transition-all">
+            <img src="/galeria/imagen2.png" alt="Galeria de imagenes" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink mt-4 mb-2">Actuación en el festival</h3>
+            <p class="text-ink">Presentación de teatro en el festival de la juventud de Medellín\n          </div>
+          <div class="bg-white border border-ink/10 hover:border-ink/30 transition-all">
+            <img src="/galeria/imagen3.png" alt="Galeria de imagenes" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink mt-4 mb-2">Actividad educativa en el centro</h3>
+            <p class="text-ink">Sesiones de orientación y apoyo para estudiantes del centro educativo</p>
+          </div>
+          <div class="bg-white border border-ink/10 hover:border-ink/30 transition-all">
+            <img src="/galeria/imagen4.png" alt="Galeria de imagenes" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink mt-4 mb-2">Festival de concienciación</h3>
+            <p class="text-ink">Evento comunitario para promover la salud mental y evitar el uso de adicciones</p>
+          </div>
+          <div class="bg-white border border-ink/10 hover:border-ink/30 transition-all">
+            <img src="/galeria/imagen5.png" alt="Galeria de imagenes" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink mt-4 mb-2">Conferencia pública</h3>
+            <p class="text-ink">Charla sobre el impacto de la tecnología en la salud mental de los jóvenes</p>
+          </div>
+          <div class="bg-white border border-ink/10 hover:border-ink/30 transition-all">
+            <img src="/galeria/imagen6.png" alt="Galeria de imagenes" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink mt-4 mb-2">Evento especial de fin de año</h3>
+            <p class="text-ink">Festejo de fin de año con actividades especiales para los participantes</p>
+          </div>
+          <div class="bg-white border border-ink/10 hover:border-ink/30 transition-all">
+            <img src="/galeria/imagen7.png" alt="Galeria de imagenes" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink mt-4 mb-2">Proyecto de arte</h3>
+            <p class="text-ink">Sesión de pintura y expresión artística para mejorar el bienestar emocional</p>
+          </div>
+          <div class="bg-white border border-ink/10 hover:border-ink/30 transition-all">
+            <img src="/galeria/imagen8.png" alt="Galeria de imagenes" class="w-full h-52 object-cover">
+            <h3 class="text-xl font-bold text-ink mt-4 mb-2">Taller de liderazgo</h3>
+            <p class="text-ink">Actividad para desarrollar habilidades de liderazgo en los jóvenes</p>
+          </div>
+        </div>
+        <div class="mt-16 text-center">
+          <a href="/proyectos" class="bg-ink hover:bg-primary text-white px-6 py-3 rounded-full font-semibold">Ver más proyectos</a>
+        </div>
+        <Footer />
+      </div>
+    </Main>
+  );
+};
