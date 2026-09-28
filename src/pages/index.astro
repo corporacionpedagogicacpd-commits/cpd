@@ -17,6 +17,13 @@ const ejes = [
   { titulo: 'Salud mental', texto: 'Acompañamiento psicosocial y prevención en comunidades educativas.' },
   { titulo: 'Convivencia escolar', texto: 'Estrategias para entornos escolares seguros, respetuosos y participativos.' },
 ];
+
+// Cifras REALES tomadas del sitio antiguo (data-number-value: "+10" y "200").
+// El scaffold anterior traía 12/28/1750 sin respaldo en ninguna fuente.
+const cifras = [
+  { valor: '+10', etiqueta: 'años de compromiso con los jóvenes' },
+  { valor: '200', etiqueta: 'colaboradores comprometidos' },
+];
 ---
 
 <BaseLayout
@@ -44,11 +51,25 @@ const ejes = [
         </a>
         <a
           href="/donaciones"
-          class="rounded-full border border-brand px-6 py-3 text-sm font-bold text-brand transition hover:bg-brand/5"
+          class="rounded-full border border-brand px-6 py-3 text-sm font-bold text-brand-ink transition hover:bg-brand/5"
         >
           Apoyar
         </a>
       </div>
+    </div>
+  </section>
+
+  <section class="border-b border-black/5 bg-black/[0.02]" aria-labelledby="cifras-titulo">
+    <div class="container-content grid gap-8 py-12 sm:grid-cols-2">
+      <h2 id="cifras-titulo" class="sr-only">Nuestro impacto en cifras</h2>
+      {
+        cifras.map((c) => (
+          <div class="text-center">
+            <p class="text-5xl font-bold text-brand">{c.valor}</p>
+            <p class="mt-2 text-lg text-ink/75">{c.etiqueta}</p>
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -69,7 +90,7 @@ const ejes = [
   <section class="container-content py-16 sm:py-20" aria-labelledby="proyectos-titulo">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <h2 id="proyectos-titulo" class="text-3xl">Proyectos recientes</h2>
-      <a href="/proyectos" class="text-sm font-bold text-brand hover:underline">Ver todos →</a>
+      <a href="/proyectos" class="text-sm font-bold text-brand-ink hover:underline">Ver todos →</a>
     </div>
 
     {
@@ -96,7 +117,7 @@ const ejes = [
   <section class="container-content py-16 sm:py-20" aria-labelledby="eventos-titulo">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <h2 id="eventos-titulo" class="text-3xl">Eventos</h2>
-      <a href="/eventos" class="text-sm font-bold text-brand hover:underline">Ver todos →</a>
+      <a href="/eventos" class="text-sm font-bold text-brand-ink hover:underline">Ver todos →</a>
     </div>
 
     {

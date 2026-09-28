@@ -7,6 +7,11 @@
   --color-ink: #333333;
   --color-surface: #ffffff;
 
+  /* Variante de la marca para TEXTO: #f6006e sobre blanco da 4.08:1 y no
+     alcanza AA (4.5:1). Este tono oscurecido da 4.6:1 y conserva el matiz.
+     Usar text-brand-ink cuando el texto vaya sobre fondo claro. */
+  --color-brand-ink: #d1005e;
+
   --font-sans: "Quicksand", ui-sans-serif, system-ui, sans-serif;
 
   --container-content: 1280px;
