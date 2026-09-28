@@ -1,0 +1,22 @@
+# Dependencias
+node_modules/
+.pnpm-store/
+
+# Build
+dist/
+.astro/
+
+# Entorno
+.env
+.env.*
+!.env.example
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/

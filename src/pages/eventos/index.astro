@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const eventos = (await getCollection('eventos')).sort(
+  (a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf()
+);
+---
+
+<BaseLayout title="Eventos" description="Eventos y jornadas de la Corporación Pedagógica Diversidad.">
+  <Header slot="header" />
+
+  <section class="container-content py-16">
+    <h1 class="text-4xl">Eventos</h1>
+    <p class="mt-4 max-w-2xl text-lg text-ink/75">
+      Jornadas, talleres y encuentros con la comunidad educativa.
+    </p>
+
+    {
+      eventos.length > 0 ? (
+        <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {eventos.map((ev) => (
+            <li class="flex flex-col rounded-2xl border border-black/5 p-6 shadow-sm">
+              <time datetime={ev.data.fecha.toISOString()} class="text-xs uppercase tracking-wide text-ink/50">
+                {ev.data.fecha.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </time>
+              <h2 class="mt-2 text-xl">{ev.data.titulo}</h2>
+              {ev.data.lugar && <p class="mt-1 text-sm text-ink/60">{ev.data.lugar}</p>}
+              <p class="mt-3 flex-1 text-ink/75">{ev.data.resumen}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="mt-8 text-ink/60">Aún no hay eventos publicados.</p>
+      )
+    }
+
+    <p class="mt-12 text-xs text-ink/50">
+      [Contenido pendiente de validación con el cliente]
+    </p>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

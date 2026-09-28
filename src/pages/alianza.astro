@@ -1,36 +1,131 @@
-import Header from '../components/layouts/Header.astro';
-import Footer from '../components/layouts/Footer.astro';
-import Hero from '../components/sections/Hero.astro';
-import StatsCounter from '../components/sections/StatsCounter.astro';
+---
+// Página de alianzas: convenio con la Facultad de Medicina de la UdeA, evento y formularios.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-export let Layout = () => {
-  return (
-    <Main>
-      <Header />
-      <Hero />
-      <div class="container py-16">
-        <h2 class="text-3xl font-bold text-ink text-center mb-16">Alianza UdeA</h2>
-        <p class="text-lg text-ink mb-12">La Corporación Pedagógica Diversidad (C.P.D.) establece una alianza estratégica con la Universidad de Antioquia (UdeA). Esta colaboración fortalece nuestro compromiso con la investigación académica, la innovación educativa y el impacto social en el sector juvenil.</p>
-        <h3 class="text-2xl font-bold text-ink mb-8">Nuestros proyectos</h3>
-        <p class="text-lg text-ink">Con la Universidad de Antioquia, desarrollamos programas conjuntos que buscan:</p>
-        <u>
-          <li>
-            <strong>Programas de capacitación profesional</strong>: Fortalecimiento de habilidades laborales y competencias clave para el acceso al mercado laboral.
+const notaConvenio = 'https://shorturl.at/cz1yA';
+
+const objetivos = [
+  'Articular acciones de educación inclusiva entre la academia y las comunidades escolares.',
+  'Promover la salud mental y la prevención con enfoque neuro diverso.',
+  'Generar espacios de formación, investigación y participación para estudiantes y familias.',
+];
+
+const formBeneficiario = 'https://forms.gle/aMPHhEf2TPYBCvDt5';
+const formAliado = 'https://forms.gle/YJEbhdLZw1Jx2Pne9';
+---
+
+<BaseLayout
+  title="Alianza"
+  description="Alianza con la Facultad de Medicina de la UdeA: educación inclusiva, salud mental y el evento Senderos educativos neuro diversos."
+>
+  <Header slot="header" />
+
+  <section class="border-b border-black/5 bg-gradient-to-b from-brand/5 to-transparent">
+    <div class="container-content py-16 sm:py-20">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand">Alianza</p>
+      <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">
+        Alianzas que amplían nuestro impacto
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-ink/75">
+        Trabajamos junto a instituciones para llevar la educación inclusiva y la salud mental a
+        más territorios.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-content py-16 sm:py-20" aria-labelledby="udea-titulo">
+    <h2 id="udea-titulo" class="text-3xl">Convenio con la Facultad de Medicina de la UdeA</h2>
+    <p class="mt-4 max-w-3xl text-ink/75">
+      Firmamos una alianza con la Facultad de Medicina de la Universidad de Antioquia para
+      articular procesos de educación inclusiva, salud mental y prevención con enfoque neuro
+      diverso.
+    </p>
+    <a
+      href={notaConvenio}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-6 inline-block text-sm font-bold text-brand hover:underline"
+    >
+      Lee la nota completa aquí →
+    </a>
+
+    <h3 class="mt-12 text-2xl">Objetivos de la alianza</h3>
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        objetivos.map((objetivo) => (
+          <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
+            <p class="text-ink/80">{objetivo}</p>
           </li>
-          <li>
-            <strong>Apoyo psicosocial</strong>: Implementación de estrategias de bienestar psicológico, atención a trastornos mentales y programas de recuperación.
-          </li>
-          <li>
-            <strong>Fomento de inclusión social</strong>: Acciones para reducir la desigualdad en el acceso a la educación y oportunidades.
-          </li>
-        </ul>
-        <h3 class="text-2xl font-bold text-ink mb-8">Formularios de contacto</h3>
-        <p class="text-lg text-ink">Para más información sobre la alianza, el trabajo conjunto, o para colaborar en nuevos proyectos:</p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd368Qd4562qR171qY9Z4q2q782Q084tWd5Z1074J2dR7166Q/viewform" target="_blank" rel="noopener noreferrer" class="mt-6 w-96 inline-flex items-center justify-center px-6 py-4 rounded-full bg-primary hover:bg-accent text-white font-semibold transition-all">
-          <span>Beneficiarios y aliados</span>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="container-content py-16 sm:py-20" aria-labelledby="evento-titulo">
+    <div class="rounded-3xl border border-brand/20 bg-brand/5 p-8 sm:p-12">
+      <h2 id="evento-titulo" class="text-3xl">Senderos educativos neuro diversos</h2>
+      <p class="mt-4 max-w-2xl text-ink/75">
+        Un encuentro para compartir experiencias y estrategias de educación inclusiva con
+        enfoque neuro diverso.
+      </p>
+      <dl class="mt-8 grid gap-4 sm:grid-cols-3">
+        <div class="rounded-2xl bg-surface p-5 shadow-sm">
+          <dt class="text-xs uppercase tracking-wide text-ink/50">Fecha</dt>
+          <dd class="mt-1 font-bold text-ink">Sábado 25 de octubre</dd>
+        </div>
+        <div class="rounded-2xl bg-surface p-5 shadow-sm">
+          <dt class="text-xs uppercase tracking-wide text-ink/50">Hora</dt>
+          <dd class="mt-1 font-bold text-ink">8am a 12m</dd>
+        </div>
+        <div class="rounded-2xl bg-surface p-5 shadow-sm">
+          <dt class="text-xs uppercase tracking-wide text-ink/50">Lugar</dt>
+          <dd class="mt-1 font-bold text-ink">Auditorio Facultad de Medicina UdeA</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="container-content py-16 sm:py-20" aria-labelledby="participar-titulo">
+    <h2 id="participar-titulo" class="text-3xl">Cómo participar</h2>
+    <p class="mt-4 max-w-2xl text-ink/75">
+      Inscríbete según tu interés: si quieres recibir el acompañamiento o si quieres sumarte como
+      aliado.
+    </p>
+
+    <div class="mt-8 grid gap-6 sm:grid-cols-2">
+      <div class="rounded-2xl border border-black/5 p-6 shadow-sm">
+        <h3 class="text-xl">Formulario de beneficiario</h3>
+        <p class="mt-3 text-ink/75">
+          Para jóvenes, familias e instituciones que quieran acceder a nuestros programas.
+        </p>
+        <a
+          href={formBeneficiario}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-block rounded-full bg-brand px-6 py-3 text-sm font-bold text-white transition hover:opacity-90"
+        >
+          Registrarme como beneficiario
         </a>
-        <Footer />
       </div>
-    </Main>
-  );
-};
+
+      <div class="rounded-2xl border border-black/5 p-6 shadow-sm">
+        <h3 class="text-xl">Formulario de aliado</h3>
+        <p class="mt-3 text-ink/75">
+          Para organizaciones, profesionales y voluntarios que quieran aportar a la alianza.
+        </p>
+        <a
+          href={formAliado}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-block rounded-full border border-brand px-6 py-3 text-sm font-bold text-brand transition hover:bg-brand/5"
+        >
+          Quiero ser aliado
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

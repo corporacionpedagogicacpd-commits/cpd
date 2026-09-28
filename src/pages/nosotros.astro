@@ -1,22 +1,194 @@
-import Header from '../components/layouts/Header.astro';
-import Footer from '../components/layouts/Footer.astro';
-import Hero from '../components/sections/Hero.astro';
-import StatsCounter from '../components/sections/StatsCounter.astro';
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-export let Layout = () => {
-  return (
-    <Main>
-      <Header />
-      <Hero />
-      <div class="container py-16">
-        <h2 class="text-3xl font-bold text-ink text-center mb-16">Nosotros</h2>
-        <p class="text-lg text-ink mb-12">La Corporación Pedagógica Diversidad (C.P.D.) es una institución sin fines de lucro constituida el 27 de abril de 2012 en Medellín. Nace de un grupo de educadores comprometidos con la transformación de la educación inclusiva y el bienestar de los jóvenes en riesgo.</p>
-        <h3 class="text-2xl font-bold text-ink mb-8">Historia</h3>
-        <p class="text-lg text-ink mb-8">En 2017, un hito significativo fue la capacitación de agentes de tránsito de Itagüí en mediciones de alcoholemia. Esta acción demostró el impacto de nuestro trabajo en la comunidad y reafirmó nuestro compromiso con la educación preventiva.</p>
-        <h3 class="text-2xl font-bold text-ink mb-8">Misión</h3>
-        <p class="text-lg text-ink">Innovar en la educación inclusiva y en la salud mental. Ser una institución que apoya a adolescentes vulnerables a través de programas de prevención, reeducación y tratamiento psicosocial.</p>
+// Pilares institucionales (título + descripción)
+const pilares = [
+  {
+    titulo: 'Inclusión',
+    icono: 'inclusion',
+    texto:
+      'Garantizamos que cada joven encuentre un lugar en el sistema educativo, sin importar su condición, capacidad o contexto de origen.',
+  },
+  {
+    titulo: 'Educación',
+    icono: 'educacion',
+    texto:
+      'Diseñamos y acompañamos procesos pedagógicos pertinentes, con enfoque territorial y adaptados a las realidades de las comunidades.',
+  },
+  {
+    titulo: 'Prevención',
+    icono: 'prevencion',
+    texto:
+      'Anticipamos riesgos como la deserción escolar, el consumo y la violencia, con estrategias formativas y de acompañamiento temprano.',
+  },
+  {
+    titulo: 'Bienestar',
+    icono: 'bienestar',
+    texto:
+      'Cuidamos la salud mental y emocional de los jóvenes, sus familias y los equipos docentes que acompañan sus trayectorias de vida.',
+  },
+];
+
+// Ruta a la sección de contacto (sin inventar imágenes ni rutas inexistentes)
+const contactoAncla = '/#contacto';
+---
+
+<BaseLayout
+  title="Nosotros"
+  description="Historia, misión, visión y pilares de la Corporación Pedagógica Diversidad: una organización sin ánimo de lucro fundada en 2012 en Antioquia."
+>
+  <Header slot="header" />
+
+  <!-- Encabezado de página -->
+  <section class="border-b border-black/5 bg-gradient-to-b from-brand/5 to-transparent">
+    <div class="container-content py-16 sm:py-24">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand">Quiénes somos</p>
+      <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">Nosotros</h1>
+      <p class="mt-6 max-w-2xl text-lg text-ink/75">
+        Somos una corporación sin ánimo de lucro que trabaja por la educación inclusiva, la
+        prevención y el bienestar de jóvenes en Antioquia.
+      </p>
+      <p class="mt-6 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
+    </div>
+  </section>
+
+  <!-- Historia -->
+  <section class="container-content py-16 sm:py-20" aria-labelledby="historia-titulo">
+    <h2 id="historia-titulo" class="text-3xl">Nuestra historia</h2>
+    <div class="mt-8 grid gap-10 lg:grid-cols-[2fr_1fr]">
+      <div class="max-w-2xl space-y-4 text-ink/75">
+        <p>
+          La Corporación Pedagógica Diversidad nació en <strong>2012</strong>, resultado del trabajo
+          conjunto de docentes, psicólogos y líderes comunitarios que identificaron la necesidad de
+          acompañar a jóvenes con riesgo de exclusión del sistema educativo. Desde sus primeros
+          años, la organización se enfocó en construir puentes entre las familias, las escuelas y
+          las instituciones locales.
+        </p>
+        <p>
+          En <strong>2017</strong> consolidamos un hito determinante en el municipio de
+          <strong>Itagüí</strong>, donde articulamos un proceso territorial de acompañamiento
+          pedagógico y psicosocial con instituciones educativas y actores comunitarios. Esta
+          experiencia marcó nuestra metodología: trabajo en territorio, formación de docentes y
+          participación activa de los jóvenes.
+        </p>
       </div>
-      <Footer />
-    </Main>
-  );
-};
+
+      <!-- Línea de tiempo visual (solo CSS, sin imágenes) -->
+      <ol class="relative space-y-8 border-l-2 border-brand/30 pl-6">
+        <li>
+          <span
+            class="absolute -left-[9px] mt-1 block h-4 w-4 rounded-full border-2 border-surface bg-brand"
+            aria-hidden="true"></span>
+          <p class="text-sm font-bold uppercase tracking-wide text-brand">2012</p>
+          <p class="mt-1 font-bold text-ink">Fundación de la corporación</p>
+          <p class="mt-1 text-sm text-ink/70">Primeras acciones de acompañamiento pedagógico.</p>
+        </li>
+        <li>
+          <span
+            class="absolute -left-[9px] mt-1 block h-4 w-4 rounded-full border-2 border-surface bg-brand"
+            aria-hidden="true"></span>
+          <p class="text-sm font-bold uppercase tracking-wide text-brand">2017</p>
+          <p class="mt-1 font-bold text-ink">Hito en Itagüí</p>
+          <p class="mt-1 text-sm text-ink/70">Articulación territorial con instituciones educativas.</p>
+        </li>
+      </ol>
+    </div>
+    <p class="mt-8 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
+  </section>
+
+  <!-- Misión y Visión -->
+  <section class="border-y border-black/5 bg-surface/60">
+    <div class="container-content py-16 sm:py-20">
+      <div class="grid gap-6 lg:grid-cols-2">
+        <article class="rounded-2xl border border-black/5 bg-surface p-8 shadow-sm">
+          <h2 class="text-2xl">Misión</h2>
+          <p class="mt-4 text-ink/75">
+            Promover la educación inclusiva, la prevención y la salud mental de los jóvenes,
+            generando condiciones reales de equidad en las comunidades donde hacemos presencia.
+          </p>
+        </article>
+        <article class="rounded-2xl border border-brand/20 bg-brand/5 p-8 shadow-sm">
+          <h2 class="text-2xl">Visión</h2>
+          <p class="mt-4 text-ink/75">
+            En 10 años seremos una organización referente en inclusión educativa en Antioquia.
+          </p>
+        </article>
+      </div>
+      <p class="mt-8 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
+    </div>
+  </section>
+
+  <!-- Pilares -->
+  <section class="container-content py-16 sm:py-20" aria-labelledby="pilares-titulo">
+    <h2 id="pilares-titulo" class="text-3xl">Nuestros pilares</h2>
+    <p class="mt-3 max-w-2xl text-ink/70">
+      Cuatro ejes sostienen nuestra acción institucional y orientan cada proyecto.
+    </p>
+
+    <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        pilares.map((pilar) => (
+          <li class="flex flex-col rounded-2xl border border-black/5 p-6 shadow-sm">
+            {/* Bloque de color como indicador visual (sin imágenes) */}
+            <span class="mb-4 block h-1.5 w-12 rounded-full bg-brand" aria-hidden="true" />
+            <h3 class="text-xl">{pilar.titulo}</h3>
+            <p class="mt-3 text-ink/75">{pilar.texto}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-8 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
+  </section>
+
+  <!-- Objeto social -->
+  <section class="border-t border-black/5 bg-brand/5">
+    <div class="container-content py-16 sm:py-20" aria-labelledby="objeto-titulo">
+      <h2 id="objeto-titulo" class="text-3xl">Objeto social</h2>
+      <div class="mt-8 max-w-3xl space-y-4 text-ink/75">
+        <p>
+          La Corporación tiene como objeto social el acompañamiento pedagógico y psicosocial a
+          jóvenes en riesgo de exclusión, deserción escolar y vulneración de derechos. Su acción se
+          orienta a fortalecer trayectorias educativas, habilidades socioemocionales y proyectos de
+          vida, con especial atención a poblaciones con diversidad funcional y a comunidades en
+          condición de vulnerabilidad.
+        </p>
+        <p>
+          Para cumplirlo, la Corporación articula su trabajo con instituciones educativas del
+          departamento, autoridades locales, organizaciones sociales y familias, mediante programas
+          de formación docente, materiales accesibles, prevención y promoción del bienestar. Estas
+          alianzas permiten ampliar la cobertura y asegurar la sostenibilidad de los procesos en el
+          territorio.
+        </p>
+      </div>
+      <p class="mt-8 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
+    </div>
+  </section>
+
+  <!-- Llamado a la acción -->
+  <section class="container-content py-16 sm:py-20">
+    <div class="rounded-2xl border border-brand/20 bg-surface p-8 shadow-sm sm:p-12">
+      <h2 class="text-2xl">¿Quieres conocer más sobre nuestro trabajo?</h2>
+      <p class="mt-3 max-w-2xl text-ink/75">
+        Escríbenos y te contamos cómo articulamos con instituciones educativas y comunidades.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a
+          href="/proyectos"
+          class="rounded-full bg-brand px-6 py-3 text-sm font-bold text-white transition hover:opacity-90"
+        >
+          Ver proyectos
+        </a>
+        <a
+          href="/educacion"
+          class="rounded-full border border-brand px-6 py-3 text-sm font-bold text-brand transition hover:bg-brand/5"
+        >
+          Programas educativos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

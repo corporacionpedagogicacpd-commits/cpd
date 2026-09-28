@@ -1,13 +1,13 @@
 import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  integrations: [],
+  site: 'https://cpd.mork.click',
   server: {
     port: 4321,
     host: '0.0.0.0',
   },
-  site: 'http://localhost:4321',
-  build: {
-    assets: './public',
+  vite: {
+    plugins: [tailwindcss()],
   },
 });
