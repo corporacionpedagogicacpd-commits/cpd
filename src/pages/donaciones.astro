@@ -1,19 +1,49 @@
 ---
-// Página de donaciones: razones para donar y enlaces reales de pago (Wompi / Epayco).
+// Página de donaciones — contenido textual real del sitio antiguo.
+// Enlaces de pago oficiales (Wompi / Epayco), verificados.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 const razones = [
-  'Transformar muchas vidas',
-  'Crear un cambio duradero',
-  'Participar activamente',
-  'Aseguras calidad e impacto',
-  'Apoyar la educación inclusiva',
-  'Fortalecer la salud mental',
-  'Impulsar la prevención',
-  'Construir equidad',
-  'Sostener programas en el tiempo',
+  {
+    titulo: 'Transformar muchas vidas',
+    descripcion:
+      'Tu contribución apoya proyectos que generan un impacto positivo en comunidades vulnerables',
+  },
+  {
+    titulo: 'Promover la inclusión',
+    descripcion:
+      'Ayudas a construir una sociedad más equitativa, donde todos tengan oportunidades.',
+  },
+  {
+    titulo: 'Fortalecer la salud mental',
+    descripcion:
+      'Tus donaciones permiten implementar programas de bienestar emocional y prevención.',
+  },
+  {
+    titulo: 'Apoyar la educación',
+    descripcion:
+      'Inviertes en el futuro de personas y comunidades al facilitar el acceso al conocimiento.',
+  },
+  {
+    titulo: 'Crear un cambio duradero',
+    descripcion:
+      'Cada aporte impulsa soluciones sostenibles que benefician a generaciones futuras.',
+  },
+  {
+    titulo: 'Participar activamente',
+    descripcion: 'Ser donante es ser parte de un movimiento de transformación social.',
+  },
+  {
+    titulo: 'Aseguras calidad e impacto',
+    descripcion:
+      'Tu ayuda construye una sociedad más fuerte y comprometida con el bienestar colectivo.',
+  },
+  {
+    titulo: 'Garantizar proyectos de calidad',
+    descripcion: 'Con tu apoyo, podemos mejorar continuamente nuestras iniciativas.',
+  },
 ];
 
 const wompi = 'https://checkout.wompi.co/l/VPOS_ddGDbY';
@@ -23,71 +53,95 @@ const epayco =
 
 <BaseLayout
   title="Donaciones"
-  description="Dona a la Corporación Pedagógica Diversidad y apoya la educación inclusiva, la salud mental y la prevención en Colombia."
+  description="Dona a la Corporación Pedagógica Diversidad. Tu apoyo transforma vidas y construye un futuro mejor con inclusión, educación y salud mental."
 >
   <Header slot="header" />
 
+  <!-- 1. Título de página -->
   <section class="border-b border-black/5 bg-gradient-to-b from-brand/5 to-transparent">
-    <div class="container-content py-16 sm:py-20">
-      <p class="text-sm font-bold uppercase tracking-widest text-brand">Donaciones</p>
-      <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">
-        Tu donación sostiene la educación inclusiva
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg text-ink/75">
-        Gracias a aportes como el tuyo podemos acompañar a jóvenes en riesgo con programas
-        pedagógicos, psicosociales y de convivencia.
+    <div class="container-content py-12 sm:py-16">
+      <h1 class="text-4xl leading-tight sm:text-5xl">Donaciones</h1>
+    </div>
+  </section>
+
+  <!-- 2. Bloque destacado -->
+  <section class="container-content py-12 sm:py-16">
+    <div class="rounded-2xl border border-brand/15 bg-brand/5 p-6 sm:p-10">
+      <p class="text-2xl font-bold text-brand-ink sm:text-3xl">
+        Una donación puede cambiar vidas
+      </p>
+      <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink/85 sm:text-lg">
+        Tu apoyo es clave para transformar vidas y construir un futuro mejor. Cada contribución
+        nos permite continuar con proyectos que promueven la inclusión, la educación y la salud
+        mental.
       </p>
     </div>
   </section>
 
-  <section class="container-content py-16 sm:py-20" aria-labelledby="razones-titulo">
-    <p class="text-2xl font-bold text-accent sm:text-3xl">Una donación puede cambiar vidas</p>
-
-    <h2 id="razones-titulo" class="mt-10 text-3xl">9 razones para donar</h2>
+  <!-- 3. Razones para donar -->
+  <section class="container-content py-12 sm:py-16" aria-labelledby="razones-titulo">
+    <h2 id="razones-titulo" class="text-3xl sm:text-4xl">Razones para donar</h2>
     <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
         razones.map((razon, i) => (
-          <li class="flex items-start gap-3 rounded-2xl border border-black/5 p-5 shadow-sm">
+          <li class="flex items-start gap-3 rounded-2xl border border-black/5 bg-surface p-5 shadow-sm">
             <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">
               {i + 1}
             </span>
-            <span class="text-ink/85">{razon}</span>
+            <div>
+              <h3 class="text-base font-bold text-ink">{razon.titulo}</h3>
+              <p class="mt-1 text-sm leading-relaxed text-ink/75">{razon.descripcion}</p>
+            </div>
           </li>
         ))
       }
     </ul>
   </section>
 
-  <section class="container-content py-16 sm:py-20" aria-labelledby="donar-titulo">
-    <h2 id="donar-titulo" class="text-3xl">Donar ahora</h2>
-    <p class="mt-4 max-w-2xl text-ink/75">
+  <!-- 4. Botones de donación -->
+  <section class="container-content py-12 sm:py-16" aria-labelledby="donar-titulo">
+    <h2 id="donar-titulo" class="text-3xl sm:text-4xl">Donar ahora</h2>
+    <p class="mt-4 max-w-2xl text-base text-ink/75">
       Elige el medio que prefieras. Ambos enlaces te llevan a los canales oficiales de la
       corporación.
     </p>
 
-    <div class="mt-8 flex flex-wrap gap-4">
+    <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
       <a
         href={wompi}
         target="_blank"
-        rel="noopener noreferrer"
-        class="rounded-full bg-brand px-8 py-4 text-sm font-bold text-white transition hover:opacity-90"
+        rel="noopener"
+        class="inline-flex w-full items-center justify-center rounded-full bg-brand px-8 py-4 text-center text-base font-bold text-white transition hover:opacity-90 sm:w-auto"
       >
         Donar con Wompi
       </a>
       <a
         href={epayco}
         target="_blank"
-        rel="noopener noreferrer"
-        class="rounded-full bg-accent px-8 py-4 text-sm font-bold text-white transition hover:opacity-90"
+        rel="noopener"
+        class="inline-flex w-full items-center justify-center rounded-full border-2 border-brand bg-surface px-8 py-4 text-center text-base font-bold text-brand-ink transition hover:bg-brand/5 sm:w-auto"
       >
         Donar con Epayco
       </a>
     </div>
 
-    <!-- Marcador pendiente de validación con el cliente -->
-    <p class="mt-6 text-xs text-ink/50">
+    <p class="text-xs text-ink/50">
       [Datos bancarios y certificado de donación pendientes de validación con el cliente]
     </p>
+  </section>
+
+  <!-- 5. Cierre -->
+  <section class="border-t border-black/5 bg-brand/5">
+    <div class="container-content py-12 sm:py-16">
+      <h2 class="max-w-3xl text-2xl sm:text-3xl">
+        Transformando Vidas a Través de la Educación y el Bienestar
+      </h2>
+      <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink/85 sm:text-lg">
+        En la Corporación Pedagógica Diversidad trabajamos para construir una sociedad más
+        inclusiva y saludable. Impulsamos programas que promueven la inclusión, la educación y el
+        cuidado de la salud mental.
+      </p>
+    </div>
   </section>
 
   <Footer slot="footer" />

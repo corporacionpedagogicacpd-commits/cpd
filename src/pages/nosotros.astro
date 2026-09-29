@@ -3,41 +3,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-// Pilares institucionales (título + descripción)
+// Pilares institucionales (título + descripción tomada del sitio antiguo)
 const pilares = [
   {
     titulo: 'Inclusión',
-    icono: 'inclusion',
     texto:
       'Garantizamos que cada joven encuentre un lugar en el sistema educativo, sin importar su condición, capacidad o contexto de origen.',
   },
   {
     titulo: 'Educación',
-    icono: 'educacion',
     texto:
       'Diseñamos y acompañamos procesos pedagógicos pertinentes, con enfoque territorial y adaptados a las realidades de las comunidades.',
   },
   {
     titulo: 'Prevención',
-    icono: 'prevencion',
     texto:
       'Anticipamos riesgos como la deserción escolar, el consumo y la violencia, con estrategias formativas y de acompañamiento temprano.',
   },
   {
     titulo: 'Bienestar',
-    icono: 'bienestar',
     texto:
       'Cuidamos la salud mental y emocional de los jóvenes, sus familias y los equipos docentes que acompañan sus trayectorias de vida.',
   },
 ];
 
-// Ruta a la sección de contacto (sin inventar imágenes ni rutas inexistentes)
-const contactoAncla = '/#contacto';
+// Índice de secciones (útil para navegar desde el celular)
+const secciones = [
+  { href: '#historia', label: 'Nuestra historia' },
+  { href: '#compromiso', label: 'Nuestro compromiso' },
+  { href: '#territorial', label: 'Trabajo territorial' },
+  { href: '#mision-vision', label: 'Misión y visión' },
+  { href: '#objeto-social', label: 'Objeto social' },
+  { href: '#pilares', label: 'Nuestros pilares' },
+];
 ---
 
 <BaseLayout
   title="Nosotros"
-  description="Historia, misión, visión y pilares de la Corporación Pedagógica Diversidad: una organización sin ánimo de lucro fundada en 2012 en Antioquia."
+  description="Historia, compromiso, misión, visión, objeto social y pilares de la Corporación Pedagógica Diversidad C.P.D., constituida en Medellín el 27 de abril de 2012."
 >
   <Header slot="header" />
 
@@ -46,123 +49,211 @@ const contactoAncla = '/#contacto';
     <div class="container-content py-16 sm:py-24">
       <p class="text-sm font-bold uppercase tracking-widest text-brand">Quiénes somos</p>
       <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">Nosotros</h1>
-      <p class="mt-6 max-w-2xl text-lg text-ink/75">
-        Somos una corporación sin ánimo de lucro que trabaja por la educación inclusiva, la
-        prevención y el bienestar de jóvenes en Antioquia.
-      </p>
-      <p class="mt-6 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
     </div>
   </section>
 
-  <!-- Historia -->
-  <section class="container-content py-16 sm:py-20" aria-labelledby="historia-titulo">
-    <h2 id="historia-titulo" class="text-3xl">Nuestra historia</h2>
-    <div class="mt-8 grid gap-10 lg:grid-cols-[2fr_1fr]">
-      <div class="max-w-2xl space-y-4 text-ink/75">
-        <p>
-          La Corporación Pedagógica Diversidad nació en <strong>2012</strong>, resultado del trabajo
-          conjunto de docentes, psicólogos y líderes comunitarios que identificaron la necesidad de
-          acompañar a jóvenes con riesgo de exclusión del sistema educativo. Desde sus primeros
-          años, la organización se enfocó en construir puentes entre las familias, las escuelas y
-          las instituciones locales.
-        </p>
-        <p>
-          En <strong>2017</strong> consolidamos un hito determinante en el municipio de
-          <strong>Itagüí</strong>, donde articulamos un proceso territorial de acompañamiento
-          pedagógico y psicosocial con instituciones educativas y actores comunitarios. Esta
-          experiencia marcó nuestra metodología: trabajo en territorio, formación de docentes y
-          participación activa de los jóvenes.
-        </p>
-      </div>
-
-      <!-- Línea de tiempo visual (solo CSS, sin imágenes) -->
-      <ol class="relative space-y-8 border-l-2 border-brand/30 pl-6">
-        <li>
-          <span
-            class="absolute -left-[9px] mt-1 block h-4 w-4 rounded-full border-2 border-surface bg-brand"
-            aria-hidden="true"></span>
-          <p class="text-sm font-bold uppercase tracking-wide text-brand">2012</p>
-          <p class="mt-1 font-bold text-ink">Fundación de la corporación</p>
-          <p class="mt-1 text-sm text-ink/70">Primeras acciones de acompañamiento pedagógico.</p>
-        </li>
-        <li>
-          <span
-            class="absolute -left-[9px] mt-1 block h-4 w-4 rounded-full border-2 border-surface bg-brand"
-            aria-hidden="true"></span>
-          <p class="text-sm font-bold uppercase tracking-wide text-brand">2017</p>
-          <p class="mt-1 font-bold text-ink">Hito en Itagüí</p>
-          <p class="mt-1 text-sm text-ink/70">Articulación territorial con instituciones educativas.</p>
-        </li>
-      </ol>
+  <!-- Índice de secciones: ayuda a leer desde el celular -->
+  <nav
+    class="border-b border-black/5 bg-surface/95"
+    aria-label="Secciones de esta página"
+  >
+    <div class="container-content py-4">
+      <ul class="flex flex-wrap gap-2">
+        {
+          secciones.map((s) => (
+            <li>
+              <a
+                href={s.href}
+                class="block rounded-full border border-brand/30 px-4 py-2 text-sm font-bold text-brand-ink transition hover:bg-brand/5"
+              >
+                {s.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
-    <p class="mt-8 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
+  </nav>
+
+  <!-- Nuestra historia -->
+  <section
+    id="historia"
+    class="container-content scroll-mt-20 py-16 sm:py-20"
+    aria-labelledby="historia-titulo"
+  >
+    <h2 id="historia-titulo" class="text-3xl">Nuestra historia</h2>
+    <div class="mt-8 max-w-3xl space-y-4 text-lg leading-relaxed text-ink/80">
+      <p>
+        La Corporación Pedagógica Diversidad C.P.D. fue constituida a partir del 27 de abril de
+        2012, en Medellín, nace por la iniciativa de un grupo de educadores, que decidieron
+        asociarse para desde sus expresiones construir tejido social. Desde entonces se han apuntado
+        como una alternativa que contribuye al fortalecimiento en procesos relacionados con la
+        prevención, reeducación, salud mental y tratamiento psicosocial, brindando a la comunidad un
+        espacio de aprendizajes, permitiendo traspasar las fronteras sociales; y haciendo partícipe
+        a la comunidad.
+      </p>
+      <p>
+        La Corporación está conformada por un equipo de personas que viven y vibran con su hacer y
+        que se encuentran en una búsqueda constante por cualificar sus conocimientos procurando así
+        por mejorar la calidad pedagógica, metodológica, de comunicaciones, y logística de las
+        propuestas presentadas.
+      </p>
+    </div>
+  </section>
+
+  <!-- Nuestro compromiso -->
+  <section
+    id="compromiso"
+    class="scroll-mt-20 border-y border-black/5 bg-surface/60"
+    aria-labelledby="compromiso-titulo"
+  >
+    <div class="container-content py-16 sm:py-20">
+      <h2 id="compromiso-titulo" class="text-3xl">Nuestro compromiso</h2>
+
+      <!-- Hito 2017 destacado -->
+      <article class="mt-8 rounded-2xl border border-brand/20 bg-surface p-6 shadow-sm sm:p-8">
+        <p class="text-sm font-bold uppercase tracking-widest text-brand">2017</p>
+        <p class="mt-3 text-lg leading-relaxed text-ink/80">
+          El 2017 fue un año de grandes retos que nos permitieron el fortalecimiento de nuestras
+          propuestas y que propiciaron espacios de construcción social. Para la Corporación fue de
+          suma importancia el trabajar enfocados en la salud mental ya que es una problemática que
+          ha aumentado en todo el mundo. La Organización Mundial de la Salud estima que para el 2020
+          será la segunda causa de carga de enfermedad, después de la enfermedad isquémica.
+        </p>
+      </article>
+
+      <!-- Salud mental y adolescencia -->
+      <ul class="mt-6 grid gap-6 lg:grid-cols-2">
+        <li class="rounded-2xl border border-black/5 bg-surface p-6 shadow-sm sm:p-8">
+          <h3 class="text-xl">Salud mental y adolescencia</h3>
+          <p class="mt-3 leading-relaxed text-ink/80">
+            La salud mental es un aspecto de la vida que se puede afectar tanto por agentes
+            biológicos como por factores sociales, es decir, todo ser humano es susceptible de ver
+            alterada su salud mental. Una de las etapas que presenta mayor vulnerabilidad es la de
+            la adolescencia debido a los continuos y actuales cambios a los que se deben enfrentar.
+          </p>
+        </li>
+        <li class="rounded-2xl border border-black/5 bg-surface p-6 shadow-sm sm:p-8">
+          <h3 class="text-xl">Derechos y política pública</h3>
+          <p class="mt-3 leading-relaxed text-ink/80">
+            Teniendo en cuenta las proyecciones que se esperan de los trastornos mentales, es
+            importante conocer los derechos de los individuos frente a la política colombiana de
+            salud y cómo la sociedad puede contribuir para procurar una mejor calidad de vida tanto
+            al adolescente como a su familia. Por esta razón uno de nuestros proyectos se enfocó
+            especialmente a esta población.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Trabajo territorial -->
+  <section
+    id="territorial"
+    class="container-content scroll-mt-20 py-16 sm:py-20"
+    aria-labelledby="territorial-titulo"
+  >
+    <h2 id="territorial-titulo" class="text-3xl">Trabajo territorial</h2>
+    <article class="mt-8 max-w-3xl rounded-2xl border border-black/5 bg-brand/5 p-6 shadow-sm sm:p-8">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand">Itagüí</p>
+      <p class="mt-3 text-lg leading-relaxed text-ink/80">
+        Otro de nuestros puntos de interés fue el de brindar a los subcomandantes, agentes de
+        tránsito y personal administrativo del tránsito del municipio de Itagüí herramientas
+        teórico prácticas para la adecuada administración de justicia en aspectos relacionados con
+        la medición de alcoholemia a través de aire espirado, con el fin de garantizar aseguramiento
+        de la calidad en los procedimientos que realizan diferentes operadores.
+      </p>
+    </article>
   </section>
 
   <!-- Misión y Visión -->
-  <section class="border-y border-black/5 bg-surface/60">
+  <section
+    id="mision-vision"
+    class="scroll-mt-20 border-y border-black/5 bg-surface/60"
+    aria-labelledby="mision-vision-titulo"
+  >
     <div class="container-content py-16 sm:py-20">
-      <div class="grid gap-6 lg:grid-cols-2">
-        <article class="rounded-2xl border border-black/5 bg-surface p-8 shadow-sm">
-          <h2 class="text-2xl">Misión</h2>
-          <p class="mt-4 text-ink/75">
-            Promover la educación inclusiva, la prevención y la salud mental de los jóvenes,
-            generando condiciones reales de equidad en las comunidades donde hacemos presencia.
+      <h2 id="mision-vision-titulo" class="text-3xl">Misión y Visión</h2>
+      <div class="mt-8 grid gap-6 lg:grid-cols-2">
+        <article class="rounded-2xl border border-black/5 bg-surface p-6 shadow-sm sm:p-8">
+          <h3 class="text-2xl">Misión</h3>
+          <p class="mt-4 leading-relaxed text-ink/80">
+            La Corporación Pedagógica Diversidad C.P.D. realizará proyectos formativos, de
+            capacitación y soporte asistencial, buscando la construcción de relaciones de comunión
+            entre las personas y las comunidades, a través de la prevención, reeducación, salud
+            mental y tratamiento psicosocial los cuales apunten a mejorar la calidad de vida y
+            permitan a su vez, aportar al desarrollo de una mejor sociedad.
           </p>
         </article>
-        <article class="rounded-2xl border border-brand/20 bg-brand/5 p-8 shadow-sm">
-          <h2 class="text-2xl">Visión</h2>
-          <p class="mt-4 text-ink/75">
-            En 10 años seremos una organización referente en inclusión educativa en Antioquia.
+        <article class="rounded-2xl border border-brand/20 bg-brand/5 p-6 shadow-sm sm:p-8">
+          <h3 class="text-2xl">Visión</h3>
+          <p class="mt-4 leading-relaxed text-ink/80">
+            En 10 años seremos una entidad profesional y competitiva en el área de la capacitación,
+            formación y soporte asistencial en los programas relacionados con el desarrollo dentro
+            del ámbito de la prevención, reeducación, salud mental y tratamiento psicosocial.
+            Focalizando nuestro hacer bajo una mirada ética y profesional, brindando una atención
+            integral e interdisciplinaria de manera oportuna y eficaz a la comunidad, implementando
+            procesos y procedimientos bajo un sistema de gestión de calidad que garantice el
+            mejoramiento de nuestros productos y proyectos; que aporten a la integración social, y
+            al desarrollo de habilidades donde las personas involucradas participen en la
+            transformación de su entorno con una prospectiva amplia del mundo y de su ser.
           </p>
         </article>
       </div>
-      <p class="mt-8 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
     </div>
   </section>
 
-  <!-- Pilares -->
-  <section class="container-content py-16 sm:py-20" aria-labelledby="pilares-titulo">
-    <h2 id="pilares-titulo" class="text-3xl">Nuestros pilares</h2>
-    <p class="mt-3 max-w-2xl text-ink/70">
-      Cuatro ejes sostienen nuestra acción institucional y orientan cada proyecto.
-    </p>
-
-    <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {
-        pilares.map((pilar) => (
-          <li class="flex flex-col rounded-2xl border border-black/5 p-6 shadow-sm">
-            {/* Bloque de color como indicador visual (sin imágenes) */}
-            <span class="mb-4 block h-1.5 w-12 rounded-full bg-brand" aria-hidden="true" />
-            <h3 class="text-xl">{pilar.titulo}</h3>
-            <p class="mt-3 text-ink/75">{pilar.texto}</p>
-          </li>
-        ))
-      }
-    </ul>
-    <p class="mt-8 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
+  <!-- Objeto social -->
+  <section
+    id="objeto-social"
+    class="container-content scroll-mt-20 py-16 sm:py-20"
+    aria-labelledby="objeto-titulo"
+  >
+    <h2 id="objeto-titulo" class="text-3xl">Objeto social</h2>
+    <div class="mt-8 max-w-3xl space-y-4 text-lg leading-relaxed text-ink/80">
+      <p>
+        Organizar y desarrollar Programas para apoyar el avance social en sus diferentes poblaciones
+        y Condiciones sociales, con atención de poblaciones en vulnerabilidad y pobreza, de todas
+        aquellas personas que a bien pueda atender la corporación, con fines dirigidos a mejorar el
+        desarrollo en las áreas de prevención, reeducación y tratamiento psicosocial a personas en
+        situaciones de comportamiento y conductas desadaptadas.
+      </p>
+      <p>
+        Mediante estrategias innovadoras de intervención, buscando que hombres y mujeres creen,
+        recreen, investiguen, experimenten, intercambien, reflexionen, imaginen, reconozcan y
+        perciban los lenguajes, códigos y símbolos propios de la cultura que fortalezcan la
+        construcción del tejido social.
+      </p>
+    </div>
   </section>
 
-  <!-- Objeto social -->
-  <section class="border-t border-black/5 bg-brand/5">
-    <div class="container-content py-16 sm:py-20" aria-labelledby="objeto-titulo">
-      <h2 id="objeto-titulo" class="text-3xl">Objeto social</h2>
-      <div class="mt-8 max-w-3xl space-y-4 text-ink/75">
-        <p>
-          La Corporación tiene como objeto social el acompañamiento pedagógico y psicosocial a
-          jóvenes en riesgo de exclusión, deserción escolar y vulneración de derechos. Su acción se
-          orienta a fortalecer trayectorias educativas, habilidades socioemocionales y proyectos de
-          vida, con especial atención a poblaciones con diversidad funcional y a comunidades en
-          condición de vulnerabilidad.
-        </p>
-        <p>
-          Para cumplirlo, la Corporación articula su trabajo con instituciones educativas del
-          departamento, autoridades locales, organizaciones sociales y familias, mediante programas
-          de formación docente, materiales accesibles, prevención y promoción del bienestar. Estas
-          alianzas permiten ampliar la cobertura y asegurar la sostenibilidad de los procesos en el
-          territorio.
-        </p>
-      </div>
-      <p class="mt-8 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
+  <!-- Nuestros pilares -->
+  <section
+    id="pilares"
+    class="scroll-mt-20 border-t border-black/5 bg-brand/5"
+    aria-labelledby="pilares-titulo"
+  >
+    <div class="container-content py-16 sm:py-20">
+      <h2 id="pilares-titulo" class="text-3xl">Nuestros pilares</h2>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-ink/80">
+        Nuestros pilares representan el corazón de nuestra misión. Cada uno de ellos guía nuestras
+        acciones hacia la construcción de una sociedad más justa, inclusiva y saludable. A través de
+        la inclusión, la educación, la prevención y el bienestar, trabajamos para generar un impacto
+        positivo y duradero en las comunidades que atendemos.
+      </p>
+
+      <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          pilares.map((pilar) => (
+            <li class="flex flex-col rounded-2xl border border-black/5 bg-surface p-6 shadow-sm">
+              {/* Bloque de color como indicador visual (sin imágenes) */}
+              <span class="mb-4 block h-1.5 w-12 rounded-full bg-brand" aria-hidden="true" />
+              <h3 class="text-xl">{pilar.titulo}</h3>
+              <p class="mt-3 leading-relaxed text-ink/80">{pilar.texto}</p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -170,7 +261,7 @@ const contactoAncla = '/#contacto';
   <section class="container-content py-16 sm:py-20">
     <div class="rounded-2xl border border-brand/20 bg-surface p-8 shadow-sm sm:p-12">
       <h2 class="text-2xl">¿Quieres conocer más sobre nuestro trabajo?</h2>
-      <p class="mt-3 max-w-2xl text-ink/75">
+      <p class="mt-3 max-w-2xl text-ink/80">
         Escríbenos y te contamos cómo articulamos con instituciones educativas y comunidades.
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
@@ -181,10 +272,10 @@ const contactoAncla = '/#contacto';
           Ver proyectos
         </a>
         <a
-          href="/educacion"
+          href="/contacto"
           class="rounded-full border border-brand px-6 py-3 text-sm font-bold text-brand-ink transition hover:bg-brand/5"
         >
-          Programas educativos
+          Contacto
         </a>
       </div>
     </div>
