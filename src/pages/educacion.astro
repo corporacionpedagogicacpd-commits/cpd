@@ -1,36 +1,104 @@
-import Header from '../components/layouts/Header.astro';
-import Footer from '../components/layouts/Footer.astro';
-import Hero from '../components/sections/Hero.astro';
-import StatsCounter from '../components/sections/StatsCounter.astro';
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-export let Layout = () => {
-  return (
-    <Main>
-      <Header />
-      <Hero />
-      <div class="container py-16">
-        <h2 class="text-3xl font-bold text-ink text-center mb-16">Educación</h2>
-        <p class="text-lg text-ink mb-12">Nuestros programas de educación son un pilar fundamental en nuestro enfoque integral para el bienestar de los jóvenes.</p>
-        <h3 class="text-2xl font-bold text-ink mb-8">Nuestros programas</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow">
-            <img src="/educacion/imagen1.png" alt="Programas de educación" class="w-full h-52 object-cover">
-            <h3 class="text-xl font-bold text-ink p-6">Programa de prevención escolar</h3>
-            <p class="text-ink p-6">Un programa integral que se implementa directamente en las escuelas para prevenir el uso de sustancias y promover hábitos saludables entre los estudiantes.</p>
-          </div>
-          <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow">
-            <img src="/educacion/imagen2.png" alt="Programas de educación" class="w-full h-52 object-cover">
-            <h3 class="text-xl font-bold text-ink p-6">Taller de formación personal</h3>
-            <p class="text-ink p-6">Un taller intensivo que desarrolla habilidades de autocompasión, emocionalidad y resiliencia en los participantes.</p>
-          </div>
-          <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow">
-            <img src="/educacion/imagen3.png" alt="Programas de educación" class="w-full h-52 object-cover">
-            <h3 class="text-xl font-bold text-ink p-6">Proyecto de mentoría</h3>
-            <p class="text-ink p-6">Un programa de mentoría que conecta a jóvenes vulnerables con mentores experimentados que los apoyan en su desarrollo personal y académico.</p>
-          </div>
-        </div>
-        <Footer />
+// Programas pedagógicos ofrecidos por la corporación
+const programas = [
+  {
+    titulo: 'Acompañamiento pedagógico',
+    texto:
+      'Acompañamos a estudiantes y docentes en la construcción de trayectorias educativas flexibles y pertinentes. Trabajamos en territorio con adaptaciones curriculares y seguimiento personalizado.',
+  },
+  {
+    titulo: 'Formación docente',
+    texto:
+      'Formamos a maestros y agentes educativos en estrategias de educación inclusiva y convivencia escolar. Ofrecemos talleres prácticos, asesoría en aula y comunidades de aprendizaje.',
+  },
+  {
+    titulo: 'Materiales accesibles',
+    texto:
+      'Diseñamos recursos pedagógicos accesibles y de fácil lectura para distintos niveles y capacidades. Los materiales se adaptan al contexto territorial y se comparten con las instituciones aliadas.',
+  },
+];
+---
+
+<BaseLayout
+  title="Educación"
+  description="Programas pedagógicos de la Corporación Pedagógica Diversidad: acompañamiento pedagógico, formación docente y materiales accesibles."
+>
+  <Header slot="header" />
+
+  <!-- Encabezado de página -->
+  <section class="border-b border-black/5 bg-gradient-to-b from-brand/5 to-transparent">
+    <div class="container-content py-16 sm:py-24">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand">Programas</p>
+      <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">Educación</h1>
+      <p class="mt-6 max-w-3xl text-lg text-ink/75">
+        Nuestros programas pedagógicos están diseñados para que ningún joven quede fuera del
+        sistema educativo. Combinamos acompañamiento en aula, formación docente y producción de
+        materiales accesibles, articulando con instituciones educativas y comunidades del
+        departamento.
+      </p>
+      <p class="mt-6 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
+    </div>
+  </section>
+
+  <!-- Programas en tarjetas -->
+  <section class="container-content py-16 sm:py-20" aria-labelledby="programas-titulo">
+    <h2 id="programas-titulo" class="text-3xl">Nuestros programas</h2>
+    <p class="mt-3 max-w-2xl text-ink/70">
+      Tres líneas de trabajo complementarias que se implementan de forma articulada en cada
+      territorio.
+    </p>
+
+    <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        programas.map((programa, indice) => (
+          <li class="flex flex-col rounded-2xl border border-black/5 p-6 shadow-sm">
+            {/* Bloque de color como indicador de tarjeta (sin imágenes) */}
+            <span
+              class={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-lg font-bold text-white ${
+                indice === 1 ? 'bg-accent' : 'bg-brand'
+              }`}
+              aria-hidden="true"
+            >
+              {indice + 1}
+            </span>
+            <h3 class="text-xl">{programa.titulo}</h3>
+            <p class="mt-3 text-ink/75">{programa.texto}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-8 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
+  </section>
+
+  <!-- Llamado a la acción -->
+  <section class="border-t border-black/5 bg-brand/5">
+    <div class="container-content py-16 sm:py-20">
+      <h2 class="text-2xl">¿Tu institución quiere trabajar con nosotros?</h2>
+      <p class="mt-3 max-w-2xl text-ink/75">
+        Articulamos con instituciones educativas del departamento para llevar estos programas a más
+        comunidades.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a
+          href="/nosotros"
+          class="rounded-full border border-brand px-6 py-3 text-sm font-bold text-brand-ink transition hover:bg-brand/5"
+        >
+          Conoce la corporación
+        </a>
+        <a
+          href="/proyectos"
+          class="rounded-full bg-brand px-6 py-3 text-sm font-bold text-white transition hover:opacity-90"
+        >
+          Ver proyectos
+        </a>
       </div>
-    </Main>
-  );
-};
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

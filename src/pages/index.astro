@@ -1,28 +1,146 @@
-import Header from '../components/layouts/Header.astro';
-import Footer from '../components/layouts/Footer.astro';
-import Hero from '../components/sections/Hero.astro';
-import StatsCounter from '../components/sections/StatsCounter.astro';
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
 
-export let Layout = () => {
-  const stats = [
-    { label: 'Años de experiencia', value: '12' },
-    { label: 'Proyectos ejecutados', value: '28' },
-    { label: 'Jóvenes apoyados', value: '1,750' }
-  ];
-  
-  return (
-    <Main>
-      <Header />
-      <Hero />
-      <div class="container py-16">
-        <h2 class="text-3xl font-bold text-ink text-center mb-12">Nuestros ejes de acción</h2>
-        <div class="flex flex-wrap justify-center gap-8">
-          <For each="stat" in="stats">
-            <StatsCounter value={stat.value} label={stat.label} />
-          </For>
-        </div>
+const proyectosDestacados = (await getCollection('proyectos'))
+  .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf())
+  .slice(0, 3);
+
+const eventosProximos = (await getCollection('eventos'))
+  .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf())
+  .slice(0, 3);
+
+const ejes = [
+  { titulo: 'Educación inclusiva', texto: 'Programas pedagógicos que garantizan el acceso y la permanencia de jóvenes con diversidad funcional.' },
+  { titulo: 'Salud mental', texto: 'Acompañamiento psicosocial y prevención en comunidades educativas.' },
+  { titulo: 'Convivencia escolar', texto: 'Estrategias para entornos escolares seguros, respetuosos y participativos.' },
+];
+
+// Cifras REALES tomadas del sitio antiguo (data-number-value: "+10" y "200").
+// El scaffold anterior traía 12/28/1750 sin respaldo en ninguna fuente.
+const cifras = [
+  { valor: '+10', etiqueta: 'años de compromiso con los jóvenes' },
+  { valor: '200', etiqueta: 'colaboradores comprometidos' },
+];
+---
+
+<BaseLayout
+  title="Inicio"
+  description="Corporación Pedagógica Diversidad: educación inclusiva, salud mental y convivencia escolar para jóvenes en Colombia."
+>
+  <Header slot="header" />
+
+  <section class="border-b border-black/5 bg-gradient-to-b from-brand/5 to-transparent">
+    <div class="container-content py-20 sm:py-28">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand">Corporación Pedagógica Diversidad</p>
+      <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl lg:text-6xl">
+        Educación inclusiva y salud mental para que ningún joven quede fuera.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-ink/75">
+        Somos una institución sin ánimo de lucro que acompaña a jóvenes en riesgo a través de
+        programas pedagógicos, psicosociales y de convivencia.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="/proyectos"
+          class="rounded-full bg-brand px-6 py-3 text-sm font-bold text-white transition hover:opacity-90"
+        >
+          Ver proyectos
+        </a>
+        <a
+          href="/donaciones"
+          class="rounded-full border border-brand px-6 py-3 text-sm font-bold text-brand-ink transition hover:bg-brand/5"
+        >
+          Apoyar
+        </a>
       </div>
-      <Footer />
-    </Main>
-  );
-};
+    </div>
+  </section>
+
+  <section class="border-b border-black/5 bg-black/[0.02]" aria-labelledby="cifras-titulo">
+    <div class="container-content grid gap-8 py-12 sm:grid-cols-2">
+      <h2 id="cifras-titulo" class="sr-only">Nuestro impacto en cifras</h2>
+      {
+        cifras.map((c) => (
+          <div class="text-center">
+            <p class="text-5xl font-bold text-brand">{c.valor}</p>
+            <p class="mt-2 text-lg text-ink/75">{c.etiqueta}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-content py-16 sm:py-20" aria-labelledby="ejes-titulo">
+    <h2 id="ejes-titulo" class="text-3xl">Nuestros ejes de acción</h2>
+    <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        ejes.map((eje) => (
+          <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
+            <h3 class="text-xl">{eje.titulo}</h3>
+            <p class="mt-3 text-ink/75">{eje.texto}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="container-content py-16 sm:py-20" aria-labelledby="proyectos-titulo">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 id="proyectos-titulo" class="text-3xl">Proyectos recientes</h2>
+      <a href="/proyectos" class="text-sm font-bold text-brand-ink hover:underline">Ver todos →</a>
+    </div>
+
+    {
+      proyectosDestacados.length > 0 ? (
+        <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {proyectosDestacados.map((p) => (
+            <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
+              <time datetime={p.data.fecha.toISOString()} class="text-xs uppercase tracking-wide text-ink/50">
+                {p.data.fecha.toLocaleDateString('es-CO', { year: 'numeric', month: 'long' })}
+              </time>
+              <h3 class="mt-2 text-xl">{p.data.titulo}</h3>
+              <p class="mt-3 text-ink/75">{p.data.resumen}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="mt-6 text-ink/60">
+          Aún no hay proyectos publicados. Añade archivos en <code>src/content/proyectos/</code>.
+        </p>
+      )
+    }
+  </section>
+
+  <section class="container-content py-16 sm:py-20" aria-labelledby="eventos-titulo">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 id="eventos-titulo" class="text-3xl">Eventos</h2>
+      <a href="/eventos" class="text-sm font-bold text-brand-ink hover:underline">Ver todos →</a>
+    </div>
+
+    {
+      eventosProximos.length > 0 ? (
+        <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {eventosProximos.map((ev) => (
+            <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
+              <time datetime={ev.data.fecha.toISOString()} class="text-xs uppercase tracking-wide text-ink/50">
+                {ev.data.fecha.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </time>
+              <h3 class="mt-2 text-xl">{ev.data.titulo}</h3>
+              {ev.data.lugar && <p class="mt-1 text-sm text-ink/60">{ev.data.lugar}</p>}
+              <p class="mt-3 text-ink/75">{ev.data.resumen}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="mt-6 text-ink/60">
+          Aún no hay eventos publicados. Añade archivos en <code>src/content/eventos/</code>.
+        </p>
+      )
+    }
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

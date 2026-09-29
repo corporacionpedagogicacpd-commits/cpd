@@ -1,0 +1,69 @@
+---
+const navItems = [
+  { href: '/', label: 'Inicio' },
+  { href: '/nosotros', label: 'Nosotros' },
+  { href: '/educacion', label: 'Educación' },
+  { href: '/proyectos', label: 'Proyectos' },
+  { href: '/eventos', label: 'Eventos' },
+  { href: '/galeria', label: 'Galería' },
+  { href: '/alianza', label: 'Alianza' },
+  { href: '/donaciones', label: 'Donaciones' },
+  { href: '/contacto', label: 'Contacto' },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="sticky top-0 z-40 border-b border-black/5 bg-surface/95 backdrop-blur">
+  <nav class="container-content flex h-16 items-center justify-between" aria-label="Navegación principal">
+    <a href="/" class="flex items-center gap-2">
+      <span class="text-lg font-bold text-brand-ink">CPD</span>
+      <span class="hidden text-sm text-ink/70 sm:inline">Corporación Pedagógica Diversidad</span>
+    </a>
+
+    <ul class="hidden items-center gap-1 lg:flex">
+      {
+        navItems.map((item) => {
+          const itemPath = item.href.replace(/\/$/, '') || '/';
+          const isActive = currentPath === itemPath;
+          return (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive ? 'page' : undefined}
+                class:list={[
+                  'rounded px-3 py-2 text-sm transition-colors',
+                  isActive ? 'font-bold text-brand' : 'text-ink/80 hover:text-brand',
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <details class="relative lg:hidden">
+      <summary
+        class="cursor-pointer list-none rounded border border-black/10 px-3 py-2 text-sm"
+        aria-label="Abrir menú de navegación"
+      >
+        Menú
+      </summary>
+      <ul
+        class="absolute right-0 mt-2 w-56 rounded-lg border border-black/10 bg-surface p-2 shadow-lg"
+      >
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href} class="block rounded px-3 py-2 text-sm text-ink/80 hover:bg-black/5">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </details>
+  </nav>
+</header>

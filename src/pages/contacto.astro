@@ -1,48 +1,171 @@
-import Header from '../components/layouts/Header.astro';
-import Footer from '../components/layouts/Footer.astro';
-import Hero from '../components/sections/Hero.astro';
-import StatsCounter from '../components/sections/StatsCounter.astro';
+---
+// Página de contacto: formulario + datos reales de la Corporación.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-export let Layout = () => {
-  return (
-    <Main>
-      <Header />
-      <Hero />
-      <div class="container py-16">
-        <h2 class="text-3xl font-bold text-ink text-center mb-16">Contacto</h2>
-        <p class="text-lg text-ink mb-12">Si deseas colaborar, tienes alguna pregunta o quieres contactar con nosotros, estaremos encantados de escucharte. Puedes escribirnos a través de cualquier canal disponible, o utilizar nuestro formulario en línea.</p>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow">
-            <h3 class="text-2xl font-bold text-ink p-6 border-b border-ink/10">Información de contacto</h3>
-            <div class="p-6">
-              <p class="text-ink mb-4"><strong><span class="text-primary">Teléfono:</span> +57 300 3079290</strong>
-              <textarea rows="4" class="w-full p-3 border border-ink/30 rounded-md shadow-sm">+57 300 3079290</textarea>
-              <div class="mt-4">
-                <span class="text-primary">WhatsApp:</span> <a href="https://wa.me/573003079290" class="text-ink hover:text-primary">+57 300 3079290</a>
-              </div>
-              <div class="mt-4">
-                <span class="text-primary">Instagram:</span> <a href="https://instagram.com/corpodiversidad" class="text-ink hover:text-primary">@corpodiversidad</a>
-              </div>
-              <div class="mt-4">
-                <span class="text-primary">Correo electrónico:</span> <a href="mailto:info@corpedagogicadiversidad.org" class="text-ink hover:text-primary">info@corpedagogicadiversidad.org</a>
-              </div>
-              <div class="mt-4">
-                <span class="text-primary">Dirección:</span> <a href="https://maps.app.goo.gl/AB34567890123456" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-primary">Calle 47 #43-37, Medellín, Antioquia, Colombia</a>
-              </div>
-              <div class="mt-4">
-                <span class="text-primary">Horario:</span> Lunes a Viernes, 8:00 a.m. - 5:00 p.m.
-              </div>
-            </div>
-          </div>
-          <div class="bg-surface border border-primary/10 rounded-xl overflow-hidden drop-shadow">
-            <h3 class="text-2xl font-bold text-ink p-6 border-b border-ink/10">Formulario de contacto</h3>
-            <div class="p-6">
-              <ContactForm />
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    </Main>
-  );
+const datosContacto = {
+  email: 'corporacionpedagogicacpd@gmail.com',
+  telefono: '+57 300 3079290',
+  whatsapp: 'https://wa.me/573003079290',
+  instagram: 'https://instagram.com/corpodiversidad',
+  direccion1: 'Calle 47 #43-37, Medellín',
+  mapa: 'https://maps.app.goo.gl/g1wMJKatmPNEcLFP6',
+  direccion2: 'Calle 111e #64a-78',
 };
+---
+
+<BaseLayout
+  title="Contacto"
+  description="Contáctate con la Corporación Pedagógica Diversidad: correo, teléfono, WhatsApp, Instagram y direcciones en Medellín."
+>
+  <Header slot="header" />
+
+  <section class="border-b border-black/5 bg-gradient-to-b from-brand/5 to-transparent">
+    <div class="container-content py-16 sm:py-20">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand">Contacto</p>
+      <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">
+        ¡Aquí puedes contactarte con nosotros!
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-ink/75">
+        Escríbenos, llámanos o visítanos. Estamos disponibles para escucharte y acompañarte.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-content py-16 sm:py-20" aria-labelledby="form-titulo">
+    <div class="grid gap-12 lg:grid-cols-2">
+      <!-- Formulario de contacto -->
+      <div>
+        <h2 id="form-titulo" class="text-3xl">Envíanos un mensaje</h2>
+        <form class="mt-8 space-y-5" method="post" action="#">
+          <div>
+            <label for="nombre" class="block text-sm font-bold text-ink">Nombre</label>
+            <input
+              id="nombre"
+              name="nombre"
+              type="text"
+              autocomplete="given-name"
+              required
+              class="mt-2 w-full rounded-lg border border-black/15 bg-surface px-4 py-3 text-ink placeholder:text-ink/40 focus:border-brand focus:outline-none"
+              placeholder="Tu nombre"
+            />
+          </div>
+
+          <div>
+            <label for="apellido" class="block text-sm font-bold text-ink">Apellido</label>
+            <input
+              id="apellido"
+              name="apellido"
+              type="text"
+              autocomplete="family-name"
+              required
+              class="mt-2 w-full rounded-lg border border-black/15 bg-surface px-4 py-3 text-ink placeholder:text-ink/40 focus:border-brand focus:outline-none"
+              placeholder="Tu apellido"
+            />
+          </div>
+
+          <div>
+            <label for="celular" class="block text-sm font-bold text-ink">Celular</label>
+            <input
+              id="celular"
+              name="celular"
+              type="tel"
+              autocomplete="tel"
+              class="mt-2 w-full rounded-lg border border-black/15 bg-surface px-4 py-3 text-ink placeholder:text-ink/40 focus:border-brand focus:outline-none"
+              placeholder="+57 300 0000000"
+            />
+          </div>
+
+          <div>
+            <label for="correo" class="block text-sm font-bold text-ink">Correo</label>
+            <input
+              id="correo"
+              name="correo"
+              type="email"
+              autocomplete="email"
+              required
+              class="mt-2 w-full rounded-lg border border-black/15 bg-surface px-4 py-3 text-ink placeholder:text-ink/40 focus:border-brand focus:outline-none"
+              placeholder="tucorreo@ejemplo.com"
+            />
+          </div>
+
+          <div>
+            <label for="mensaje" class="block text-sm font-bold text-ink">Mensaje</label>
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              rows="5"
+              class="mt-2 w-full rounded-lg border border-black/15 bg-surface px-4 py-3 text-ink placeholder:text-ink/40 focus:border-brand focus:outline-none"
+              placeholder="Cuéntanos en qué podemos ayudarte"></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="rounded-full bg-brand px-6 py-3 text-sm font-bold text-white transition hover:opacity-90"
+          >
+            Enviar mensaje
+          </button>
+        </form>
+      </div>
+
+      <!-- Datos de contacto reales -->
+      <div>
+        <h2 class="text-3xl">Nuestros datos</h2>
+        <ul class="mt-8 space-y-6">
+          <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
+            <h3 class="text-lg">Correo electrónico</h3>
+            <a href={`mailto:${datosContacto.email}`} class="mt-2 block break-words text-brand hover:underline">
+              {datosContacto.email}
+            </a>
+          </li>
+
+          <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
+            <h3 class="text-lg">Teléfono / WhatsApp</h3>
+            <a href={datosContacto.whatsapp} class="mt-2 block text-brand hover:underline">
+              {datosContacto.telefono}
+            </a>
+          </li>
+
+          <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
+            <h3 class="text-lg">Dirección 1</h3>
+            <a
+              href={datosContacto.mapa}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-2 block text-brand hover:underline"
+            >
+              {datosContacto.direccion1}
+            </a>
+          </li>
+
+          <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
+            <h3 class="text-lg">Dirección 2</h3>
+            <p class="mt-2 text-ink/75">{datosContacto.direccion2}</p>
+          </li>
+        </ul>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={datosContacto.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-full border border-brand px-6 py-3 text-sm font-bold text-brand-ink transition hover:bg-brand/5"
+          >
+            Instagram
+          </a>
+          <a
+            href={datosContacto.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-full bg-accent px-6 py-3 text-sm font-bold text-white transition hover:opacity-90"
+          >
+            Escríbenos por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
