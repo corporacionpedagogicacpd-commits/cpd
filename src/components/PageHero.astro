@@ -1,0 +1,53 @@
+---
+/**
+ * Cabecera de página editorial (banda oscura).
+ *
+ * Es la pieza que une la home cinematográfica con el resto del sitio: en vez
+ * de un título plano sobre blanco, cada página abre con la misma banda oscura
+ * del inicio, de modo que navegar no supone un salto de lenguaje visual.
+ *
+ * El contenido es visible por defecto: los `reveal` sólo se animan si el motor
+ * de scroll está activo (clase .js-reveal en <html>).
+ */
+interface Props {
+  /** Antetítulo corto en mayúsculas (ej: "Quiénes somos"). */
+  eyebrow?: string;
+  title: string;
+  description?: string;
+}
+
+const { eyebrow, title, description } = Astro.props;
+---
+
+<section class="relative overflow-hidden border-b border-night-line bg-night text-mist">
+  <div
+    class="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand/20 via-transparent to-transparent"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="container-content relative py-16 sm:py-24">
+    {
+      eyebrow && (
+        <p class="reveal text-xs font-bold uppercase tracking-[0.3em] text-brand">{eyebrow}</p>
+      )
+    }
+
+    <h1 class="mt-6 text-display font-bold">
+      <span class="line-mask"><span class="line-inner">{title}</span></span>
+    </h1>
+
+    {
+      description && (
+        <p
+          class="reveal mt-6 max-w-3xl text-lg leading-relaxed text-mist/70"
+          style="--reveal-delay:220ms"
+        >
+          {description}
+        </p>
+      )
+    }
+
+    <slot />
+  </div>
+</section>
