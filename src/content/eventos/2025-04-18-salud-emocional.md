@@ -1,7 +1,6 @@
 ---
 titulo: "Salud emocional en la escuela"
 fecha: 2025-04-18
-lugar: "Por confirmar con el cliente"
 resumen: "Jornada de prevención y acompañamiento psicosocial con estudiantes y docentes."
 ---
 
