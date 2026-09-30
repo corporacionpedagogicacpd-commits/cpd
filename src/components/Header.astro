@@ -1,4 +1,14 @@
 ---
+import logo from '../../public/asset-cpd/logo.png';
+import logoBlanco from '../../public/asset-cpd/logo-blanco.png';
+
+interface Props {
+  /** true = el header arranca sobre fondo oscuro (home cinematográfica). */
+  dark?: boolean;
+}
+
+const { dark = false } = Astro.props;
+
 const navItems = [
   { href: '/', label: 'Inicio' },
   { href: '/nosotros', label: 'Nosotros' },
@@ -14,11 +24,27 @@ const navItems = [
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
-<header class="sticky top-0 z-40 border-b border-black/5 bg-surface/95 backdrop-blur">
+<header
+  class:list={[
+    'sticky top-0 z-40 border-b backdrop-blur transition-colors duration-500',
+    dark ? 'border-white/10 bg-night/85 text-mist' : 'border-black/5 bg-surface/95 text-ink',
+  ]}
+>
   <nav class="container-content flex h-16 items-center justify-between" aria-label="Navegación principal">
-    <a href="/" class="flex items-center gap-2">
-      <span class="text-lg font-bold text-brand-ink">CPD</span>
-      <span class="hidden text-sm text-ink/70 sm:inline">Corporación Pedagógica Diversidad</span>
+    <a href="/" class="flex items-center gap-3">
+      <!-- El logo se sirve ya optimizado por Astro (WebP + ancho correcto).
+           El negro sobre fondo claro y el blanco sobre fondo oscuro son
+           archivos distintos del cliente, no un filtro CSS. -->
+      <img
+        src={dark ? logoBlanco.src : logo.src}
+        alt="Corporación Pedagógica Diversidad"
+        width={dark ? logoBlanco.width : logo.width}
+        height={dark ? logoBlanco.height : logo.height}
+        class="h-9 w-auto"
+      />
+      <span class:list={['sr-only sm:not-sr-only sm:text-sm', dark ? 'text-mist/80' : 'text-ink/70']}>
+        Corporación Pedagógica Diversidad
+      </span>
     </a>
 
     <ul class="hidden items-center gap-1 lg:flex">
@@ -33,7 +59,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
                 aria-current={isActive ? 'page' : undefined}
                 class:list={[
                   'rounded px-3 py-2 text-sm transition-colors',
-                  isActive ? 'font-bold text-brand' : 'text-ink/80 hover:text-brand',
+                  dark
+                    ? isActive
+                      ? 'font-bold text-brand'
+                      : 'text-mist/85 hover:text-brand'
+                    : isActive
+                      ? 'font-bold text-brand'
+                      : 'text-ink/80 hover:text-brand',
                 ]}
               >
                 {item.label}
@@ -46,18 +78,30 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
     <details class="relative lg:hidden">
       <summary
-        class="cursor-pointer list-none rounded border border-black/10 px-3 py-2 text-sm"
+        class:list={[
+          'cursor-pointer list-none rounded border px-3 py-2 text-sm',
+          dark ? 'border-white/25 text-mist' : 'border-black/10',
+        ]}
         aria-label="Abrir menú de navegación"
       >
         Menú
       </summary>
       <ul
-        class="absolute right-0 mt-2 w-56 rounded-lg border border-black/10 bg-surface p-2 shadow-lg"
+        class:list={[
+          'absolute right-0 mt-2 w-56 rounded-lg border p-2 shadow-lg',
+          dark ? 'border-white/15 bg-night-soft text-mist' : 'border-black/10 bg-surface',
+        ]}
       >
         {
           navItems.map((item) => (
             <li>
-              <a href={item.href} class="block rounded px-3 py-2 text-sm text-ink/80 hover:bg-black/5">
+              <a
+                href={item.href}
+                class:list={[
+                  'block rounded px-3 py-2 text-sm',
+                  dark ? 'text-mist/85 hover:bg-white/10' : 'text-ink/80 hover:bg-black/5',
+                ]}
+              >
                 {item.label}
               </a>
             </li>

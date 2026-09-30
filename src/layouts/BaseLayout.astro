@@ -49,6 +49,8 @@ const ogImage = new URL('/og.png', Astro.site);
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+
+    <script is:inline src="/scripts/scroll.js"></script>
   </head>
   <body class="flex min-h-screen flex-col">
     <a
@@ -57,6 +59,15 @@ const ogImage = new URL('/og.png', Astro.site);
     >
       Saltar al contenido
     </a>
+
+    <!-- Barra de progreso de lectura: se llena al bajar por la página -->
+    <div class="fixed inset-x-0 top-0 z-50 h-0.5 bg-transparent" aria-hidden="true">
+      <div
+        data-scroll-progress
+        class="scroll-progress h-full origin-left scale-x-0 bg-gradient-to-r from-brand to-accent"
+      >
+      </div>
+    </div>
 
     <slot name="header" />
 

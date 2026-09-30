@@ -2,7 +2,21 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+
+import logoBlanco from '../../public/asset-cpd/logo-blanco.png';
+import foto26 from '../../public/asset-cpd/foto26.jpg';
+import foto55 from '../../public/asset-cpd/foto55.jpg';
+import foto49 from '../../public/asset-cpd/foto49.jpg';
+import foto24 from '../../public/asset-cpd/foto24.jpg';
+import foto39 from '../../public/asset-cpd/foto39.jpg';
+import foto53 from '../../public/asset-cpd/foto53.jpg';
+import alianzaUdea from '../../public/asset-cpd/alianza-udea.jpeg';
+import capacitacion from '../../public/asset-cpd/capacitacion-profesional.png';
+import ejeEducacion from '../../public/asset-cpd/eje-educacion.png';
+import ejePsicosocial from '../../public/asset-cpd/eje-psicosocial.png';
+import ejeInclusion from '../../public/asset-cpd/eje-inclusion.png';
 
 const proyectosDestacados = (await getCollection('proyectos'))
   .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf())
@@ -12,134 +26,385 @@ const eventosProximos = (await getCollection('eventos'))
   .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf())
   .slice(0, 3);
 
-const ejes = [
-  { titulo: 'Educación inclusiva', texto: 'Programas pedagógicos que garantizan el acceso y la permanencia de jóvenes con diversidad funcional.' },
-  { titulo: 'Salud mental', texto: 'Acompañamiento psicosocial y prevención en comunidades educativas.' },
-  { titulo: 'Convivencia escolar', texto: 'Estrategias para entornos escolares seguros, respetuosos y participativos.' },
+// Los 4 pilares reales, tal como aparecen en el sitio antiguo (nosotros.html).
+const pilares = [
+  { n: '01', titulo: 'Inclusión', texto: 'Garantizamos el acceso y la permanencia de las personas con diversidad funcional.' },
+  { n: '02', titulo: 'Educación', texto: 'Programas pedagógicos que abren oportunidades reales para los jóvenes.' },
+  { n: '03', titulo: 'Prevención', texto: 'Trabajamos antes de que el riesgo se convierta en exclusión.' },
+  { n: '04', titulo: 'Bienestar', texto: 'Acompañamiento psicosocial para comunidades educativas completas.' },
 ];
 
-// Cifras REALES tomadas del sitio antiguo (data-number-value: "+10" y "200").
-// El scaffold anterior traía 12/28/1750 sin respaldo en ninguna fuente.
+const ejes = [
+  { titulo: 'Educación inclusiva', texto: 'Programas pedagógicos que garantizan el acceso y la permanencia de jóvenes con diversidad funcional.', icono: ejeEducacion },
+  { titulo: 'Salud mental', texto: 'Acompañamiento psicosocial y prevención en comunidades educativas.', icono: ejePsicosocial },
+  { titulo: 'Convivencia escolar', texto: 'Estrategias para entornos escolares seguros, respetuosos y participativos.', icono: ejeInclusion },
+];
+
+// Cifras REALES del sitio antiguo (data-number-value: "+10" y "200").
 const cifras = [
   { valor: '+10', etiqueta: 'años de compromiso con los jóvenes' },
   { valor: '200', etiqueta: 'colaboradores comprometidos' },
+];
+
+// Carrete de fotos reales recuperadas del sitio antiguo.
+const carrete = [
+  { src: foto26, alt: 'Jornada de la Corporación con la comunidad educativa' },
+  { src: foto55, alt: 'Actividad de acompañamiento con jóvenes' },
+  { src: foto49, alt: 'Encuentro de la Corporación Pedagógica Diversidad' },
+  { src: foto24, alt: 'Participantes en una jornada pedagógica' },
+  { src: foto39, alt: 'Trabajo con estudiantes en territorio' },
+  { src: foto53, alt: 'Equipo de la Corporación en actividad' },
 ];
 ---
 
 <BaseLayout
   title="Inicio"
-  description="Corporación Pedagógica Diversidad: educación inclusiva, salud mental y convivencia escolar para jóvenes en Colombia."
+  description="Corporación Pedagógica Diversidad: desde 2012 acompañamos a jóvenes en Medellín con educación inclusiva, salud mental y convivencia escolar."
 >
-  <Header slot="header" />
+  <Header slot="header" dark />
 
-  <section class="border-b border-black/5 bg-gradient-to-b from-brand/5 to-transparent">
-    <div class="container-content py-20 sm:py-28">
-      <p class="text-sm font-bold uppercase tracking-widest text-brand">Corporación Pedagógica Diversidad</p>
-      <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl lg:text-6xl">
-        Educación inclusiva y salud mental para que ningún joven quede fuera.
+  <!-- ══════════════ 01 · APERTURA ══════════════ -->
+  <section class="relative flex min-h-[92svh] items-end overflow-hidden bg-night text-mist">
+    <!-- Foto de fondo con parallax + velo para garantizar contraste del texto -->
+    <div class="absolute inset-0" data-parallax="0.18">
+      <Image
+        src={alianzaUdea}
+        alt=""
+        aria-hidden="true"
+        widths={[640, 960, 1280]}
+        sizes="100vw"
+        class="h-[118%] w-full -translate-y-[6%] object-cover opacity-40"
+      />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-t from-night via-night/80 to-night/40" aria-hidden="true"></div>
+
+    <div class="container-content relative z-10 pb-20 pt-32 sm:pb-28">
+      <p class="reveal text-xs font-bold uppercase tracking-[0.3em] text-brand">
+        Medellín · Colombia — desde 2012
+      </p>
+
+      <h1 class="mt-8 text-mega font-bold">
+        <span class="line-mask"><span class="line-inner">Ningún joven</span></span>
+        <span class="line-mask" style="--reveal-delay:120ms">
+          <span class="line-inner">fuera del</span>
+        </span>
+        <span class="line-mask text-outline" style="--reveal-delay:240ms">
+          <span class="line-inner">aula.</span>
+        </span>
       </h1>
-      <p class="mt-6 max-w-2xl text-lg text-ink/75">
+
+      <p class="reveal mt-10 max-w-xl text-lg leading-relaxed text-mist/75" style="--reveal-delay:420ms">
         Somos una institución sin ánimo de lucro que acompaña a jóvenes en riesgo a través de
         programas pedagógicos, psicosociales y de convivencia.
       </p>
-      <div class="mt-8 flex flex-wrap gap-3">
+
+      <div class="reveal mt-10 flex flex-wrap gap-3" style="--reveal-delay:540ms">
+        <a
+          href="/donaciones"
+          class="rounded-full bg-brand px-7 py-3.5 text-sm font-bold text-white transition hover:bg-brand-ink"
+        >
+          Apoyar la causa
+        </a>
         <a
           href="/proyectos"
-          class="rounded-full bg-brand px-6 py-3 text-sm font-bold text-white transition hover:opacity-90"
+          class="rounded-full border border-mist/30 px-7 py-3.5 text-sm font-bold text-mist transition hover:border-mist hover:bg-white/10"
         >
           Ver proyectos
         </a>
-        <a
-          href="/donaciones"
-          class="rounded-full border border-brand px-6 py-3 text-sm font-bold text-brand-ink transition hover:bg-brand/5"
-        >
-          Apoyar
-        </a>
+      </div>
+    </div>
+
+    <!-- Indicador de scroll -->
+    <div class="absolute bottom-6 right-6 hidden items-center gap-2 text-xs uppercase tracking-widest text-mist/50 sm:flex">
+      <span>Scroll</span>
+      <span aria-hidden="true" class="inline-block h-8 w-px animate-pulse bg-gradient-to-b from-mist/60 to-transparent"></span>
+    </div>
+  </section>
+
+  <!-- ══════════════ 02 · CIFRAS ══════════════ -->
+  <section class="border-b border-night-line bg-night-soft py-16 sm:py-20" aria-labelledby="cifras-titulo">
+    <div class="container-content">
+      <h2 id="cifras-titulo" class="sr-only">Nuestro impacto en cifras</h2>
+      <div class="grid gap-10 sm:grid-cols-2" data-reveal-group>
+        {
+          cifras.map((c, i) => (
+            <div class="reveal border-l-2 border-brand pl-6" style={`--reveal-delay:${i * 140}ms`}>
+              <p class="text-mega font-bold text-mist" data-contador={c.valor}>{c.valor}</p>
+              <p class="mt-3 text-lg text-mist/60">{c.etiqueta}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <section class="border-b border-black/5 bg-black/[0.02]" aria-labelledby="cifras-titulo">
-    <div class="container-content grid gap-8 py-12 sm:grid-cols-2">
-      <h2 id="cifras-titulo" class="sr-only">Nuestro impacto en cifras</h2>
-      {
-        cifras.map((c) => (
-          <div class="text-center">
-            <p class="text-5xl font-bold text-brand">{c.valor}</p>
-            <p class="mt-2 text-lg text-ink/75">{c.etiqueta}</p>
-          </div>
-        ))
-      }
+  <!-- ══════════════ 03 · MANIFIESTO (declaración a sangre) ══════════════ -->
+  <section class="bg-night py-24 sm:py-32" aria-labelledby="manifiesto-titulo">
+    <div class="container-content">
+      <h2 id="manifiesto-titulo" class="sr-only">Nuestra razón de ser</h2>
+      <p class="reveal text-xs font-bold uppercase tracking-[0.3em] text-accent">
+        Constituida el 27 de abril de 2012
+      </p>
+
+      <blockquote class="mt-10 max-w-5xl">
+        <p class="text-display font-bold text-mist">
+          <span class="line-mask"><span class="line-inner">Nacimos de un grupo de educadores</span></span>
+          <span class="line-mask" style="--reveal-delay:130ms">
+            <span class="line-inner">que se negó a aceptar que la</span>
+          </span>
+          <span class="line-mask" style="--reveal-delay:260ms">
+            <span class="line-inner text-brand">diversidad fuese un problema.</span>
+          </span>
+        </p>
+      </blockquote>
+
+      <p class="reveal mt-12 max-w-2xl text-lg leading-relaxed text-mist/70" style="--reveal-delay:400ms">
+        Acompañamos a jóvenes en riesgo en Medellín y en comunidades educativas de la región,
+        con programas pedagógicos, psicosociales y de convivencia. Trabajamos también con
+        subcomandantes y agentes de tránsito de Itagüí, y abordamos la salud mental y la
+        adolescencia junto a la academia.
+      </p>
+
+      <a
+        href="/nosotros"
+        class="reveal mt-10 inline-flex items-center gap-2 text-sm font-bold text-brand hover:gap-3 transition-all"
+        style="--reveal-delay:520ms"
+      >
+        Conoce nuestra historia <span aria-hidden="true">→</span>
+      </a>
     </div>
   </section>
 
-  <section class="container-content py-16 sm:py-20" aria-labelledby="ejes-titulo">
-    <h2 id="ejes-titulo" class="text-3xl">Nuestros ejes de acción</h2>
-    <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <!-- ══════════════ 04 · PILARES (lista editorial numerada) ══════════════ -->
+  <section class="bg-night-soft py-24 sm:py-28" aria-labelledby="pilares-titulo">
+    <div class="container-content">
+      <h2 id="pilares-titulo" class="reveal text-display font-bold text-mist">
+        Cuatro pilares
+      </h2>
+
+      <ol class="mt-16 divide-y divide-night-line border-y border-night-line">
+        {
+          pilares.map((p, i) => (
+            <li
+              class="reveal reveal-left group grid gap-4 py-8 transition-colors hover:bg-white/[0.03] sm:grid-cols-[6rem_1fr_1.4fr] sm:items-baseline sm:gap-8 sm:px-4"
+              style={`--reveal-delay:${i * 110}ms`}
+            >
+              <span class="text-2xl font-bold text-brand" aria-hidden="true">{p.n}</span>
+              <h3 class="text-2xl font-bold text-mist sm:text-3xl">{p.titulo}</h3>
+              <p class="text-mist/65">{p.texto}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══════════════ 05 · EJES (con foto) ══════════════ -->
+  <section class="bg-night py-24 sm:py-28" aria-labelledby="ejes-titulo">
+    <div class="container-content">
+      <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+        <div class="reveal reveal-left">
+          <p class="text-xs font-bold uppercase tracking-[0.3em] text-accent">Ejes de acción</p>
+          <h2 id="ejes-titulo" class="mt-6 text-display font-bold text-mist">
+            Cómo lo hacemos
+          </h2>
+          <Image
+            src={foto55}
+            alt="Jóvenes participando en una actividad de la Corporación"
+            widths={[480, 768, 1024]}
+            sizes="(max-width: 1024px) 100vw, 45vw"
+            class="mt-10 w-full rounded-2xl object-cover"
+            loading="lazy"
+          />
+        </div>
+
+        <ul class="grid gap-4" data-reveal-group>
+          {
+            ejes.map((eje, i) => (
+              <li
+                class="reveal reveal-right flex gap-5 rounded-2xl border border-night-line bg-night-soft/60 p-6 transition-colors hover:border-brand/50"
+                style={`--reveal-delay:${i * 130}ms`}
+              >
+                <Image
+                  src={eje.icono}
+                  alt=""
+                  aria-hidden="true"
+                  width={56}
+                  height={56}
+                  class="h-14 w-14 shrink-0"
+                  loading="lazy"
+                />
+                <div>
+                  <h3 class="text-xl font-bold text-mist">{eje.titulo}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-mist/65">{eje.texto}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 06 · CARRETE DE FOTOS (scroll horizontal) ══════════════ -->
+  <section class="overflow-hidden bg-night-soft py-24 sm:py-28" aria-labelledby="carrete-titulo">
+    <div class="container-content">
+      <div class="reveal flex flex-wrap items-end justify-between gap-4">
+        <h2 id="carrete-titulo" class="text-display font-bold text-mist">
+          En territorio
+        </h2>
+        <a href="/galeria" class="text-sm font-bold text-brand hover:underline">
+          Ver galería completa →
+        </a>
+      </div>
+    </div>
+
+    <!-- Carrete: scrolleable con snap en móvil, sin barra visible -->
+    <ul class="snap-carousel mt-12 gap-5 px-6 sm:px-10" data-reveal-group>
       {
-        ejes.map((eje) => (
-          <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
-            <h3 class="text-xl">{eje.titulo}</h3>
-            <p class="mt-3 text-ink/75">{eje.texto}</p>
+        carrete.map((foto, i) => (
+          <li
+            class="reveal reveal-scale w-[78vw] overflow-hidden rounded-2xl sm:w-[42vw] lg:w-[30rem]"
+            style={`--reveal-delay:${i * 90}ms`}
+          >
+            <Image
+              src={foto.src}
+              alt={foto.alt}
+              widths={[480, 768, 1080]}
+              sizes="(max-width: 640px) 78vw, (max-width: 1024px) 42vw, 30rem"
+              class="h-[60vw] w-full object-cover transition-transform duration-700 hover:scale-105 sm:h-[26rem]"
+              loading="lazy"
+            />
           </li>
         ))
       }
     </ul>
+
+    <p class="container-content mt-4 text-xs text-mist/40">
+      Desliza para ver más fotografías
+    </p>
   </section>
 
-  <section class="container-content py-16 sm:py-20" aria-labelledby="proyectos-titulo">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <h2 id="proyectos-titulo" class="text-3xl">Proyectos recientes</h2>
-      <a href="/proyectos" class="text-sm font-bold text-brand-ink hover:underline">Ver todos →</a>
-    </div>
+  <!-- ══════════════ 07 · PROYECTOS Y EVENTOS ══════════════ -->
+  <section class="bg-night py-24 sm:py-28" aria-labelledby="proyectos-titulo">
+    <div class="container-content">
+      <div class="grid gap-16 lg:grid-cols-2">
+        <div>
+          <div class="reveal flex flex-wrap items-end justify-between gap-4">
+            <h2 id="proyectos-titulo" class="text-display font-bold text-mist">Proyectos</h2>
+            <a href="/proyectos" class="text-sm font-bold text-brand hover:underline">Ver todos →</a>
+          </div>
 
-    {
-      proyectosDestacados.length > 0 ? (
-        <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {proyectosDestacados.map((p) => (
-            <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
-              <time datetime={p.data.fecha.toISOString()} class="text-xs uppercase tracking-wide text-ink/50">
-                {p.data.fecha.toLocaleDateString('es-CO', { year: 'numeric', month: 'long' })}
-              </time>
-              <h3 class="mt-2 text-xl">{p.data.titulo}</h3>
-              <p class="mt-3 text-ink/75">{p.data.resumen}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="mt-6 text-ink/60">
-          Aún no hay proyectos publicados. Añade archivos en <code>src/content/proyectos/</code>.
-        </p>
-      )
-    }
+          {
+            proyectosDestacados.length > 0 ? (
+              <ul class="mt-10 grid gap-4" data-reveal-group>
+                {proyectosDestacados.map((p, i) => (
+                  <li
+                    class="reveal rounded-2xl border border-night-line bg-night-soft/60 p-6 transition-colors hover:border-brand/50"
+                    style={`--reveal-delay:${i * 120}ms`}
+                  >
+                    <time
+                      datetime={p.data.fecha.toISOString()}
+                      class="text-xs uppercase tracking-widest text-mist/45"
+                    >
+                      {p.data.fecha.toLocaleDateString('es-CO', { year: 'numeric', month: 'long' })}
+                    </time>
+                    <h3 class="mt-2 text-xl font-bold text-mist">{p.data.titulo}</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-mist/65">{p.data.resumen}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="mt-6 text-mist/50">Aún no hay proyectos publicados.</p>
+            )
+          }
+        </div>
+
+        <div>
+          <div class="reveal flex flex-wrap items-end justify-between gap-4">
+            <h2 class="text-display font-bold text-mist">Eventos</h2>
+            <a href="/eventos" class="text-sm font-bold text-brand hover:underline">Ver todos →</a>
+          </div>
+
+          {
+            eventosProximos.length > 0 ? (
+              <ul class="mt-10 grid gap-4" data-reveal-group>
+                {eventosProximos.map((ev, i) => (
+                  <li
+                    class="reveal rounded-2xl border border-night-line bg-night-soft/60 p-6 transition-colors hover:border-brand/50"
+                    style={`--reveal-delay:${i * 120}ms`}
+                  >
+                    <time
+                      datetime={ev.data.fecha.toISOString()}
+                      class="text-xs uppercase tracking-widest text-mist/45"
+                    >
+                      {ev.data.fecha.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    </time>
+                    <h3 class="mt-2 text-xl font-bold text-mist">{ev.data.titulo}</h3>
+                    {ev.data.lugar && <p class="mt-1 text-sm text-mist/50">{ev.data.lugar}</p>}
+                    <p class="mt-2 text-sm leading-relaxed text-mist/65">{ev.data.resumen}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p class="mt-6 text-mist/50">Aún no hay eventos publicados.</p>
+            )
+          }
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section class="container-content py-16 sm:py-20" aria-labelledby="eventos-titulo">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <h2 id="eventos-titulo" class="text-3xl">Eventos</h2>
-      <a href="/eventos" class="text-sm font-bold text-brand-ink hover:underline">Ver todos →</a>
+  <!-- ══════════════ 08 · CIERRE / LLAMADO A LA ACCIÓN ══════════════ -->
+  <section class="relative overflow-hidden bg-night-soft py-28 sm:py-36" aria-labelledby="cierre-titulo">
+    <div class="absolute inset-0 opacity-20" data-parallax="0.1">
+      <Image
+        src={capacitacion}
+        alt=""
+        aria-hidden="true"
+        class="h-full w-full object-cover"
+        loading="lazy"
+      />
     </div>
 
-    {
-      eventosProximos.length > 0 ? (
-        <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {eventosProximos.map((ev) => (
-            <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
-              <time datetime={ev.data.fecha.toISOString()} class="text-xs uppercase tracking-wide text-ink/50">
-                {ev.data.fecha.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}
-              </time>
-              <h3 class="mt-2 text-xl">{ev.data.titulo}</h3>
-              {ev.data.lugar && <p class="mt-1 text-sm text-ink/60">{ev.data.lugar}</p>}
-              <p class="mt-3 text-ink/75">{ev.data.resumen}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="mt-6 text-ink/60">
-          Aún no hay eventos publicados. Añade archivos en <code>src/content/eventos/</code>.
-        </p>
-      )
-    }
+    <div class="container-content relative z-10 text-center">
+      <h2 id="cierre-titulo" class="text-display font-bold text-mist">
+        <span class="line-mask"><span class="line-inner">Una donación</span></span>
+        <span class="line-mask" style="--reveal-delay:130ms">
+          <span class="line-inner">puede cambiar vidas.</span>
+        </span>
+      </h2>
+
+      <p class="reveal mx-auto mt-8 max-w-xl text-lg text-mist/70" style="--reveal-delay:300ms">
+        Tu aporte sostiene programas pedagógicos, psicosociales y de convivencia para jóvenes
+        que de otro modo quedarían fuera.
+      </p>
+
+      <div class="reveal mt-10 flex flex-wrap justify-center gap-3" style="--reveal-delay:420ms">
+        <a
+          href="/donaciones"
+          class="rounded-full bg-brand px-8 py-4 text-sm font-bold text-white transition hover:bg-brand-ink"
+        >
+          Donar ahora
+        </a>
+        <a
+          href="/contacto"
+          class="rounded-full border border-mist/30 px-8 py-4 text-sm font-bold text-mist transition hover:border-mist hover:bg-white/10"
+        >
+          Hablar con nosotros
+        </a>
+      </div>
+
+      <!-- Crédito real recuperado de la carpeta del cliente -->
+      <Image
+        src={logoBlanco}
+        alt="Corporación Pedagógica Diversidad"
+        widths={[320, 640]}
+        sizes="320px"
+        class="mx-auto mt-16 h-12 w-auto opacity-70"
+        loading="lazy"
+      />
+    </div>
   </section>
 
   <Footer slot="footer" />
