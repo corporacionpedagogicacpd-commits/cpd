@@ -50,7 +50,10 @@ const ogImage = new URL('/og.png', Astro.site);
       rel="stylesheet"
     />
 
-    <script is:inline src="/scripts/scroll.js"></script>
+    <!-- Motor de scroll (bundeleado por Astro: hash en el nombre = cache busting) -->
+    <script>
+      import '../scripts/scroll.js';
+    </script>
   </head>
   <body class="flex min-h-screen flex-col">
     <a

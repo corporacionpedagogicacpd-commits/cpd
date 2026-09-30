@@ -5,18 +5,17 @@ import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
-import logoBlanco from '../../public/asset-cpd/logo-blanco.png';
-import foto26 from '../../public/asset-cpd/foto26.jpg';
-import foto55 from '../../public/asset-cpd/foto55.jpg';
-import foto49 from '../../public/asset-cpd/foto49.jpg';
-import foto24 from '../../public/asset-cpd/foto24.jpg';
-import foto39 from '../../public/asset-cpd/foto39.jpg';
-import foto53 from '../../public/asset-cpd/foto53.jpg';
-import alianzaUdea from '../../public/asset-cpd/alianza-udea.jpeg';
-import capacitacion from '../../public/asset-cpd/capacitacion-profesional.png';
-import ejeEducacion from '../../public/asset-cpd/eje-educacion.png';
-import ejePsicosocial from '../../public/asset-cpd/eje-psicosocial.png';
-import ejeInclusion from '../../public/asset-cpd/eje-inclusion.png';
+import logoBlanco from '../assets/asset-cpd/logo-blanco.png';
+import foto26 from '../assets/asset-cpd/foto26.jpg';
+import foto55 from '../assets/asset-cpd/foto55.jpg';
+import foto49 from '../assets/asset-cpd/foto49.jpg';
+import foto24 from '../assets/asset-cpd/foto24.jpg';
+import foto39 from '../assets/asset-cpd/foto39.jpg';
+import foto53 from '../assets/asset-cpd/foto53.jpg';
+import alianzaUdea from '../assets/asset-cpd/alianza-udea.jpeg';
+import ejeEducacion from '../assets/asset-cpd/eje-educacion.png';
+import ejePsicosocial from '../assets/asset-cpd/eje-psicosocial.png';
+import ejeInclusion from '../assets/asset-cpd/eje-inclusion.png';
 
 const proyectosDestacados = (await getCollection('proyectos'))
   .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf())
@@ -84,10 +83,10 @@ const carrete = [
       </p>
 
       <h1 class="mt-8 text-mega font-bold">
-        <span class="line-mask"><span class="line-inner">Ningún joven</span></span>
+        <span class="line-mask"><span class="line-inner">Ningún joven</span></span>{' '}
         <span class="line-mask" style="--reveal-delay:120ms">
           <span class="line-inner">fuera del</span>
-        </span>
+        </span>{' '}
         <span class="line-mask text-outline" style="--reveal-delay:240ms">
           <span class="line-inner">aula.</span>
         </span>
@@ -148,10 +147,10 @@ const carrete = [
 
       <blockquote class="mt-10 max-w-5xl">
         <p class="text-display font-bold text-mist">
-          <span class="line-mask"><span class="line-inner">Nacimos de un grupo de educadores</span></span>
+          <span class="line-mask"><span class="line-inner">Nacimos de un grupo de educadores</span></span>{' '}
           <span class="line-mask" style="--reveal-delay:130ms">
             <span class="line-inner">que se negó a aceptar que la</span>
-          </span>
+          </span>{' '}
           <span class="line-mask" style="--reveal-delay:260ms">
             <span class="line-inner text-brand">diversidad fuese un problema.</span>
           </span>
@@ -176,7 +175,10 @@ const carrete = [
   </section>
 
   <!-- ══════════════ 04 · PILARES (lista editorial numerada) ══════════════ -->
-  <section class="bg-night-soft py-24 sm:py-28" aria-labelledby="pilares-titulo">
+  <section
+    class="overflow-hidden bg-night-soft py-24 sm:py-28"
+    aria-labelledby="pilares-titulo"
+  >
     <div class="container-content">
       <h2 id="pilares-titulo" class="reveal text-display font-bold text-mist">
         Cuatro pilares
@@ -200,7 +202,7 @@ const carrete = [
   </section>
 
   <!-- ══════════════ 05 · EJES (con foto) ══════════════ -->
-  <section class="bg-night py-24 sm:py-28" aria-labelledby="ejes-titulo">
+  <section class="overflow-hidden bg-night py-24 sm:py-28" aria-labelledby="ejes-titulo">
     <div class="container-content">
       <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
         <div class="reveal reveal-left">
@@ -359,9 +361,11 @@ const carrete = [
   <section class="relative overflow-hidden bg-night-soft py-28 sm:py-36" aria-labelledby="cierre-titulo">
     <div class="absolute inset-0 opacity-20" data-parallax="0.1">
       <Image
-        src={capacitacion}
+        src={foto49}
         alt=""
         aria-hidden="true"
+        widths={[640, 1024, 1600]}
+        sizes="100vw"
         class="h-full w-full object-cover"
         loading="lazy"
       />
@@ -369,7 +373,7 @@ const carrete = [
 
     <div class="container-content relative z-10 text-center">
       <h2 id="cierre-titulo" class="text-display font-bold text-mist">
-        <span class="line-mask"><span class="line-inner">Una donación</span></span>
+        <span class="line-mask"><span class="line-inner">Una donación</span></span>{' '}
         <span class="line-mask" style="--reveal-delay:130ms">
           <span class="line-inner">puede cambiar vidas.</span>
         </span>
@@ -407,5 +411,5 @@ const carrete = [
     </div>
   </section>
 
-  <Footer slot="footer" />
+  <Footer slot="footer" dark />
 </BaseLayout>

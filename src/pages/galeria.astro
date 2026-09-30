@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
 import { readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -27,16 +28,16 @@ const fotos = readdirSync(galeriaDir)
   title="Galería"
   description="Registro fotográfico de las actividades, jornadas y proyectos de la Corporación Pedagógica Diversidad."
 >
-  <Header slot="header" />
+  <Header slot="header" dark />
 
-  <section class="container-content py-16">
-    <h1 class="text-4xl">Galería</h1>
-    <p class="mt-4 max-w-2xl text-lg text-ink/75">
-      Explora nuestra galería y conoce de cerca las actividades, jornadas y proyectos que
-      desarrollamos junto a la comunidad.
-    </p>
+  <PageHero
+    eyebrow="Registro fotográfico"
+    title="Galería"
+    description="Explora nuestra galería y conoce de cerca las actividades, jornadas y proyectos que desarrollamos junto a la comunidad."
+  />
 
-    <p class="mt-2 text-sm text-ink/50">{fotos.length} fotografías</p>
+  <section class="container-content py-12">
+    <p class="text-sm text-ink/50">{fotos.length} fotografías</p>
 
     <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {

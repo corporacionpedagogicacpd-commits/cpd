@@ -59,8 +59,37 @@
     }
   );
 
-  document.querySelectorAll('.reveal, [data-reveal-group]').forEach(function (el) {
+  // OJO: además de .reveal hay que observar las máscaras de línea. Los
+  // titulares no llevan .reveal propio (van en .line-mask > .line-inner), así
+  // que si no se observan nunca reciben is-visible y el texto QUEDA TAPADO
+  // para siempre. Eso no es "una animación que falta": es contenido invisible.
+  document.querySelectorAll('.reveal, [data-reveal-group], .line-mask').forEach(function (el) {
     revealObserver.observe(el);
+  });
+
+  // --- 2b. Red de seguridad ------------------------------------------------
+  // Regla: esconder contenido sólo es aceptable si hay certeza de revelarlo.
+  // Si por cualquier motivo el observer no dispara (elemento recortado por un
+  // contenedor, navegador raro, layout inesperado), el contenido quedaría
+  // invisible PARA SIEMPRE. Esta pasada revela lo que ya debería verse.
+  function rescatarVisibles() {
+    var vh = window.innerHeight;
+    document.querySelectorAll('.reveal, .line-mask').forEach(function (el) {
+      if (el.classList.contains('is-visible')) return;
+      var r = el.getBoundingClientRect();
+      // Está dentro de la ventana (o ya se pasó de largo): debería verse.
+      if (r.top < vh && r.bottom > 0) {
+        el.classList.add('is-visible');
+        el.querySelectorAll('.line-inner').forEach(function (l) {
+          l.classList.add('is-visible');
+        });
+      }
+    });
+  }
+
+  window.addEventListener('load', function () {
+    requestAnimationFrame(rescatarVisibles);
+    setTimeout(rescatarVisibles, 1200);
   });
 
   // --- 3. Parallax ----------------------------------------------------------

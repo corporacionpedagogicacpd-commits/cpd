@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
 
 // Programas pedagógicos ofrecidos por la corporación
 const programas = [
@@ -27,22 +28,15 @@ const programas = [
   title="Educación"
   description="Programas pedagógicos de la Corporación Pedagógica Diversidad: acompañamiento pedagógico, formación docente y materiales accesibles."
 >
-  <Header slot="header" />
+  <Header slot="header" dark />
 
-  <!-- Encabezado de página -->
-  <section class="border-b border-black/5 bg-gradient-to-b from-brand/5 to-transparent">
-    <div class="container-content py-16 sm:py-24">
-      <p class="text-sm font-bold uppercase tracking-widest text-brand">Programas</p>
-      <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">Educación</h1>
-      <p class="mt-6 max-w-3xl text-lg text-ink/75">
-        Nuestros programas pedagógicos están diseñados para que ningún joven quede fuera del
-        sistema educativo. Combinamos acompañamiento en aula, formación docente y producción de
-        materiales accesibles, articulando con instituciones educativas y comunidades del
-        departamento.
-      </p>
-      <p class="mt-6 text-xs text-ink/50">[Contenido pendiente de validación con el cliente]</p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Programas"
+    title="Educación"
+    description="Nuestros programas pedagógicos están diseñados para que ningún joven quede fuera del sistema educativo. Combinamos acompañamiento en aula, formación docente y producción de materiales accesibles, articulando con instituciones educativas y comunidades del departamento."
+  >
+    <p class="mt-6 text-xs text-mist/40">[Contenido pendiente de validación con el cliente]</p>
+  </PageHero>
 
   <!-- Programas en tarjetas -->
   <section class="container-content py-16 sm:py-20" aria-labelledby="programas-titulo">

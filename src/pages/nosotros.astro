@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
 
 // Pilares institucionales (título + descripción tomada del sitio antiguo)
 const pilares = [
@@ -42,15 +43,9 @@ const secciones = [
   title="Nosotros"
   description="Historia, compromiso, misión, visión, objeto social y pilares de la Corporación Pedagógica Diversidad C.P.D., constituida en Medellín el 27 de abril de 2012."
 >
-  <Header slot="header" />
+  <Header slot="header" dark />
 
-  <!-- Encabezado de página -->
-  <section class="border-b border-black/5 bg-gradient-to-b from-brand/5 to-transparent">
-    <div class="container-content py-16 sm:py-24">
-      <p class="text-sm font-bold uppercase tracking-widest text-brand">Quiénes somos</p>
-      <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">Nosotros</h1>
-    </div>
-  </section>
+  <PageHero eyebrow="Quiénes somos" title="Nosotros" />
 
   <!-- Índice de secciones: ayuda a leer desde el celular -->
   <nav

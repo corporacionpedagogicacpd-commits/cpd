@@ -6,7 +6,7 @@
 # destino y volver a correr este script.
 set -euo pipefail
 
-DEST="$(cd "$(dirname "$0")/.." && pwd)/public/asset-cpd"
+DEST="$(cd "$(dirname "$0")/.." && pwd)/src/assets/asset-cpd"
 mkdir -p "$DEST"
 
 # nombre-destino|fileId

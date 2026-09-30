@@ -3,6 +3,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
 
 const notaConvenio = 'https://shorturl.at/cz1yA';
 
@@ -20,20 +21,13 @@ const formAliado = 'https://forms.gle/YJEbhdLZw1Jx2Pne9';
   title="Alianza"
   description="Alianza con la Facultad de Medicina de la UdeA: educación inclusiva, salud mental y el evento Senderos educativos neuro diversos."
 >
-  <Header slot="header" />
+  <Header slot="header" dark />
 
-  <section class="border-b border-black/5 bg-gradient-to-b from-brand/5 to-transparent">
-    <div class="container-content py-16 sm:py-20">
-      <p class="text-sm font-bold uppercase tracking-widest text-brand">Alianza</p>
-      <h1 class="mt-4 max-w-3xl text-4xl leading-tight sm:text-5xl">
-        Alianzas que amplían nuestro impacto
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg text-ink/75">
-        Trabajamos junto a instituciones para llevar la educación inclusiva y la salud mental a
-        más territorios.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Alianza"
+    title="Alianzas que amplían nuestro impacto"
+    description="Trabajamos junto a instituciones para llevar la educación inclusiva y la salud mental a más territorios."
+  />
 
   <section class="container-content py-16 sm:py-20" aria-labelledby="udea-titulo">
     <h2 id="udea-titulo" class="text-3xl">Convenio con la Facultad de Medicina de la UdeA</h2>
