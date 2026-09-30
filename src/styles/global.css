@@ -162,6 +162,116 @@
   }
 }
 
+/* ---------- TEMA OSCURO ----------
+   Se activa con [data-tema="oscuro"] en <html>, que escribe el JS del tema
+   (y antes de pintar, para no destellar en blanco).
+
+   Decisión de diseño: el sitio ya tiene una paleta oscura completa y probada
+   (--color-night, --color-mist) porque la home es cinematográfica y las 8
+   páginas internas abren con PageHero/Header/Footer oscuros. El dark mode NO
+   inventa una segunda paleta: extiende esa misma a las zonas que aún eran
+   claras (el cuerpo de las páginas internas).
+
+   Por eso el toggle se resuelve REMAPEANDO las variables semánticas del tema
+   (--color-surface / --color-ink). Todo el sitio usa clases como `bg-surface`
+   y `text-ink`, así que con remapearlas el tema entero cambia sin tocar ni un
+   solo componente. Menos superficie de bug y menos deuda.
+
+   OJO: van en @layer base para que ganen a los tokens de @theme, que Tailwind
+   emite en :root y sin capa. */
+@layer base {
+  html[data-tema='oscuro'] {
+    color-scheme: dark;
+
+    /* Remapeo de los tokens semánticos. */
+    --color-surface: var(--color-night);
+    --color-ink: var(--color-mist);
+
+    /* La marca oscurecida existe para dar contraste sobre fondo CLARO; sobre
+       oscuro no aplica, así que vuelve al rosa vivo de la marca. */
+    --color-brand-ink: var(--color-brand);
+  }
+
+  /* El fondo del cuerpo en oscuro es el negro de la casa, no un gris genérico. */
+  html[data-tema='oscuro'] body {
+    background-color: var(--color-night);
+    color: var(--color-mist);
+  }
+
+  /* Los bordes y sombras que en claro se hacían con negro translúcido no
+     funcionan sobre oscuro (no se ven): pasan a blanco translúcido.
+     Las variantes listadas son las que realmente usan las páginas: se
+     obtuvieron enumerando las clases de src/pages, no por suposición. */
+  html[data-tema='oscuro'] .border-black\/5 {
+    border-color: rgb(255 255 255 / 0.1);
+  }
+  html[data-tema='oscuro'] .border-black\/10 {
+    border-color: rgb(255 255 255 / 0.16);
+  }
+  html[data-tema='oscuro'] .border-black\/15 {
+    border-color: rgb(255 255 255 / 0.22);
+  }
+
+  /* Las opacidades sobre el color de texto: en claro atenúan hacia el blanco,
+     en oscuro tienen que aclarar sobre el negro.
+
+     Los valores NO son simétricos a propósito: medidos con la fórmula de
+     contraste WCAG sobre --color-night y --color-night-soft, una opacidad de
+     0.40/0.45 sobre oscuro da 3.50:1 y NO alcanza AA (4.5:1). Por eso las
+     opacidades bajas suben hasta 0.55, que sí cumple (5.69:1 sobre night,
+     5.62:1 sobre night-soft). Bajar de ahí rompe la accesibilidad. */
+  html[data-tema='oscuro'] .text-ink\/40 { color: rgb(244 241 243 / 0.55); }
+  html[data-tema='oscuro'] .text-ink\/50 { color: rgb(244 241 243 / 0.58); }
+  html[data-tema='oscuro'] .text-ink\/60 { color: rgb(244 241 243 / 0.64); }
+  html[data-tema='oscuro'] .text-ink\/70 { color: rgb(244 241 243 / 0.72); }
+  html[data-tema='oscuro'] .text-ink\/75 { color: rgb(244 241 243 / 0.78); }
+  html[data-tema='oscuro'] .text-ink\/80 { color: rgb(244 241 243 / 0.85); }
+  html[data-tema='oscuro'] .text-ink\/85 { color: rgb(244 241 243 / 0.9); }
+
+  /* La marca sobre fondo oscuro necesita la opacidad invertida: bg-brand/5
+     sobre negro apenas se percibe, así que sube un punto. */
+  html[data-tema='oscuro'] .bg-surface\/60 {
+    background-color: rgb(22 19 26 / 0.6);
+  }
+  html[data-tema='oscuro'] .bg-brand\/5 {
+    background-color: rgb(246 0 110 / 0.12);
+  }
+  html[data-tema='oscuro'] .bg-black\/5 { background-color: rgb(255 255 255 / 0.06); }
+
+  /* El foco sobre fondo oscuro debe verse con el tono claro. */
+  html[data-tema='oscuro'] :focus-visible {
+    outline-color: var(--color-mist);
+  }
+}
+
+@layer components {
+  /* ---------- Botón de tema (en el Header) ---------- */
+  .tema-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Área táctil de 44px: mínimo recomendado para dedos en móvil.
+       (Ney trabaja desde el celular: esto no es opcional aquí.) */
+    height: 2.75rem;
+    width: 2.75rem;
+    border-radius: 9999px;
+    border-width: 1px;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  }
+
+  /* Los dos iconos se pintan siempre y se alterna su visibilidad con CSS puro:
+     nada de parpadeo por hidratación y funciona aunque el JS tarde. */
+  .tema-toggle .icono-sol { display: none; }
+  html[data-tema='oscuro'] .tema-toggle .icono-sol { display: block; }
+  html[data-tema='oscuro'] .tema-toggle .icono-luna { display: none; }
+
+  /* El color del botón lo lleva `text-ink` (que el remapeo del tema invierte),
+     pero el borde translúcido de negro no se ve sobre oscuro: se refuerza. */
+  html[data-tema='oscuro'] .tema-toggle:hover {
+    background-color: rgb(255 255 255 / 0.1);
+  }
+}
+
 /* ---------- Respeto por reduced-motion ----------
    Sin animaciones, pero SIN ocultar contenido: si el usuario pidió menos
    movimiento, todo aparece ya visible. */

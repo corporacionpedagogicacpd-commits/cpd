@@ -109,5 +109,57 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
         }
       </ul>
     </details>
+
+    <!--
+      Conmutador de tema. Los dos iconos se pintan siempre y el CSS decide cuál
+      se ve según [data-tema] en <html>: así no hay parpadeo ni salto de layout
+      cuando el JS del tema aún no ha corrido.
+
+      OJO con los colores: usan `text-ink` / `border-black` y NO `text-mist` /
+      `border-white`. Motivo: la prop `dark` es de BUILD TIME, pero el tema
+      cambia en RUNTIME por JS. Si aquí se usaran clases del tema oscuro, una
+      página clara (dark=false) se quedaría con el icono oscuro sobre fondo
+      oscuro al activar el tema → botón invisible. Con text-ink/border-black el
+      remapeo de [data-tema="oscuro"] lo corrige solo, sin duplicar la lógica.
+
+      aria-pressed y aria-label los sincroniza el motor de scroll al arrancar
+      (no se puede precargar el valor real desde el servidor porque el tema
+      vive en localStorage); el CSS ya muestra el icono correcto desde el
+      primer pintado.
+    -->
+    <button
+      type="button"
+      data-tema-toggle
+      class="tema-toggle shrink-0 border-black/15 text-ink hover:bg-black/5"
+      aria-label="Cambiar de tema"
+      aria-pressed="false"
+    >
+      <svg
+        class="icono-sol h-5 w-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="4"></circle>
+        <path
+          d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+        ></path>
+      </svg>
+      <svg
+        class="icono-luna h-5 w-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
   </nav>
 </header>

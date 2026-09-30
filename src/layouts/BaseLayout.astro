@@ -23,6 +23,29 @@ const ogImage = new URL('/og.png', Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Barra del navegador en móvil: los dos valores y el propio navegador
+         elige según su tema activo. -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d0b0e" media="(prefers-color-scheme: dark)" />
+
+    <!-- El tema se aplica ANTES de pintar: sin esto, quien tenga el tema oscuro
+         guardado vería un destello blanco en cada carga. Es un script inline
+         deliberadamente (no un módulo) porque los módulos se difieren. -->
+    <script is:inline>
+      (function () {
+        try {
+          var guardado = localStorage.getItem('cpd-tema');
+          var oscuro =
+            guardado === 'oscuro' ||
+            (guardado !== 'claro' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (oscuro) document.documentElement.setAttribute('data-tema', 'oscuro');
+        } catch (e) {
+          /* localStorage bloqueado: se queda en el tema claro, sin romper nada */
+        }
+      })();
+    </script>
+
     <title>{title} | {siteName}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
