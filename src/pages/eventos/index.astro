@@ -13,6 +13,7 @@ const eventos = (await getCollection('eventos')).sort(
 // Imágenes locales declaradas estáticamente (Astro solo resuelve imports estáticos).
 const imagenes: Record<string, ImageMetadata> = {
   'expo-participacion-2026-10-16.jpg': (await import('../../assets/asset-cpd/expo-participacion-2026-10-16.jpg')).default,
+  'senderos-neurodiversos-2025-10-25.jpeg': (await import('../../assets/asset-cpd/senderos-neurodiversos-2025-10-25.jpeg')).default,
 };
 ---
 
