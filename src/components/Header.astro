@@ -9,11 +9,12 @@ interface Props {
 
 const { dark = false } = Astro.props;
 
-const navItems = [
+const navItems: { href: string; label: string; external?: boolean }[] = [
   { href: '/', label: 'Inicio' },
   { href: '/nosotros', label: 'Nosotros' },
   { href: '/educacion', label: 'Educación' },
   { href: '/proyectos', label: 'Proyectos' },
+  { href: 'https://papeleria.corpedagogicadiversidad.org', label: 'Papelería', external: true },
   { href: '/eventos', label: 'Eventos' },
   { href: '/galeria', label: 'Galería' },
   { href: '/alianza', label: 'Alianza' },
@@ -56,6 +57,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
             <li>
               <a
                 href={item.href}
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noopener' : undefined}
                 aria-current={isActive ? 'page' : undefined}
                 class:list={[
                   'rounded px-3 py-2 text-sm transition-colors',
@@ -97,6 +100,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
             <li>
               <a
                 href={item.href}
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noopener' : undefined}
                 class:list={[
                   'block rounded px-3 py-2 text-sm',
                   dark ? 'text-mist/85 hover:bg-white/10' : 'text-ink/80 hover:bg-black/5',
