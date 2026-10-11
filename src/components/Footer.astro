@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logotipoPixell from '../assets/logotipo-pixell.png';
+
 interface Props {
   /** true = pie sobre fondo oscuro (necesario en la home cinematográfica). */
   dark?: boolean;
@@ -53,9 +56,24 @@ const year = new Date().getFullYear();
         © {year} Corporación Pedagógica Diversidad. Todos los derechos reservados.
       </p>
 
-      <!-- Crédito provisional (2026-10-10) — pendiente la marca definitiva. -->
-      <p class:list={['text-xs', dark ? 'text-mist/50' : 'text-ink/60']}>
-        Diseño y desarrollo <span class="font-bold">Pixell</span>
+      <!-- Crédito provisional — logotipo de Pixell enlazado a su sitio; pendiente la marca definitiva. -->
+      <p class:list={['flex items-center gap-3 text-xs', dark ? 'text-mist/50' : 'text-ink/60']}>
+        <span>Diseño y desarrollo</span>
+        <a
+          href="https://pixell.mork.click"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center transition-opacity hover:opacity-80"
+        >
+          <Image
+            src={logotipoPixell}
+            alt="Pixell"
+            widths={[90, 180]}
+            sizes="80px"
+            class="h-6 w-auto"
+            loading="lazy"
+          />
+        </a>
       </p>
     </div>
   </div>
