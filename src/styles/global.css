@@ -250,8 +250,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    /* Área táctil de 44px: mínimo recomendado para dedos en móvil.
-       (Ney trabaja desde el celular: esto no es opcional aquí.) */
+    /* Área táctil de 44px: mínimo recomendado para dedos en móvil. */
     height: 2.75rem;
     width: 2.75rem;
     border-radius: 9999px;

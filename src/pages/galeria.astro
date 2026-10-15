@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
+import { Image } from 'astro:assets';
 import { readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -10,6 +11,13 @@ import { resolve } from 'node:path';
 // Se usa process.cwd() porque en build el bundle vive en dist/ y las rutas
 // relativas a import.meta.url apuntarían a dist/public (inexistente).
 const galeriaDir = resolve(process.cwd(), 'public', 'galeria');
+
+// Se importan los assets vía glob para que Astro los optimice en build
+// (redimensiona y convierte a WebP) en vez de servirlos en bruto.
+const imagenes = import.meta.glob<{ default: ImageMetadata }>(
+  '../../public/galeria/*.{jpg,jpeg,png,webp}',
+  { eager: true }
+);
 
 const fotos = readdirSync(galeriaDir)
   .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
@@ -19,9 +27,10 @@ const fotos = readdirSync(galeriaDir)
     return nb - na;
   })
   .map((f) => ({
-    src: `/galeria/${f}`,
+    src: imagenes[`../../public/galeria/${f}`]?.default,
     alt: `Registro fotográfico de actividades de la Corporación Pedagógica Diversidad (${f.replace(/\.[^.]+$/, '')})`,
-  }));
+  }))
+  .filter((foto) => foto.src);
 ---
 
 <BaseLayout
@@ -43,13 +52,15 @@ const fotos = readdirSync(galeriaDir)
       {
         fotos.map((foto) => (
           <li class="overflow-hidden rounded-xl border border-black/5 bg-black/[0.02]">
-            <img
+            <Image
               src={foto.src}
               alt={foto.alt}
+              widths={[400, 800, 1200]}
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              format="webp"
+              quality={72}
               loading="lazy"
               decoding="async"
-              width="1024"
-              height="684"
               class="h-56 w-full object-cover transition-transform duration-300 hover:scale-105"
             />
           </li>
