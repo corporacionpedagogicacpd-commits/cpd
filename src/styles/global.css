@@ -258,15 +258,21 @@
     transition: background-color 0.2s, border-color 0.2s, color 0.2s;
   }
 
-  /* Los dos iconos se pintan siempre y se alterna su visibilidad con CSS puro:
-     nada de parpadeo por hidratación y funciona aunque el JS tarde. */
-  .tema-toggle .icono-sol { display: none; }
-  html[data-tema='oscuro'] .tema-toggle .icono-sol { display: block; }
-  html[data-tema='oscuro'] .tema-toggle .icono-luna { display: none; }
+  /* Los dos iconos y los dos textos se pintan siempre y se alterna su
+     visibilidad con CSS puro: nada de parpadeo por hidratación y funciona
+     aunque el JS tarde. Va por [data-tema-toggle] porque el botón vive en dos
+     sitios: ítem de la lista del menú (escritorio) y fila del desplegable
+     (móvil). */
+  [data-tema-toggle] .icono-sol { display: none; }
+  html[data-tema='oscuro'] [data-tema-toggle] .icono-sol { display: block; }
+  html[data-tema='oscuro'] [data-tema-toggle] .icono-luna { display: none; }
+  [data-tema-toggle] .texto-modo-claro { display: none; }
+  html[data-tema='oscuro'] [data-tema-toggle] .texto-modo-claro { display: inline; }
+  html[data-tema='oscuro'] [data-tema-toggle] .texto-modo-oscuro { display: none; }
 
   /* El color del botón lo lleva `text-ink` (que el remapeo del tema invierte),
      pero el borde translúcido de negro no se ve sobre oscuro: se refuerza. */
-  html[data-tema='oscuro'] .tema-toggle:hover {
+  html[data-tema='oscuro'] [data-tema-toggle]:hover {
     background-color: rgb(255 255 255 / 0.1);
   }
 }

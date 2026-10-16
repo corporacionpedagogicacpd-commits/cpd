@@ -45,123 +45,169 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
       />
     </a>
 
-    <ul class="hidden items-center gap-1 lg:flex">
-      {
-        navItems.map((item) => {
-          const itemPath = item.href.replace(/\/$/, '') || '/';
-          const isActive = currentPath === itemPath;
-          return (
-            <li>
-              <a
-                href={item.href}
-                target={item.external ? '_blank' : undefined}
-                rel={item.external ? 'noopener' : undefined}
-                aria-current={isActive ? 'page' : undefined}
-                class:list={[
-                  'rounded px-3 py-2 text-sm transition-colors',
-                  dark
-                    ? isActive
-                      ? 'font-bold text-brand'
-                      : 'text-mist/85 hover:text-brand'
-                    : isActive
-                      ? 'font-bold text-brand'
-                      : 'text-ink/80 hover:text-brand',
-                ]}
-              >
-                {item.label}
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
+    <!-- El menú y el conmutador de tema forman un solo grupo pegado a la
+         derecha: así el menú no queda flotando al centro del header. El botón
+         de tema vive DENTRO del menú en los dos formatos: último ítem de la
+         lista (escritorio) y fila del desplegable (móvil). Los dos iconos
+         (sol/luna) y los dos textos se pintan siempre y el CSS decide cuál se
+         ve según [data-tema] en <html>: sin parpadeo ni salto de layout cuando
+         el JS del tema aún no ha corrido.
 
-    <details class="relative lg:hidden">
-      <summary
-        class:list={[
-          'cursor-pointer list-none rounded border px-3 py-2 text-sm',
-          dark ? 'border-white/25 text-mist' : 'border-black/10',
-        ]}
-        aria-label="Abrir menú de navegación"
-      >
-        Menú
-      </summary>
-      <ul
-        class:list={[
-          'absolute right-0 mt-2 w-56 rounded-lg border p-2 shadow-lg',
-          dark ? 'border-white/15 bg-night-soft text-mist' : 'border-black/10 bg-surface',
-        ]}
-      >
+         OJO con los colores del botón de escritorio: usa `text-ink` /
+         `border-black` y NO `text-mist` / `border-white`. La prop `dark` es de
+         BUILD TIME y el tema cambia en RUNTIME: con clases del tema oscuro,
+         una página clara se quedaría con el icono oscuro sobre fondo oscuro al
+         activar el tema → botón invisible. El remapeo de [data-tema="oscuro"]
+         lo corrige solo. La fila del móvil usa el mismo patrón que los enlaces
+         del desplegable (dark ? mist : ink) porque ese panel es de build time.
+
+         aria-pressed y aria-label los sincroniza el motor de scroll al
+         arrancar (el tema vive en localStorage); el CSS ya muestra el icono
+         correcto desde el primer pintado. -->
+    <div class="flex items-center gap-2">
+      <ul class="hidden items-center gap-1 lg:flex">
         {
-          navItems.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                target={item.external ? '_blank' : undefined}
-                rel={item.external ? 'noopener' : undefined}
-                class:list={[
-                  'block rounded px-3 py-2 text-sm',
-                  dark ? 'text-mist/85 hover:bg-white/10' : 'text-ink/80 hover:bg-black/5',
-                ]}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))
+          navItems.map((item) => {
+            const itemPath = item.href.replace(/\/$/, '') || '/';
+            const isActive = currentPath === itemPath;
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  target={item.external ? '_blank' : undefined}
+                  rel={item.external ? 'noopener' : undefined}
+                  aria-current={isActive ? 'page' : undefined}
+                  class:list={[
+                    'rounded px-3 py-2 text-sm transition-colors',
+                    dark
+                      ? isActive
+                        ? 'font-bold text-brand'
+                        : 'text-mist/85 hover:text-brand'
+                      : isActive
+                        ? 'font-bold text-brand'
+                        : 'text-ink/80 hover:text-brand',
+                  ]}
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          })
         }
+        <li class="ml-1">
+          <button
+            type="button"
+            data-tema-toggle
+            class="tema-toggle shrink-0 border-black/15 text-ink hover:bg-black/5"
+            aria-label="Cambiar de tema"
+            aria-pressed="false"
+          >
+            <svg
+              class="icono-sol h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+              ></path>
+            </svg>
+            <svg
+              class="icono-luna h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </li>
       </ul>
-    </details>
 
-    <!--
-      Conmutador de tema. Los dos iconos se pintan siempre y el CSS decide cuál
-      se ve según [data-tema] en <html>: así no hay parpadeo ni salto de layout
-      cuando el JS del tema aún no ha corrido.
-
-      OJO con los colores: usan `text-ink` / `border-black` y NO `text-mist` /
-      `border-white`. Motivo: la prop `dark` es de BUILD TIME, pero el tema
-      cambia en RUNTIME por JS. Si aquí se usaran clases del tema oscuro, una
-      página clara (dark=false) se quedaría con el icono oscuro sobre fondo
-      oscuro al activar el tema → botón invisible. Con text-ink/border-black el
-      remapeo de [data-tema="oscuro"] lo corrige solo, sin duplicar la lógica.
-
-      aria-pressed y aria-label los sincroniza el motor de scroll al arrancar
-      (no se puede precargar el valor real desde el servidor porque el tema
-      vive en localStorage); el CSS ya muestra el icono correcto desde el
-      primer pintado.
-    -->
-    <button
-      type="button"
-      data-tema-toggle
-      class="tema-toggle shrink-0 border-black/15 text-ink hover:bg-black/5"
-      aria-label="Cambiar de tema"
-      aria-pressed="false"
-    >
-      <svg
-        class="icono-sol h-5 w-5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="4"></circle>
-        <path
-          d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
-        ></path>
-      </svg>
-      <svg
-        class="icono-luna h-5 w-5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-      </svg>
-    </button>
+      <details class="relative lg:hidden">
+        <summary
+          class:list={[
+            'cursor-pointer list-none rounded border px-3 py-2 text-sm',
+            dark ? 'border-white/25 text-mist' : 'border-black/10',
+          ]}
+          aria-label="Abrir menú de navegación"
+        >
+          Menú
+        </summary>
+        <ul
+          class:list={[
+            'absolute right-0 mt-2 w-56 rounded-lg border p-2 shadow-lg',
+            dark ? 'border-white/15 bg-night-soft text-mist' : 'border-black/10 bg-surface',
+          ]}
+        >
+          {
+            navItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  target={item.external ? '_blank' : undefined}
+                  rel={item.external ? 'noopener' : undefined}
+                  class:list={[
+                    'block rounded px-3 py-2 text-sm',
+                    dark ? 'text-mist/85 hover:bg-white/10' : 'text-ink/80 hover:bg-black/5',
+                  ]}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <button
+              type="button"
+              data-tema-toggle
+              class:list={[
+                'flex min-h-11 w-full items-center gap-2 rounded px-3 py-2 text-left text-sm',
+                dark ? 'text-mist/85 hover:bg-white/10' : 'text-ink/80 hover:bg-black/5',
+              ]}
+              aria-label="Cambiar de tema"
+              aria-pressed="false"
+            >
+              <svg
+                class="icono-sol h-4 w-4 shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path
+                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+                ></path>
+              </svg>
+              <svg
+                class="icono-luna h-4 w-4 shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span class="texto-modo-oscuro">Modo oscuro</span>
+              <span class="texto-modo-claro">Modo claro</span>
+            </button>
+          </li>
+        </ul>
+      </details>
+    </div>
   </nav>
 </header>
