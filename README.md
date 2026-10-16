@@ -56,6 +56,7 @@ src/
 | `/galeria` | `src/pages/galeria.astro` |
 | `/donaciones` | `src/pages/donaciones.astro` |
 | `/contacto` | `src/pages/contacto.astro` |
+| `/expo` | `public/expo/index.html` (página estática independiente) |
 
 ## Cómo agregar contenido nuevo
 
@@ -85,6 +86,7 @@ Ejemplo de evento:
 titulo: "Nombre del evento"
 fecha: 2026-02-20
 lugar: "Medellín"
+imagen: "mi-evento.jpg"
 resumen: "Descripción breve que aparece en el listado."
 ---
 
@@ -94,6 +96,18 @@ Contenido del evento en Markdown.
 La página `/proyectos` y `/eventos` leen estos archivos automáticamente, así que el contenido
 aparece en el sitio al guardar el archivo y reconstruir. Las imágenes se suben a `src/assets/`
 (o a `public/` cuando no requieren procesamiento) y se referencian desde el campo `imagen`.
+Para el afiche de un evento hay que registrarlo además en el mapa estático `imagenes` de
+`src/pages/eventos/index.astro` (Astro solo resuelve imágenes importadas estáticamente).
+
+### Landing de un evento (página propia)
+
+Cuando un evento necesita su propia página (como `/expo`), se crea la carpeta
+`public/<slug>/` con un `index.html` y sus imágenes, usando **referencias relativas**
+(así funciona igual servida en `/<slug>/` o en un subdominio propio vía rewrite de `vercel.json`).
+
+> **Ojo:** por eso en `vercel.json` existe el redirect `/expo` → `/expo/`. Sin la barra final,
+> el navegador resuelve las imágenes relativas contra la raíz del sitio y se ven rotas.
+> Cada landing nueva necesita su propia regla de redirect.
 
 ### Galería
 
