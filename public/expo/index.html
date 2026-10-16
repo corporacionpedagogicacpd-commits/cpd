@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expo Participaci&oacute;n &middot; 16 de octubre 2026 &middot; Medell&iacute;n</title>
+<meta name="description" content="Expo Participación — Expresión Social por el Desarrollo. 16 de octubre 2026, Fundación Ferrocarril de Antioquia, Medellín. Una feria pensada para compartir, aprender y descubrir iniciativas que transforman nuestra comunidad.">
+<meta property="og:title" content="Expo Participación · 16 de octubre 2026">
+<meta property="og:description" content="Expresión Social por el Desarrollo. Una feria para compartir, aprender y descubrir iniciativas que transforman nuestra comunidad.">
+<meta property="og:image" content="https://www.corpedagogicadiversidad.org/expo/afiche.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.corpedagogicadiversidad.org/expo/">
+<link rel="canonical" href="https://www.corpedagogicadiversidad.org/expo/">
+<meta name="theme-color" content="#135098">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='22' cy='24' r='8' fill='%23F3C242'/%3E%3Ccircle cx='42' cy='24' r='8' fill='%2300B050'/%3E%3Ccircle cx='22' cy='44' r='8' fill='%2300A3E0'/%3E%3Ccircle cx='42' cy='44' r='8' fill='%23135098'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#135098; --cyan:#00A3E0; --green:#00B050; --yellow:#F3C242;
+    --ink:#2B2321; --muted:#6E655F; --cream:#F4F3EF; --white:#fff;
+    --radius:22px;
+    --shadow:0 18px 45px rgba(19,80,152,.14);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--white); color:var(--ink);
+    font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased; text-wrap:pretty;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:26px 20px 0;}
+  .skip{position:absolute;left:-9999px}
+  h1.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  /* --- Encabezado: logo del póster --- */
+  .brand{text-align:center; padding:6px 0 22px}
+  .brand img{width:100%; max-width:430px; height:auto; display:inline-block}
+
+  /* --- Banda de fecha (azul marino, como el póster) --- */
+  .datecard{
+    background:var(--navy); color:#fff; border-radius:var(--radius);
+    padding:36px 26px 30px; text-align:center; box-shadow:var(--shadow);
+  }
+  .dnum{font-size:82px; font-weight:800; line-height:.95; letter-spacing:-1px}
+  .dmes{font-size:30px; font-weight:700; color:#CDE7FA; margin-top:2px}
+  .ddiv{height:1px; background:rgba(255,255,255,.28); margin:22px auto; max-width:340px}
+  .deyebrow{color:var(--yellow); font-size:15px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; margin:0 0 8px}
+  .dtext{font-size:19px; line-height:1.55; margin:0 auto; max-width:520px; color:#EAF2FB}
+
+  /* --- Lugar --- */
+  .place{text-align:center; padding:30px 6px 26px}
+  .place h2{font-size:23px; font-weight:800; margin:0 0 6px; color:var(--ink)}
+  .place .addr{font-size:17px; font-weight:600; margin:0 0 4px}
+  .place .addr span{color:var(--muted); font-weight:400}
+  .place .ref{font-size:13.5px; color:var(--muted); margin:8px auto 14px; max-width:430px; line-height:1.5}
+  .maps{
+    display:inline-flex; align-items:center; gap:8px;
+    min-height:44px; padding:10px 18px; border-radius:999px;
+    color:var(--navy); font-weight:700; font-size:15px; text-decoration:none;
+    border:2px solid rgba(19,80,152,.22); transition:background .15s ease, border-color .15s ease;
+  }
+  .maps:hover,.maps:focus-visible{background:#EAF3FC; border-color:rgba(19,80,152,.45)}
+  .maps:focus-visible{outline:3px solid var(--cyan); outline-offset:2px}
+
+  /* --- Registro (QR + botón) --- */
+  .reg{
+    background:var(--cream); border-radius:var(--radius);
+    padding:34px 22px 36px; text-align:center;
+  }
+  .reg h3{font-size:25px; font-weight:800; color:var(--navy); margin:0 0 6px}
+  .reg p.qrhint{color:var(--muted); font-size:15px; margin:0 0 20px}
+  .qrbox{
+    display:inline-block; background:#fff; border-radius:18px; padding:14px;
+    box-shadow:0 12px 30px rgba(19,80,152,.12); line-height:0;
+  }
+  .qrbox img{width:min(64vw,262px); height:auto; display:block}
+  .noscan{color:var(--muted); font-size:14.5px; margin:20px 0 12px}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-height:56px; padding:15px 34px; border-radius:999px;
+    background:var(--green); color:#0E2A14; font-weight:800; font-size:18px;
+    text-decoration:none; box-shadow:0 12px 26px rgba(0,176,80,.30);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover{transform:translateY(-1px); box-shadow:0 14px 30px rgba(0,176,80,.38)}
+  .btn:focus-visible{outline:3px solid var(--navy); outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){ .btn{transition:none} }
+
+  /* --- Pie (curva suave como el póster) --- */
+  .foot{
+    margin-top:34px; background:var(--cream);
+    border-radius:100% 100% 0 0 / 46px 46px 0 0;
+    padding:44px 20px 44px; text-align:center;
+  }
+  .foot .frase{font-size:21px; font-weight:800; margin:10px auto 18px; max-width:420px; line-height:1.4}
+  .foot .info{color:var(--muted); font-size:14.5px; margin:0 0 2px}
+  .foot .tel{
+    display:inline-block; min-height:44px; padding:6px 10px;
+    font-size:27px; font-weight:800; color:var(--navy); text-decoration:none; letter-spacing:.02em;
+  }
+  .foot .tel:hover,.foot .tel:focus-visible{text-decoration:underline}
+  .foot .afiche{display:inline-block; margin-top:20px; color:var(--muted); font-size:13.5px}
+  .foot .afiche a{color:var(--navy); font-weight:600}
+  .foot .mini{margin-top:26px; color:#9A928C; font-size:12px; letter-spacing:.04em}
+
+  @media (min-width:640px){
+    .dnum{font-size:96px}
+    .reg{padding:40px 34px}
+    .reggrid{display:grid; grid-template-columns:auto 1fr; gap:34px; align-items:center; text-align:left}
+    .reggrid .qrbox{justify-self:center}
+    .reggrid .rgtxt h3{margin-top:0}
+  }
+  @media print{
+    .datecard{box-shadow:none}
+    .btn{box-shadow:none; border:2px solid #0E2A14}
+    .reg{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="visually-hidden">Expo Participación — Expresión Social por el Desarrollo · 16 de octubre 2026</h1>
+
+  <header class="brand">
+    <img src="logo-header.png" alt="Vive la experiencia de Expo Participación — Expresión Social por el Desarrollo">
+  </header>
+
+  <section class="datecard" aria-label="Fecha del evento">
+    <div class="dnum">16</div>
+    <div class="dmes">Octubre 2026</div>
+    <div class="ddiv" role="presentation"></div>
+    <p class="deyebrow">Una feria pensada para</p>
+    <p class="dtext">compartir, aprender y descubrir iniciativas que transforman nuestra comunidad.</p>
+  </section>
+
+  <section class="place" aria-label="Lugar del evento">
+    <h2>Fundación Ferrocarril de Antioquia</h2>
+    <p class="addr">Edificio Estación Medellín <span>· Cra 52 #43-31 · Medellín</span></p>
+    <p class="ref">Junto a la locomotora del tren · Antigua estación Ferrocarril de Antioquia</p>
+    <a class="maps" href="https://www.google.com/maps/search/?api=1&amp;query=Fundaci%C3%B3n%20Ferrocarril%20de%20Antioquia%20Estaci%C3%B3n%20Medell%C3%ADn%20Cra%2052%2043-31%20Medell%C3%ADn" target="_blank" rel="noopener">Cómo llegar &rarr;</a>
+  </section>
+
+  <section class="reg" aria-label="Inscripción">
+    <div class="reggrid">
+      <div class="qrbox">
+        <img src="qr-formulario.png" alt="Código QR del formulario de inscripción a Expo Participación">
+      </div>
+      <div class="rgtxt">
+        <h3>Inscríbete y participa</h3>
+        <p class="qrhint">Escanea el código con tu celular y completa el formulario.</p>
+        <p class="noscan">¿No puedes escanear?</p>
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScKbzaQZL1bT-FZK1DptIPxDgMN3bGz1a4bEA7zmDvl459Iog/viewform" target="_blank" rel="noopener">Abrir formulario</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p class="frase">¡No te lo pierdas, tu voz también cuenta!</p>
+    <p class="info">Más información:</p>
+    <a class="tel" href="tel:+573003079290">300 3079290</a>
+    <br>
+    <span class="afiche">¿Compartes el afiche? <a href="afiche.jpg" download>Descárgalo aquí (JPG)</a></span>
+    <p class="mini">EXPO PARTICIPACIÓN · EXPRESIÓN SOCIAL POR EL DESARROLLO</p>
+  </footer>
+</div>
+</body>
+</html>
