@@ -1,0 +1,5 @@
+# robots.txt — Corporación Pedagógica Diversidad
+User-agent: *
+Allow: /
+
+Sitemap: https://www.corpedagogicadiversidad.org/sitemap-index.xml

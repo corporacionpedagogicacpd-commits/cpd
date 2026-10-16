@@ -14,6 +14,29 @@ const {
 const siteName = 'CPD — Corporación Pedagógica Diversidad';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('/og.png', Astro.site);
+
+// Datos estructurados (SEO): identidad de la organización para Google.
+// Se inyecta tal cual en el <head> como JSON-LD.
+const orgSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'NGO',
+  name: 'Corporación Pedagógica Diversidad',
+  alternateName: ['CPD', 'CorpoDiversidad', 'Corpedagogica'],
+  url: 'https://www.corpedagogicadiversidad.org/',
+  logo: 'https://www.corpedagogicadiversidad.org/logo.png',
+  email: 'corporacionpedagogicacpd@gmail.com',
+  foundingDate: '2012-04-27',
+  description:
+    'Corporación Pedagógica Diversidad: educación inclusiva, apoyo psicosocial y salud mental para jóvenes en Medellín y Antioquia desde 2012.',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Calle 47 #43-37',
+    addressLocality: 'Medellín',
+    addressRegion: 'Antioquia',
+    addressCountry: 'CO',
+  },
+  sameAs: ['https://instagram.com/corpodiversidad'],
+});
 ---
 
 <!doctype html>
@@ -77,6 +100,9 @@ const ogImage = new URL('/og.png', Astro.site);
     <script>
       import '../scripts/scroll.js';
     </script>
+
+    <!-- JSON-LD (SEO): ficha de la organización -->
+    <script type="application/ld+json" set:html={orgSchema} />
   </head>
   <body class="flex min-h-screen flex-col">
     <a
