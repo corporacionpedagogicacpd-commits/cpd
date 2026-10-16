@@ -4,6 +4,8 @@ fecha: 2026-10-16
 lugar: "Fundación Ferrocarril de Antioquia — Edificio Estación Medellín, carrera 52 n.º 43-31 (junto a la locomotora del tren)"
 resumen: "Una feria pensada para compartir, aprender y descubrir iniciativas que transforman nuestra comunidad."
 imagen: "expo-participacion-2026-10-16.jpg"
+enlace: "https://docs.google.com/forms/d/e/1FAIpQLScKbzaQZL1bT-FZK1DptIPxDgMN3bGz1a4bEA7zmDvl459Iog/viewform"
+enlaceTexto: "Inscríbete al evento"
 ---
 
 Feria comunitaria **Expo Participación — Expresión Social por el Desarrollo**, un espacio

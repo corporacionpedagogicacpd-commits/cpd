@@ -99,6 +99,10 @@ aparece en el sitio al guardar el archivo y reconstruir. Las imágenes se suben 
 Para el afiche de un evento hay que registrarlo además en el mapa estático `imagenes` de
 `src/pages/eventos/index.astro` (Astro solo resuelve imágenes importadas estáticamente).
 
+Un evento puede llevar un **botón de enlace** (por ejemplo, de inscripción): agrega
+`enlace: "https://…"` al frontmatter y, si quieres otro texto, `enlaceTexto: "Inscríbete"`
+(por defecto dice «Más información»). Se quita borrando esos campos del archivo.
+
 ### Landing de un evento (página propia)
 
 Cuando un evento necesita su propia página (como `/expo`), se crea la carpeta

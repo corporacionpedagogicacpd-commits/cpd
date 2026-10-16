@@ -21,6 +21,8 @@ const eventos = defineCollection({
     lugar: z.string().optional(),
     resumen: z.string(),
     imagen: z.string().optional(),
+    enlace: z.string().url().optional(),
+    enlaceTexto: z.string().optional(),
   }),
 });
 
