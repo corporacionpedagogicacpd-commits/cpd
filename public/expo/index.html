@@ -103,6 +103,16 @@
   .foot .tel:hover,.foot .tel:focus-visible{text-decoration:underline}
   .foot .afiche{display:inline-block; margin-top:20px; color:var(--muted); font-size:13.5px}
   .foot .afiche a{color:var(--navy); font-weight:600}
+  .foot .org{margin-top:26px}
+  .foot .org img{width:min(62vw,235px); height:auto; display:block; margin:10px auto 16px}
+  .foot .more{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    min-height:46px; padding:10px 22px; border-radius:999px;
+    color:var(--navy); font-weight:700; font-size:15px; text-decoration:none;
+    border:2px solid rgba(19,80,152,.22); transition:background .15s ease, border-color .15s ease;
+  }
+  .foot .more:hover,.foot .more:focus-visible{background:#EAF3FC; border-color:rgba(19,80,152,.45)}
+  .foot .more:focus-visible{outline:3px solid var(--cyan); outline-offset:2px}
   .foot .mini{margin-top:26px; color:#9A928C; font-size:12px; letter-spacing:.04em}
 
   @media (min-width:640px){
@@ -162,6 +172,14 @@
     <a class="tel" href="tel:+573003079290">300 3079290</a>
     <br>
     <span class="afiche">¿Compartes el afiche? <a href="afiche.jpg" download>Descárgalo aquí (JPG)</a></span>
+    <div class="org">
+      <p class="info">Organiza:</p>
+      <picture>
+        <source srcset="logo-cpd.webp" type="image/webp">
+        <img src="logo-cpd.png" alt="Corporación Pedagógica Diversidad" width="490" height="176" loading="lazy">
+      </picture>
+      <a class="more" href="https://www.corpedagogicadiversidad.org/eventos">Ver más eventos de la Corporación &rarr;</a>
+    </div>
     <p class="mini">EXPO PARTICIPACIÓN · EXPRESIÓN SOCIAL POR EL DESARROLLO</p>
   </footer>
 </div>
