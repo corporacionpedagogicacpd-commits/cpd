@@ -4,27 +4,37 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  /** Título exacto del <title>, sin el sufijo de marca. Para la home. */
+  tituloCompleto?: string;
 }
 
 const {
   title,
   description = 'Corporación Pedagógica Diversidad — educación inclusiva y salud mental para jóvenes en Colombia.',
+  tituloCompleto,
 } = Astro.props;
 
 const siteName = 'CPD — Corporación Pedagógica Diversidad';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('/og.png', Astro.site);
 
+// Verificación de Google Search Console (método «etiqueta HTML»).
+// Se define como variable de entorno en Vercel: PUBLIC_GSC_VERIFICATION.
+// Si no está, no se emite nada (el sitio no cambia).
+const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
+
 // Datos estructurados (SEO): identidad de la organización para Google.
 // Se inyecta tal cual en el <head> como JSON-LD.
 const orgSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'NGO',
+  '@id': 'https://www.corpedagogicadiversidad.org/#organizacion',
   name: 'Corporación Pedagógica Diversidad',
   alternateName: ['CPD', 'CorpoDiversidad', 'Corpedagogica'],
   url: 'https://www.corpedagogicadiversidad.org/',
   logo: 'https://www.corpedagogicadiversidad.org/logo.png',
   email: 'corporacionpedagogicacpd@gmail.com',
+  telephone: '+57 300 3079290',
   foundingDate: '2012-04-27',
   description:
     'Corporación Pedagógica Diversidad: educación inclusiva, apoyo psicosocial y salud mental para jóvenes en Medellín y Antioquia desde 2012.',
@@ -35,6 +45,10 @@ const orgSchema = JSON.stringify({
     addressRegion: 'Antioquia',
     addressCountry: 'CO',
   },
+  areaServed: [
+    { '@type': 'City', name: 'Medellín' },
+    { '@type': 'AdministrativeArea', name: 'Antioquia' },
+  ],
   sameAs: ['https://instagram.com/corpodiversidad'],
 });
 ---
@@ -69,9 +83,11 @@ const orgSchema = JSON.stringify({
       })();
     </script>
 
-    <title>{title} | {siteName}</title>
+    <title>{tituloCompleto ?? `${title} | ${siteName}`}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    {gscVerification && <meta name="google-site-verification" content={gscVerification} />}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName} />
