@@ -9,8 +9,11 @@ interface Props {
 
 const { dark = false } = Astro.props;
 
-const navItems: { href: string; label: string; external?: boolean }[] = [
-  { href: '/', label: 'Inicio' },
+const navItems: { href: string; label: string; external?: boolean; soloXl?: boolean }[] = [
+  // «Inicio» se oculta entre 1024 y 1279px: el lockup nuevo del cliente es
+  // muy ancho (6.6:1) y ahí no caben los 10 ítems; el logo ya lleva a la home.
+  // En móvil y en el desplegable sí aparece.
+  { href: '/', label: 'Inicio', soloXl: true },
   { href: '/nosotros', label: 'Nosotros' },
   { href: '/educacion', label: 'Educación' },
   { href: '/proyectos', label: 'Proyectos' },
@@ -32,16 +35,19 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   ]}
 >
   <nav class="container-content flex h-16 items-center justify-between" aria-label="Navegación principal">
-    <a href="/" class="flex items-center gap-3">
+    <a href="/" class="flex shrink-0 items-center gap-3">
       <!-- El logo se sirve ya optimizado por Astro (WebP + ancho correcto).
-           El negro sobre fondo claro y el blanco sobre fondo oscuro son
-           archivos distintos del cliente, no un filtro CSS. -->
+           El de tinta sobre fondo claro y el blanco sobre fondo oscuro son
+           archivos distintos del cliente, no un filtro CSS. El lockup nuevo
+           (2026-11-03) es muy horizontal (6.6:1): se limita la altura por
+           breakpoint y `shrink-0` evita que el flex lo aplaste (a 1024px se
+           quedaba en 109px de ancho con 36px de alto: deformado). -->
       <img
         src={dark ? logoBlanco.src : logo.src}
         alt="Corporación Pedagógica Diversidad"
         width={dark ? logoBlanco.width : logo.width}
         height={dark ? logoBlanco.height : logo.height}
-        class="h-9 w-auto"
+        class="h-9 w-auto shrink-0 lg:h-8 xl:h-9"
       />
     </a>
 
@@ -71,14 +77,14 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
             const itemPath = item.href.replace(/\/$/, '') || '/';
             const isActive = currentPath === itemPath;
             return (
-              <li>
+              <li class:list={[item.soloXl && 'hidden xl:block']}>
                 <a
                   href={item.href}
                   target={item.external ? '_blank' : undefined}
                   rel={item.external ? 'noopener' : undefined}
                   aria-current={isActive ? 'page' : undefined}
                   class:list={[
-                    'rounded px-3 py-2 text-sm transition-colors',
+                    'rounded px-2 py-2 text-sm transition-colors xl:px-3',
                     dark
                       ? isActive
                         ? 'font-bold text-brand'
