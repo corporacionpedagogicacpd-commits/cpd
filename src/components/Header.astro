@@ -47,7 +47,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
         alt="Corporación Pedagógica Diversidad"
         width={dark ? logoBlanco.width : logo.width}
         height={dark ? logoBlanco.height : logo.height}
-        class="h-9 w-auto shrink-0 lg:h-8 xl:h-9"
+        class="h-9 w-auto max-w-[calc(100vw-7.5rem)] shrink-0 object-contain object-left lg:h-8 lg:max-w-none xl:h-9"
       />
     </a>
 
