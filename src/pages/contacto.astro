@@ -10,9 +10,16 @@ const datosContacto = {
   telefono: '+57 300 3079290',
   whatsapp: 'https://wa.me/573003079290',
   instagram: 'https://instagram.com/corpodiversidad',
-  direccion1: 'Calle 47 #43-37, Medellín',
-  mapa: 'https://maps.app.goo.gl/g1wMJKatmPNEcLFP6',
-  direccion2: 'Calle 111e #64a-78',
+  // Dirección única de la Corporación (dato confirmado por Ney el 2026-11-03).
+  // Antes había dos direcciones distintas en esta página; la de Calle 111e
+  // #64a-78 se retiró porque no es la sede.
+  direccion: 'Carrera 43 #54-44, piso 5 — Medellín',
+  // El código postal es el dato que piden casi todos los formularios
+  // (cooperación, convocatorias, convenios): el de 6 dígitos y el ampliado.
+  codigoPostal: '050012',
+  codigoPostalAmpliado: '050012256',
+  // Búsqueda por texto: el enlace corto anterior apuntaba a la dirección vieja.
+  mapa: 'https://www.google.com/maps/search/?api=1&query=Carrera%2043%20%2354-44%2C%20Medell%C3%ADn',
 };
 ---
 
@@ -123,20 +130,23 @@ const datosContacto = {
           </li>
 
           <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
-            <h3 class="text-lg">Dirección 1</h3>
+            <h3 class="text-lg">Dirección</h3>
             <a
               href={datosContacto.mapa}
               target="_blank"
               rel="noopener noreferrer"
               class="mt-2 block text-brand hover:underline"
             >
-              {datosContacto.direccion1}
+              {datosContacto.direccion}
             </a>
           </li>
 
           <li class="rounded-2xl border border-black/5 p-6 shadow-sm">
-            <h3 class="text-lg">Dirección 2</h3>
-            <p class="mt-2 text-ink/75">{datosContacto.direccion2}</p>
+            <h3 class="text-lg">Código postal</h3>
+            <p class="mt-2 text-2xl font-bold tracking-wide text-ink">{datosContacto.codigoPostal}</p>
+            <p class="mt-1 text-sm text-ink/75">
+              Código postal ampliado: <span class="font-bold text-ink">{datosContacto.codigoPostalAmpliado}</span>
+            </p>
           </li>
         </ul>
 
