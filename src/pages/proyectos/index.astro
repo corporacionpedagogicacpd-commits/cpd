@@ -5,6 +5,8 @@ import Footer from '../../components/Footer.astro';
 import PageHero from '../../components/PageHero.astro';
 import ProjectArt from '../../components/ProjectArt.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import { portadas } from '../../lib/proyectos-imagenes';
 
 // Orden editorial del catálogo (01…08). `fecha` queda como fecha de registro.
 const proyectos = (await getCollection('proyectos')).sort(
@@ -86,10 +88,22 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
           <li class="reveal" style={`--reveal-delay:${(i % 2) * 90}ms`}>
             <a href={`/proyectos/${p.id}`} class="group block focus-visible:outline-none">
               <div class="relative aspect-[16/10] overflow-hidden rounded-3xl border border-black/5 bg-night">
-                <ProjectArt
-                  variante={p.data.icono}
-                  class="transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
-                />
+                {
+                  portadas[p.id] ? (
+                    <Image
+                      src={portadas[p.id]}
+                      alt={`Ilustración del proyecto ${p.data.titulo}`}
+                      widths={[480, 960]}
+                      sizes="(min-width: 640px) 50vw, 100vw"
+                      class="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+                    />
+                  ) : (
+                    <ProjectArt
+                      variante={p.data.icono}
+                      class="transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+                    />
+                  )
+                }
                 <div class="absolute inset-0 bg-gradient-to-t from-night via-night/30 to-transparent"></div>
 
                 <div class="absolute inset-x-6 top-6 flex items-center justify-between gap-3">
