@@ -3,44 +3,145 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PageHero from '../../components/PageHero.astro';
+import ProjectArt from '../../components/ProjectArt.astro';
 import { getCollection } from 'astro:content';
 
+// Orden editorial del catálogo (01…08). `fecha` queda como fecha de registro.
 const proyectos = (await getCollection('proyectos')).sort(
-  (a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf()
+  (a, b) => a.data.orden - b.data.orden || b.data.fecha.valueOf() - a.data.fecha.valueOf()
 );
+
+const lineas = [...new Set(proyectos.map((p) => p.data.linea).filter(Boolean))];
+
+const estadoTexto: Record<string, string> = {
+  activo: 'En ejecución',
+  planificado: 'En búsqueda de aliados',
+  finalizado: 'Finalizado',
+};
+
+const numero = (i: number) => String(i + 1).padStart(2, '0');
 ---
 
-<BaseLayout title="Proyectos" description="Proyectos de la Corporación Pedagógica Diversidad (CPD): inclusión, prevención y salud mental con jóvenes y comunidades en Antioquia.">
+<BaseLayout
+  title="Proyectos"
+  tituloCompleto="Proyectos | CPD — Corporación Pedagógica Diversidad"
+  description="Los ocho proyectos de la Corporación Pedagógica Diversidad (CPD): inclusión educativa y laboral de la población neurodivergente, ciudadanía, cultura, agro y sostenibilidad en Medellín y Antioquia."
+>
   <Header slot="header" dark />
 
   <PageHero
     eyebrow="Iniciativas"
     title="Proyectos"
-    description="Iniciativas de acompañamiento pedagógico y psicosocial para jóvenes en riesgo."
-  />
+    description="Ocho frentes de trabajo, una misma convicción: la diversidad no se corrige, se acompaña. Esto es lo que estamos construyendo con comunidades, instituciones y aliados."
+  >
+    <dl class="reveal mt-10 grid max-w-3xl grid-cols-2 gap-6 border-t border-night-line pt-8 sm:grid-cols-4" style="--reveal-delay:340ms">
+      <div>
+        <dt class="text-xs uppercase tracking-[0.2em] text-mist/50">Proyectos</dt>
+        <dd class="mt-1 text-3xl font-bold text-mist">{proyectos.length}</dd>
+      </div>
+      <div>
+        <dt class="text-xs uppercase tracking-[0.2em] text-mist/50">Líneas</dt>
+        <dd class="mt-1 text-3xl font-bold text-mist">{lineas.length}</dd>
+      </div>
+      <div>
+        <dt class="text-xs uppercase tracking-[0.2em] text-mist/50">Territorio</dt>
+        <dd class="mt-1 text-lg font-bold text-mist">Antioquia · Atlántico</dd>
+      </div>
+      <div>
+        <dt class="text-xs uppercase tracking-[0.2em] text-mist/50">Desde</dt>
+        <dd class="mt-1 text-3xl font-bold text-mist">2012</dd>
+      </div>
+    </dl>
+  </PageHero>
 
-  <section class="container-content py-12">
+  <!-- Declaración de apertura: da aire antes del catálogo y explica el criterio. -->
+  <section class="bg-night py-16 sm:py-20">
+    <div class="container-content">
+      <p class="reveal max-w-4xl text-2xl font-bold leading-snug text-mist sm:text-3xl">
+        Cada proyecto nace de una necesidad concreta de una comunidad y se sostiene con
+        formación, acompañamiento y alianzas. <span class="text-brand">Ninguno se queda en el papel.</span>
+      </p>
+    </div>
+  </section>
 
-    {
-      proyectos.length > 0 ? (
-        <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {proyectos.map((p) => (
-            <li class="flex flex-col rounded-2xl border border-black/5 p-6 shadow-sm">
-              <time datetime={p.data.fecha.toISOString()} class="text-xs uppercase tracking-wide text-ink/50">
-                {p.data.fecha.toLocaleDateString('es-CO', { year: 'numeric', month: 'long' })}
-              </time>
-              <h2 class="mt-2 text-xl">{p.data.titulo}</h2>
-              <p class="mt-3 flex-1 text-ink/75">{p.data.resumen}</p>
-              <span class="mt-4 inline-block w-fit rounded-full bg-brand/10 px-3 py-1 text-xs font-bold text-brand">
-                {p.data.estado}
-              </span>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="mt-8 text-ink/60">Aún no hay proyectos publicados.</p>
-      )
-    }
+  <section class="container-content pb-20 pt-14" aria-labelledby="catalogo-titulo">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 id="catalogo-titulo" class="text-display font-bold">Catálogo</h2>
+      {
+        lineas.length > 0 && (
+          <ul class="flex flex-wrap gap-2">
+            {lineas.map((l) => (
+              <li class="rounded-full border border-black/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-ink/60">
+                {l}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <ul class="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2">
+      {
+        proyectos.map((p, i) => (
+          <li class="reveal" style={`--reveal-delay:${(i % 2) * 90}ms`}>
+            <a href={`/proyectos/${p.id}`} class="group block focus-visible:outline-none">
+              <div class="relative aspect-[16/10] overflow-hidden rounded-3xl border border-black/5 bg-night">
+                <ProjectArt
+                  variante={p.data.icono}
+                  class="transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-night via-night/30 to-transparent"></div>
+
+                <div class="absolute inset-x-6 top-6 flex items-center justify-between gap-3">
+                  <span class="rounded-full border border-mist/25 bg-night/40 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-mist/85 backdrop-blur">
+                    {p.data.linea ?? 'Proyecto'}
+                  </span>
+                  <span class="text-[11px] font-bold uppercase tracking-[0.18em] text-mist/60">
+                    {p.data.periodo}
+                  </span>
+                </div>
+
+                <h3 class="absolute inset-x-6 bottom-6 text-2xl font-bold leading-tight text-mist sm:text-[1.7rem]">
+                  {p.data.titulo}
+                </h3>
+              </div>
+
+              <p class="mt-4 text-ink/75">{p.data.resumen}</p>
+
+              <div class="mt-4 flex items-center justify-between gap-4 border-t border-black/5 pt-4">
+                <span class="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-ink/70">
+                  <span class="text-brand-ink">{numero(i)}</span>
+                  {estadoTexto[p.data.estado] ?? p.data.estado}
+                </span>
+                <span class="inline-flex items-center gap-2 text-sm font-bold text-brand-ink transition-all group-hover:gap-3">
+                  Conocer el proyecto <span aria-hidden="true">→</span>
+                </span>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- Cierre: qué puede hacer alguien que llegó hasta acá. -->
+  <section class="border-y border-night-line bg-night-soft py-16 sm:py-20">
+    <div class="container-content flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.3em] text-accent">Súmate</p>
+        <h2 class="mt-4 max-w-xl text-3xl font-bold text-mist sm:text-4xl">
+          Un proyecto se sostiene con aliados, no con buenas intenciones.
+        </h2>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/donaciones" class="rounded-full bg-brand px-7 py-3.5 text-sm font-bold text-white transition hover:bg-brand-ink">
+          Donar
+        </a>
+        <a href="/contacto" class="rounded-full border border-mist/30 px-7 py-3.5 text-sm font-bold text-mist transition hover:border-mist hover:bg-white/10">
+          Ser aliado
+        </a>
+      </div>
+    </div>
   </section>
 
   <Footer slot="footer" />

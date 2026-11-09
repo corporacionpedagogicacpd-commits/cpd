@@ -18,7 +18,7 @@ import ejePsicosocial from '../assets/asset-cpd/eje-psicosocial.png';
 import ejeInclusion from '../assets/asset-cpd/eje-inclusion.png';
 
 const proyectosDestacados = (await getCollection('proyectos'))
-  .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf())
+  .sort((a, b) => a.data.orden - b.data.orden)
   .slice(0, 3);
 
 const eventosProximos = (await getCollection('eventos'))
@@ -306,13 +306,12 @@ const carrete = [
                     class="reveal rounded-2xl border border-night-line bg-night-soft/60 p-6 transition-colors hover:border-brand/50"
                     style={`--reveal-delay:${i * 120}ms`}
                   >
-                    <time
-                      datetime={p.data.fecha.toISOString()}
-                      class="text-xs uppercase tracking-widest text-mist/45"
-                    >
-                      {p.data.fecha.toLocaleDateString('es-CO', { year: 'numeric', month: 'long' })}
-                    </time>
-                    <h3 class="mt-2 text-xl font-bold text-mist">{p.data.titulo}</h3>
+                    <p class="text-xs uppercase tracking-widest text-mist/45">
+                      {p.data.periodo ?? p.data.estado}
+                    </p>
+                    <h3 class="mt-2 text-xl font-bold text-mist">
+                      <a href={`/proyectos/${p.id}`} class="transition-colors hover:text-brand">{p.data.titulo}</a>
+                    </h3>
                     <p class="mt-2 text-sm leading-relaxed text-mist/65">{p.data.resumen}</p>
                   </li>
                 ))}

@@ -277,6 +277,131 @@
   }
 }
 
+@layer components {
+  /* ---------- Cuerpo editorial de las fichas de proyecto ----------
+     Todo el color se deriva de --color-ink con color-mix: cuando el tema
+     oscuro remapea esa variable, el texto se aclara solo y no hace falta
+     una segunda regla por cada elemento.
+
+     La jerarquía es deliberadamente sobria: la página ya trae el arte y el
+     titular; acá manda la lectura. */
+  .prose-cpd {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: color-mix(in oklab, var(--color-ink) 82%, transparent);
+  }
+
+  .prose-cpd > * + * {
+    margin-top: 1.15em;
+  }
+
+  .prose-cpd h2 {
+    margin-top: 3rem;
+    font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  /* Barra corta de marca: separa secciones sin agregar otro adorno. */
+  .prose-cpd h2::before {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    margin-bottom: 1rem;
+    background-color: var(--color-brand);
+  }
+
+  .prose-cpd h3 {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+
+  .prose-cpd > p:first-of-type {
+    font-size: 1.2rem;
+    line-height: 1.65;
+    color: var(--color-ink);
+  }
+
+  .prose-cpd strong {
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+
+  .prose-cpd a {
+    color: var(--color-brand-ink);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prose-cpd ul,
+  .prose-cpd ol {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .prose-cpd ul > li {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-top: 0.6em;
+  }
+
+  .prose-cpd ul > li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.8rem;
+    height: 2px;
+    background-color: var(--color-brand);
+  }
+
+  .prose-cpd ol {
+    counter-reset: paso;
+  }
+
+  .prose-cpd ol > li {
+    position: relative;
+    padding-left: 2.2rem;
+    margin-top: 0.75em;
+    counter-increment: paso;
+  }
+
+  .prose-cpd ol > li::before {
+    content: counter(paso, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-brand-ink);
+  }
+
+  .prose-cpd blockquote {
+    margin-top: 2rem;
+    border-left: 3px solid var(--color-brand);
+    padding: 0.25rem 0 0.25rem 1.5rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .prose-cpd em {
+    font-style: italic;
+  }
+
+  /* El primer bloque no arrastra margen extra: el hero ya dio el aire. */
+  .prose-cpd > :first-child {
+    margin-top: 0;
+  }
+}
+
 /* ---------- Respeto por reduced-motion ----------
    Sin animaciones, pero SIN ocultar contenido: si el usuario pidió menos
    movimiento, todo aparece ya visible. */
