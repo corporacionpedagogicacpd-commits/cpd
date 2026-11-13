@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PageHero from '../../components/PageHero.astro';
+import fotoProyectos from '../../assets/asset-cpd/hero/proyectos-territorio.jpg';
 import ProjectArt from '../../components/ProjectArt.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
@@ -34,6 +35,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
   <PageHero
     eyebrow="Iniciativas"
     title="Proyectos"
+    image={fotoProyectos}
     description="Ocho frentes de trabajo, una misma convicción: la diversidad no se corrige, se acompaña. Esto es lo que estamos construyendo con comunidades, instituciones y aliados."
   >
     <dl class="reveal mt-10 grid max-w-3xl grid-cols-2 gap-6 border-t border-night-line pt-8 sm:grid-cols-4" style="--reveal-delay:340ms">

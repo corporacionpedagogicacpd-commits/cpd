@@ -12,7 +12,7 @@ import foto49 from '../assets/asset-cpd/foto49.jpg';
 import foto24 from '../assets/asset-cpd/foto24.jpg';
 import foto39 from '../assets/asset-cpd/foto39.jpg';
 import foto53 from '../assets/asset-cpd/foto53.jpg';
-import alianzaUdea from '../assets/asset-cpd/alianza-udea.jpeg';
+import fotoInicio from '../assets/asset-cpd/hero/inicio-comunidad.jpg';
 import ejeEducacion from '../assets/asset-cpd/eje-educacion.png';
 import ejePsicosocial from '../assets/asset-cpd/eje-psicosocial.png';
 import ejeInclusion from '../assets/asset-cpd/eje-inclusion.png';
@@ -65,21 +65,23 @@ const carrete = [
 
   <!-- ══════════════ 01 · APERTURA ══════════════ -->
   <section class="relative flex min-h-[92svh] items-end overflow-hidden bg-night text-mist">
-    <!-- Foto de fondo con parallax + velo para garantizar contraste del texto -->
+    <!-- Foto de fondo con parallax + velo para garantizar contraste del texto.
+         La foto es una escena de la Corporación (no el afiche del convenio:
+         ese trae texto y logos impresos que se veían al subir la opacidad). -->
     <div class="absolute inset-0" data-parallax="0.18">
       <Image
-        src={alianzaUdea}
+        src={fotoInicio}
         alt=""
         aria-hidden="true"
-        widths={[640, 960, 1280]}
+        widths={[640, 960, 1280, 1600]}
         sizes="100vw"
-        class="h-[118%] w-full -translate-y-[6%] object-cover opacity-40"
+        class="hero-inicio-media h-[118%] w-full -translate-y-[6%] object-cover"
       />
     </div>
-    <div class="absolute inset-0 bg-gradient-to-t from-night via-night/80 to-night/40" aria-hidden="true"></div>
+    <div class="hero-inicio-velo absolute inset-0" aria-hidden="true"></div>
 
     <div class="container-content relative z-10 pb-20 pt-32 sm:pb-28">
-      <p class="reveal text-xs font-bold uppercase tracking-[0.3em] text-brand">
+      <p class="hero-eyebrow reveal text-xs font-bold uppercase tracking-[0.3em] text-brand">
         Medellín · Colombia — desde 2012
       </p>
 

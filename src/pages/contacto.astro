@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
+import fotoContacto from '../assets/asset-cpd/hero/contacto-cercania.jpg';
 
 const datosContacto = {
   email: 'corporacionpedagogicacpd@gmail.com',
@@ -32,6 +33,7 @@ const datosContacto = {
   <PageHero
     eyebrow="Contacto"
     title="¡Aquí puedes contactarte con nosotros!"
+    image={fotoContacto}
     description="Escríbenos, llámanos o visítanos. Estamos disponibles para escucharte y acompañarte."
   />
 

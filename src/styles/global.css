@@ -143,19 +143,78 @@ html:not([data-tema='oscuro']) .bg-night\/85 { background-color: rgb(255 255 255
    tono oscuro de la marca (7.6:1 sobre blanco), que es la misma familia. */
 html:not([data-tema='oscuro']) .bg-night .text-brand { color: var(--color-brand-ink); }
 
-/* ---------- TEMA CLARO: el hero con foto ----------
-   El velo se construyó para negro. Sobre crema se refuerza (foto más tenue y
-   degradado más opaco) para que el titular y el antetítulo tengan fondo
-   suficiente: medido, el antetítulo quedaba en 3.6:1 sobre la foto. */
-html:not([data-tema='oscuro']) .opacity-40 { opacity: 0.22; }
+/* ---------- TEMA CLARO: el hero de la home con foto ----------
+   La foto TIENE que verse (pedido de Ney: «casi no se ve»), pero el titular
+   verde y el antetítulo van encima. Se resuelve con un velo por tramos:
+   cerrado abajo (párrafo y botones) y arriba (antetítulo), y abierto en la
+   franja del titular, donde la foto se lee de verdad. Los valores se cierran
+   midiendo el contraste sobre el fondo renderizado, no a ojo. */
+.hero-inicio-media { opacity: 0.7; }
 
-html:not([data-tema='oscuro']) .bg-gradient-to-t.from-night.via-night\/80.to-night\/40 {
+.hero-inicio-velo {
   background-image: linear-gradient(
     to top,
     var(--color-night) 0%,
-    color-mix(in oklab, var(--color-night) 94%, transparent) 45%,
-    color-mix(in oklab, var(--color-night) 72%, transparent) 100%
+    color-mix(in oklab, var(--color-night) 95%, transparent) 22%,
+    color-mix(in oklab, var(--color-night) 88%, transparent) 34%,
+    color-mix(in oklab, var(--color-night) 38%, transparent) 48%,
+    color-mix(in oklab, var(--color-night) 22%, transparent) 62%,
+    color-mix(in oklab, var(--color-night) 34%, transparent) 74%,
+    color-mix(in oklab, var(--color-night) 62%, transparent) 84%,
+    color-mix(in oklab, var(--color-night) 76%, transparent) 92%,
+    color-mix(in oklab, var(--color-night) 58%, transparent) 100%
   );
+}
+
+/* El oscuro deja ver la foto (55 %) detrás del titular, con el velo cerrado
+   arriba —donde va el antetítulo rosa claro— y abajo, donde va el párrafo. */
+html[data-tema='oscuro'] .hero-inicio-media { opacity: 0.55; }
+
+html[data-tema='oscuro'] .hero-inicio-velo {
+  background-image: linear-gradient(
+    to top,
+    var(--color-night) 0%,
+    color-mix(in oklab, var(--color-night) 92%, transparent) 30%,
+    color-mix(in oklab, var(--color-night) 78%, transparent) 55%,
+    color-mix(in oklab, var(--color-night) 58%, transparent) 72%,
+    color-mix(in oklab, var(--color-night) 72%, transparent) 84%,
+    color-mix(in oklab, var(--color-night) 78%, transparent) 100%
+  );
+}
+
+/* El antetítulo del hero va SOBRE la foto, y sobre una imagen el brand-ink
+   (#a8004b) se queda corto: medido 3.9:1 en 390×900. Sobre imagen se usa un
+   tono más profundo de la misma familia (medido >4.5:1 sobre la foto velada),
+   igual que el tema oscuro usa su versión clara. Sobre las bandas lisas el
+   resto del sitio conserva brand-ink. */
+html:not([data-tema='oscuro']) .bg-night .hero-eyebrow { color: #7a0036; }
+
+/* El antetítulo del hero va SOBRE la foto. El rosa vivo (#f6006e) mide 3.9:1
+   ahí y no pasa AA; sobre imagen se usa la versión clara de la misma marca
+   (medido 7:1). Es el espejo de lo que hace el tema claro con brand-ink. */
+html[data-tema='oscuro'] .bg-night .hero-eyebrow { color: #ff85b8; }
+
+/* En pantallas angostas el titular se parte en más líneas y el antetítulo
+   cae más abajo: el velo se recalibra para esa altura y mantiene la foto
+   abierta arriba y detrás del titular. */
+@media (max-width: 1023px) {
+  html:not([data-tema='oscuro']) .hero-inicio-media { opacity: 0.8; }
+
+  html:not([data-tema='oscuro']) .hero-inicio-velo {
+    background-image: linear-gradient(
+      to top,
+      var(--color-night) 0%,
+      color-mix(in oklab, var(--color-night) 95%, transparent) 22%,
+      color-mix(in oklab, var(--color-night) 88%, transparent) 34%,
+      color-mix(in oklab, var(--color-night) 44%, transparent) 46%,
+      color-mix(in oklab, var(--color-night) 30%, transparent) 55%,
+      color-mix(in oklab, var(--color-night) 58%, transparent) 60%,
+      color-mix(in oklab, var(--color-night) 58%, transparent) 72%,
+      color-mix(in oklab, var(--color-night) 30%, transparent) 80%,
+      color-mix(in oklab, var(--color-night) 40%, transparent) 90%,
+      color-mix(in oklab, var(--color-night) 55%, transparent) 100%
+    );
+  }
 }
 
 /* ---------- TEMA CLARO: opacidades de texto, recalibradas ----------
@@ -240,8 +299,11 @@ html:not([data-tema='oscuro']) .placeholder\:text-ink\/40::placeholder { color: 
     transform: none;
   }
 
-  /* Parallax por scroll: la posición la escribe el JS en --parallax */
-  .parallax {
+  /* Parallax por scroll: la posición la escribe el JS en --parallax.
+     El selector es [data-parallax], que es lo que el JS consulta y donde
+     escribe la variable. Antes apuntaba a `.parallax`, una clase que ningún
+     elemento tenía: el efecto estaba muerto desde su creación (2026-11-13). */
+  [data-parallax] {
     transform: translate3d(0, var(--parallax, 0px), 0);
     will-change: transform;
   }
@@ -549,7 +611,7 @@ html:not([data-tema='oscuro']) .placeholder\:text-ink\/40::placeholder { color: 
     transition: none !important;
   }
 
-  .parallax { transform: none !important; }
+  [data-parallax] { transform: none !important; }
 
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
