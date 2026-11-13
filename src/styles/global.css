@@ -1,24 +1,51 @@
 @import "tailwindcss";
 
 @theme {
-  /* Paleta CPD — extraída del sitio antiguo (--primary / --accent) */
-  --color-brand: #f6006e;
-  --color-accent: #f18322;
-  --color-ink: #333333;
+  /* ==========================================================================
+     PALETA — TEMA CLARO (por defecto)
+     Verde profundo + magenta sobre superficies claras: la paleta del sitio
+     institucional de la campaña (medida 2026-11-13). Acá las BANDAS también
+     son claras (crema), no oscuras: el tema claro tiene que verse claro.
+     El tema oscuro (al final del archivo) conserva la paleta anterior
+     intacta: negro de la casa + rosa vivo + naranja.
+     ========================================================================== */
+
+  /* Marca. #c40057 da 6.1:1 sobre blanco: sirve como TEXTO y como relleno de
+     botón con texto blanco (6.1:1). El rosa vivo (#f6006e) sobre blanco se
+     queda en 4.08:1 y no alcanza AA, así que ya no es el color de marca. */
+  --color-brand: #c40057;
+  /* Marca para enlaces y texto sobre fondo claro: un punto más oscura (7.6:1). */
+  --color-brand-ink: #a8004b;
+  /* Marca viva: SOLO decoración (arte de las fichas, degradados). */
+  --color-brand-viva: #f6006e;
+  /* Acento secundario: CTA sólido. Mismo magenta de marca (6.1:1 con blanco). */
+  --color-accent: #c40057;
+
+  /* Neutros claros */
+  --color-ink: #14201b; /* texto principal: 16.8:1 sobre blanco */
   --color-surface: #ffffff;
+  --color-surface-alt: #f4f7f5; /* bandas y tarjetas alternas */
+  --color-line: #dfe6e2; /* filete estándar */
+  --color-line-media: #d2dcd7;
+  --color-line-fuerte: #c3cec8; /* bordes de controles */
 
-  /* Variante de la marca para TEXTO: #f6006e sobre blanco da 4.08:1 y no
-     alcanza AA (4.5:1). Este tono oscurecido da 4.6:1 y conserva el matiz.
-     Usar text-brand-ink cuando el texto vaya sobre fondo claro. */
-  --color-brand-ink: #d1005e;
+  /* --- BANDAS (rol «night» del diseño original) ---
+     Eran el negro cinematográfico de la home y de las cabeceras internas. En
+     el tema claro pasan a crema; en el oscuro vuelven al negro. El texto que
+     iba sobre ellas («mist») se invierte a verde profundo. */
+  --color-night: #f4f7f5;
+  --color-night-soft: #e9efeb;
+  --color-night-line: #dfe6e2;
+  --color-mist: #14342b;
 
-  /* --- Escala editorial (home cinematográfica) ---
-     Fondo oscuro premium con la paleta CPD intacta. Los tonos claros se
-     derivan del ink para no introducir un gris ajeno a la marca. */
-  --color-night: #0d0b0e;
-  --color-night-soft: #16131a;
-  --color-night-line: #2a2530;
-  --color-mist: #f4f1f3;
+  /* Arte de las fichas de proyecto (ProjectArt.astro). */
+  --color-art-alt: #f6006e;
+
+  /* --- Texto y velo SOBRE IMAGEN ---
+     Una foto o ilustración oscura pide texto claro en los dos temas: estos
+     dos tokens NO cambian con el tema (mismos valores en oscuro). */
+  --color-media: #0d0b0e;
+  --color-media-texto: #f4f1f3;
 
   --font-sans: "Quicksand", ui-sans-serif, system-ui, sans-serif;
 
@@ -65,6 +92,96 @@
     outline-color: var(--color-mist);
   }
 }
+
+/* ---------- TEMA CLARO: traducción de los grises neutros ----------
+   El sitio se construyó con filetes y velos NEGROS (border-black/5,
+   bg-black/5, bg-black/[0.02]): sobre blanco eso se ve gris frío. La paleta
+   nueva usa neutros verdosos, así que esos valores se remapean SOLO en el
+   tema claro. El tema oscuro tiene sus propias reglas y no se toca.
+
+   ⚠️ SIN @layer a propósito. Estas reglas pisan utilidades de Tailwind
+   (.border-black\/5, .bg-black\/5, .text-brand…), que viven en @layer
+   utilities; cualquier cosa declarada dentro de @layer base pierde contra
+   ellas por ORDEN DE CAPAS, no por especificidad. Sin capa, ganan.
+   (Las reglas equivalentes del tema oscuro siguen en @layer base y por eso
+   NO se aplican: no se tocan para no alterar el oscuro actual.) */
+html:not([data-tema='oscuro']) .border-black\/5 { border-color: var(--color-line); }
+html:not([data-tema='oscuro']) .border-black\/10 { border-color: var(--color-line-media); }
+html:not([data-tema='oscuro']) .border-black\/15 { border-color: var(--color-line-fuerte); }
+
+html:not([data-tema='oscuro']) .divide-black\/10 > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--color-line-media);
+}
+
+html:not([data-tema='oscuro']) .bg-black\/5 { background-color: var(--color-surface-alt); }
+html:not([data-tema='oscuro']) .bg-black\/\[0\.02\] { background-color: var(--color-surface-alt); }
+html:not([data-tema='oscuro']) .bg-surface\/60 { background-color: var(--color-surface-alt); }
+
+/* Velo de marca: sobre blanco el 5 % de #c40057 casi no se ve; sube un punto. */
+html:not([data-tema='oscuro']) .bg-brand\/5 { background-color: rgb(196 0 87 / 0.06); }
+html:not([data-tema='oscuro']) .bg-brand\/15 { background-color: rgb(196 0 87 / 0.12); }
+
+/* ---------- TEMA CLARO: utilidades que asumían fondo oscuro ----------
+   El header y el menú móvil se construyeron con blanco translúcido
+   (border-white, bg-white) porque siempre iban sobre negro. Sobre crema eso
+   desaparece: acá pasan a tinta translúcida. */
+html:not([data-tema='oscuro']) .border-white\/10 { border-color: rgb(20 32 27 / 0.08); }
+html:not([data-tema='oscuro']) .border-white\/15 { border-color: rgb(20 32 27 / 0.12); }
+html:not([data-tema='oscuro']) .border-white\/25 { border-color: rgb(20 32 27 / 0.2); }
+html:not([data-tema='oscuro']) .bg-white\/10 { background-color: rgb(20 32 27 / 0.05); }
+html:not([data-tema='oscuro']) .bg-white\/\[0\.03\] { background-color: rgb(20 32 27 / 0.035); }
+
+/* El header era bg-night/85 (negro translúcido). En claro tiene que ser
+   blanco translúcido, no crema translúcida: sobre las fotos se ensuciaba. */
+html:not([data-tema='oscuro']) .bg-night\/85 { background-color: rgb(255 255 255 / 0.92); }
+
+/* Chapa de las portadas de proyecto: se resolvió con los tokens «media» en
+   el propio componente (ver proyectos/index.astro). */
+
+/* La marca como TEXTO sobre las bandas claras: #c40057 da 5.9:1 sobre crema,
+   pero cae a 4.4:1 donde el velo magenta del hero tiñe el fondo. Ahí manda el
+   tono oscuro de la marca (7.6:1 sobre blanco), que es la misma familia. */
+html:not([data-tema='oscuro']) .bg-night .text-brand { color: var(--color-brand-ink); }
+
+/* ---------- TEMA CLARO: el hero con foto ----------
+   El velo se construyó para negro. Sobre crema se refuerza (foto más tenue y
+   degradado más opaco) para que el titular y el antetítulo tengan fondo
+   suficiente: medido, el antetítulo quedaba en 3.6:1 sobre la foto. */
+html:not([data-tema='oscuro']) .opacity-40 { opacity: 0.22; }
+
+html:not([data-tema='oscuro']) .bg-gradient-to-t.from-night.via-night\/80.to-night\/40 {
+  background-image: linear-gradient(
+    to top,
+    var(--color-night) 0%,
+    color-mix(in oklab, var(--color-night) 94%, transparent) 45%,
+    color-mix(in oklab, var(--color-night) 72%, transparent) 100%
+  );
+}
+
+/* ---------- TEMA CLARO: opacidades de texto, recalibradas ----------
+   El tema oscuro original tenía las bandas en negro (#0d0b0e): ahí un
+   text-mist/50 ya daba 5.3:1. Sobre crema con tinta verde el mismo 50 % se
+   queda en 2.9:1. Estas reglas lo llevan a color sólido equivalente, con la
+   jerarquía conservada (los saltos bajos se comprimen: es el precio de AA
+   sobre fondo claro). Mismo criterio para la tinta sobre blancos. */
+html:not([data-tema='oscuro']) .text-mist\/40,
+html:not([data-tema='oscuro']) .text-mist\/45 { color: #5e7069; }
+
+html:not([data-tema='oscuro']) .text-mist\/50,
+html:not([data-tema='oscuro']) .text-mist\/55,
+html:not([data-tema='oscuro']) .text-mist\/60 { color: #4c5a54; }
+
+html:not([data-tema='oscuro']) .text-mist\/65 { color: #46554f; }
+
+/* ink/45–60 sobre blanco y sobre la superficie alterna (#f4f7f5): el #333 de
+   la paleta vieja tampoco pasaba AA; con la tinta nueva se recalibra. */
+html:not([data-tema='oscuro']) .text-ink\/45 { color: rgb(20 32 27 / 0.62); }
+html:not([data-tema='oscuro']) .text-ink\/50 { color: rgb(20 32 27 / 0.62); }
+html:not([data-tema='oscuro']) .text-ink\/55 { color: rgb(20 32 27 / 0.65); }
+html:not([data-tema='oscuro']) .text-ink\/60 { color: rgb(20 32 27 / 0.65); }
+/* Placeholders de formulario: se quedan por debajo del texto real (si no,
+   parecen un valor ya escrito), pero suben de 2.5:1 a 3.8:1. */
+html:not([data-tema='oscuro']) .placeholder\:text-ink\/40::placeholder { color: rgb(20 32 27 / 0.55); }
 
 @layer components {
   .container-content {
@@ -166,11 +283,10 @@
    Se activa con [data-tema="oscuro"] en <html>, que escribe el JS del tema
    (y antes de pintar, para no destellar en blanco).
 
-   Decisión de diseño: el sitio ya tiene una paleta oscura completa y probada
-   (--color-night, --color-mist) porque la home es cinematográfica y las 8
-   páginas internas abren con PageHero/Header/Footer oscuros. El dark mode NO
-   inventa una segunda paleta: extiende esa misma a las zonas que aún eran
-   claras (el cuerpo de las páginas internas).
+   Qué es: la paleta ORIGINAL del sitio, conservada tal cual (negro de la
+   casa #0d0b0e + rosa vivo #f6006e + naranja #f18322). El tema claro de
+   arriba es el que estrena la paleta verde/magenta; acá no se inventa nada
+   nuevo, solo se devuelven los valores anteriores.
 
    Por eso el toggle se resuelve REMAPEANDO las variables semánticas del tema
    (--color-surface / --color-ink). Todo el sitio usa clases como `bg-surface`
@@ -182,6 +298,17 @@
 @layer base {
   html[data-tema='oscuro'] {
     color-scheme: dark;
+
+    /* --- Paleta cinematográfica original, intacta --- */
+    --color-night: #0d0b0e;
+    --color-night-soft: #16131a;
+    --color-night-line: #2a2530;
+    --color-mist: #f4f1f3;
+
+    --color-brand: #f6006e;
+    --color-brand-viva: #f6006e;
+    --color-accent: #f18322;
+    --color-art-alt: #f18322;
 
     /* Remapeo de los tokens semánticos. */
     --color-surface: var(--color-night);
@@ -275,6 +402,13 @@
   html[data-tema='oscuro'] [data-tema-toggle]:hover {
     background-color: rgb(255 255 255 / 0.1);
   }
+
+  /* ---------- Logo del header según el tema ----------
+     Se pintan los dos archivos del cliente (tinta y blanco) y el CSS elige.
+     Va en @layer components para no chocar con las utilidades de tamaño. */
+  .logo-tema-oscuro { display: none; }
+  html[data-tema='oscuro'] .logo-tema-oscuro { display: block; }
+  html[data-tema='oscuro'] .logo-tema-claro { display: none; }
 }
 
 @layer components {
