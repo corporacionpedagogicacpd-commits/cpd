@@ -29,20 +29,20 @@ const filas = (n: number) => Array.from({ length: n }, (_, i) => i);
 >
   <defs>
     <linearGradient id={`fondo-${variante}`} x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#16131a"></stop>
-      <stop offset="1" stop-color="#0d0b0e"></stop>
+      <stop offset="0" style="stop-color:var(--color-night-soft)"></stop>
+      <stop offset="1" style="stop-color:var(--color-night)"></stop>
     </linearGradient>
     <radialGradient id={`brillo-${variante}`} cx="0.72" cy="0.18" r="0.75">
-      <stop offset="0" stop-color="#f6006e" stop-opacity="0.55"></stop>
-      <stop offset="0.55" stop-color="#f6006e" stop-opacity="0.10"></stop>
-      <stop offset="1" stop-color="#f6006e" stop-opacity="0"></stop>
+      <stop offset="0" style="stop-color:var(--color-brand-viva)" stop-opacity="0.55"></stop>
+      <stop offset="0.55" style="stop-color:var(--color-brand-viva)" stop-opacity="0.10"></stop>
+      <stop offset="1" style="stop-color:var(--color-brand-viva)" stop-opacity="0"></stop>
     </radialGradient>
   </defs>
 
   <rect width="1600" height="900" fill={`url(#fondo-${variante})`}></rect>
   <rect width="1600" height="900" fill={`url(#brillo-${variante})`}></rect>
 
-  <g stroke="#f4f1f3" stroke-width="2" fill="none">
+  <g style="stroke:var(--color-mist)" stroke-width="2" fill="none">
     {
       variante === 'educacion' && (
         <>
@@ -62,7 +62,7 @@ const filas = (n: number) => Array.from({ length: n }, (_, i) => i);
           {filas(7).map((i) => (
             <circle cx="800" cy="470" r={70 + i * 62} opacity={0.30 - i * 0.032} />
           ))}
-          <line x1="800" y1="250" x2="800" y2="690" opacity="0.3" stroke="#f18322" />
+          <line x1="800" y1="250" x2="800" y2="690" opacity="0.3" style="stroke:var(--color-art-alt)" />
         </>
       )
     }
@@ -76,13 +76,13 @@ const filas = (n: number) => Array.from({ length: n }, (_, i) => i);
                 y={190 + f * 66}
                 width="28"
                 height="28"
-                fill="#f4f1f3"
+                style="fill:var(--color-mist)"
                 stroke="none"
                 opacity={Math.max(0.03, 0.26 - Math.abs(c - 8) * 0.02 - f * 0.012)}
               />
             ))
           )}
-          <rect x="546" y="436" width="508" height="28" fill="#f6006e" stroke="none" opacity="0.85" />
+          <rect x="546" y="436" width="508" height="28" style="fill:var(--color-brand-viva)" stroke="none" opacity="0.85" />
         </>
       )
     }
@@ -114,7 +114,7 @@ const filas = (n: number) => Array.from({ length: n }, (_, i) => i);
               opacity={0.09 + (i % 3) * 0.06}
             />
           ))}
-          <circle cx="1210" cy="250" r="66" fill="#f18322" stroke="none" opacity="0.5" />
+          <circle cx="1210" cy="250" r="66" style="fill:var(--color-art-alt)" stroke="none" opacity="0.5" />
         </>
       )
     }
@@ -127,7 +127,7 @@ const filas = (n: number) => Array.from({ length: n }, (_, i) => i);
               y={640 - (i % 4) * 96 - 40}
               width="58"
               height={240 + (i % 4) * 96}
-              fill="#f4f1f3"
+              style="fill:var(--color-mist)"
               stroke="none"
               opacity={0.05 + (i % 4) * 0.04}
             />
@@ -150,7 +150,7 @@ const filas = (n: number) => Array.from({ length: n }, (_, i) => i);
               transform={`rotate(${i * 3.5} 830 415)`}
             />
           ))}
-          <line x1="700" y1="360" x2="980" y2="360" opacity="0.5" stroke="#f18322" />
+          <line x1="700" y1="360" x2="980" y2="360" opacity="0.5" style="stroke:var(--color-art-alt)" />
           <line x1="700" y1="410" x2="930" y2="410" opacity="0.35" />
           <line x1="700" y1="460" x2="960" y2="460" opacity="0.35" />
         </>
@@ -165,14 +165,14 @@ const filas = (n: number) => Array.from({ length: n }, (_, i) => i);
               y={700 - (i + 1) * 62}
               width="62"
               height={(i + 1) * 62}
-              fill="#f4f1f3"
+              style="fill:var(--color-mist)"
               stroke="none"
               opacity={0.07 + i * 0.03}
             />
           ))}
           <path
             d="M 371 640 L 501 578 L 631 520 L 761 448 L 891 400 L 1021 320 L 1151 250"
-            stroke="#f6006e"
+            style="stroke:var(--color-brand-viva)"
             stroke-width="5"
             opacity="0.9"
           />

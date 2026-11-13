@@ -104,18 +104,23 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
                     />
                   )
                 }
-                <div class="absolute inset-0 bg-gradient-to-t from-night via-night/30 to-transparent"></div>
+                <!-- Velo y rótulos SOBRE la portada: usan los tokens «media»,
+                     que no cambian con el tema. La ilustración es oscura en
+                     los dos temas, así que el texto va claro siempre; con los
+                     tokens de tema, el título se volvía verde oscuro sobre
+                     negro al pasar a tema claro (medido: 1.1:1). -->
+                <div class="absolute inset-0 bg-gradient-to-t from-media via-media/30 to-transparent"></div>
 
                 <div class="absolute inset-x-6 top-6 flex items-center justify-between gap-3">
-                  <span class="rounded-full border border-mist/25 bg-night/40 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-mist/85 backdrop-blur">
+                  <span class="rounded-full border border-media-texto/25 bg-media/40 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-media-texto/85 backdrop-blur">
                     {p.data.linea ?? 'Proyecto'}
                   </span>
-                  <span class="text-[11px] font-bold uppercase tracking-[0.18em] text-mist/60">
+                  <span class="text-[11px] font-bold uppercase tracking-[0.18em] text-media-texto/60">
                     {p.data.periodo}
                   </span>
                 </div>
 
-                <h3 class="absolute inset-x-6 bottom-6 text-2xl font-bold leading-tight text-mist sm:text-[1.7rem]">
+                <h3 class="absolute inset-x-6 bottom-6 text-2xl font-bold leading-tight text-media-texto sm:text-[1.7rem]">
                   {p.data.titulo}
                 </h3>
               </div>
