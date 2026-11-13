@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
+import fotoNosotros from '../assets/asset-cpd/hero/nosotros-comunidad.jpg';
 
 // Pilares institucionales (título + descripción tomada del sitio antiguo)
 const pilares = [
@@ -45,7 +46,7 @@ const secciones = [
 >
   <Header slot="header" dark />
 
-  <PageHero eyebrow="Quiénes somos" title="Nosotros" />
+  <PageHero eyebrow="Quiénes somos" title="Nosotros" image={fotoNosotros} />
 
   <!-- Índice de secciones: ayuda a leer desde el celular -->
   <nav

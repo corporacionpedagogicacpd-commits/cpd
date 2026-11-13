@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
+import fotoGaleria from '../assets/asset-cpd/hero/galeria-jornada.jpg';
 import { Image } from 'astro:assets';
 import { readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -42,6 +43,7 @@ const fotos = readdirSync(galeriaDir)
   <PageHero
     eyebrow="Registro fotográfico"
     title="Galería"
+    image={fotoGaleria}
     description="Explora nuestra galería y conoce de cerca las actividades, jornadas y proyectos que desarrollamos junto a la comunidad."
   />
 
