@@ -177,7 +177,7 @@ html[data-tema='oscuro'] .hero-inicio-velo {
     color-mix(in oklab, var(--color-night) 92%, transparent) 30%,
     color-mix(in oklab, var(--color-night) 78%, transparent) 55%,
     color-mix(in oklab, var(--color-night) 58%, transparent) 72%,
-    color-mix(in oklab, var(--color-night) 72%, transparent) 84%,
+    color-mix(in oklab, var(--color-night) 76%, transparent) 84%,
     color-mix(in oklab, var(--color-night) 78%, transparent) 100%
   );
 }
@@ -213,6 +213,62 @@ html[data-tema='oscuro'] .bg-night .hero-eyebrow { color: #ff85b8; }
       color-mix(in oklab, var(--color-night) 30%, transparent) 80%,
       color-mix(in oklab, var(--color-night) 40%, transparent) 90%,
       color-mix(in oklab, var(--color-night) 55%, transparent) 100%
+    );
+  }
+}
+
+/* ---------- HÉROES INTERNOS: foto de fondo, misma configuración que el inicio ----------
+   Ney pidió (2026-11-13) que las páginas internas usen la foto igual que el
+   inicio: a sangre, con parallax, no enmarcada. El velo se calibra por tramos
+   para que el antetítulo y la descripción sigan pasando AA sobre la foto. */
+.hero-pagina-media { opacity: 0.7; }
+
+.hero-pagina-velo {
+  background-image: linear-gradient(
+    to top,
+    var(--color-night) 0%,
+    color-mix(in oklab, var(--color-night) 95%, transparent) 22%,
+    color-mix(in oklab, var(--color-night) 88%, transparent) 34%,
+    color-mix(in oklab, var(--color-night) 44%, transparent) 46%,
+    color-mix(in oklab, var(--color-night) 30%, transparent) 58%,
+    color-mix(in oklab, var(--color-night) 66%, transparent) 72%,
+    color-mix(in oklab, var(--color-night) 72%, transparent) 84%,
+    color-mix(in oklab, var(--color-night) 78%, transparent) 92%,
+    color-mix(in oklab, var(--color-night) 58%, transparent) 100%
+  );
+}
+
+html[data-tema='oscuro'] .hero-pagina-media { opacity: 0.55; }
+
+html[data-tema='oscuro'] .hero-pagina-velo {
+  background-image: linear-gradient(
+    to top,
+    var(--color-night) 0%,
+    color-mix(in oklab, var(--color-night) 92%, transparent) 30%,
+    color-mix(in oklab, var(--color-night) 78%, transparent) 55%,
+    color-mix(in oklab, var(--color-night) 58%, transparent) 72%,
+    color-mix(in oklab, var(--color-night) 72%, transparent) 84%,
+    color-mix(in oklab, var(--color-night) 78%, transparent) 100%
+  );
+}
+
+@media (max-width: 1023px) {
+  html:not([data-tema='oscuro']) .hero-pagina-media { opacity: 0.8; }
+
+  html:not([data-tema='oscuro']) .hero-pagina-velo {
+    background-image: linear-gradient(
+      to top,
+      var(--color-night) 0%,
+      color-mix(in oklab, var(--color-night) 95%, transparent) 15%,
+      color-mix(in oklab, var(--color-night) 92%, transparent) 30%,
+      color-mix(in oklab, var(--color-night) 62%, transparent) 42%,
+      color-mix(in oklab, var(--color-night) 42%, transparent) 52%,
+      color-mix(in oklab, var(--color-night) 58%, transparent) 62%,
+      color-mix(in oklab, var(--color-night) 72%, transparent) 70%,
+      color-mix(in oklab, var(--color-night) 78%, transparent) 76%,
+      color-mix(in oklab, var(--color-night) 86%, transparent) 84%,
+      color-mix(in oklab, var(--color-night) 86%, transparent) 92%,
+      color-mix(in oklab, var(--color-night) 76%, transparent) 100%
     );
   }
 }

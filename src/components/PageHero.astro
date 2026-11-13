@@ -1,17 +1,12 @@
 ---
 /**
- * Cabecera de página editorial (banda + fotografía con parallax).
+ * Cabecera de página editorial (banda + fotografía de fondo con parallax).
  *
- * Es la pieza que une la home cinematográfica con el resto del sitio: cada
- * página abre con la misma banda del inicio y, desde 2026-11-13, con una
- * fotografía de la Corporación enmarcada a la derecha que se mueve con el
- * scroll (`data-parallax`).
- *
- * La foto va ENMARCADA y no de fondo a sangre por dos razones medidas:
- *   1. Las fotos de la galería son 3:2; estirarlas a una banda de 3:1 corta
- *      caras y cuerpos por arriba y por abajo.
- *   2. El texto no queda encima de la imagen, así que el contraste no depende
- *      del contenido de la foto (en claro el antetítulo es texto pequeño).
+ * Desde 2026-11-13 usa la MISMA configuración que el hero del inicio, a pedido
+ * de Ney: la foto va a sangre, detrás del texto, con `data-parallax="0.18"` y
+ * la imagen al 118 % de alto desplazada -6 %. El velo (`hero-pagina-velo`) es
+ * el que garantiza el contraste del texto: cerrado donde va el texto pequeño
+ * (antetítulo y descripción) y abierto en la franja del titular.
  *
  * El contenido es visible por defecto: los `reveal` sólo se animan si el motor
  * de scroll está activo (clase .js-reveal en <html>).
@@ -23,10 +18,7 @@ interface Props {
   eyebrow?: string;
   title: string;
   description?: string;
-  /**
-   * Foto de la cabecera. Se muestra en un marco 16:10 con parallax. Si no se
-   * pasa, la cabecera queda como antes: sólo banda + texto.
-   */
+  /** Foto de fondo. Si no se pasa, la cabecera queda como banda lisa. */
   image?: ImageMetadata;
 }
 
@@ -34,58 +26,46 @@ const { eyebrow, title, description, image } = Astro.props;
 ---
 
 <section class="relative overflow-hidden border-b border-night-line bg-night text-mist">
-  <div
-    class="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand/20 via-transparent to-transparent"
-    aria-hidden="true"
-  >
-  </div>
+  {
+    image && (
+      <div class="absolute inset-0" data-parallax="0.18">
+        <Image
+          src={image}
+          alt=""
+          aria-hidden="true"
+          widths={[640, 960, 1280, 1600]}
+          sizes="100vw"
+          class="hero-pagina-media h-[118%] w-full -translate-y-[6%] object-cover"
+        />
+      </div>
+    )
+  }
+  {image && <div class="hero-pagina-velo absolute inset-0" aria-hidden="true"></div>}
 
-  <div
-    class:list={[
-      'container-content relative py-16 sm:py-24',
-      image && 'grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14',
-    ]}
-  >
-    <div>
-      {
-        eyebrow && (
-          <p class="reveal text-xs font-bold uppercase tracking-[0.3em] text-brand">{eyebrow}</p>
-        )
-      }
-
-      <h1 class="mt-6 text-display font-bold">
-        <span class="line-mask"><span class="line-inner">{title}</span></span>
-      </h1>
-
-      {
-        description && (
-          <p
-            class="reveal mt-6 max-w-3xl text-lg leading-relaxed text-mist/70"
-            style="--reveal-delay:220ms"
-          >
-            {description}
-          </p>
-        )
-      }
-
-      <slot />
-    </div>
-
+  <div class="container-content relative z-10 py-16 sm:py-24">
     {
-      image && (
-        <figure class="pagehero-marco relative aspect-[16/10] overflow-hidden rounded-2xl border border-night-line bg-night-soft">
-          <div class="absolute inset-0" data-parallax="0.12">
-            <Image
-              src={image}
-              alt=""
-              aria-hidden="true"
-              widths={[480, 720, 960, 1280]}
-              sizes="(min-width: 1024px) 46vw, 100vw"
-              class="h-[118%] w-full -translate-y-[6%] object-cover"
-            />
-          </div>
-        </figure>
+      eyebrow && (
+        <p class="hero-eyebrow reveal text-xs font-bold uppercase tracking-[0.3em] text-brand">
+          {eyebrow}
+        </p>
       )
     }
+
+    <h1 class="mt-6 text-display font-bold">
+      <span class="line-mask"><span class="line-inner">{title}</span></span>
+    </h1>
+
+    {
+      description && (
+        <p
+          class="reveal mt-6 max-w-3xl text-lg leading-relaxed text-mist/70"
+          style="--reveal-delay:220ms"
+        >
+          {description}
+        </p>
+      )
+    }
+
+    <slot />
   </div>
 </section>
