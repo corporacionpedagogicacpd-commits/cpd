@@ -143,6 +143,21 @@ html:not([data-tema='oscuro']) .bg-night\/85 { background-color: rgb(255 255 255
    tono oscuro de la marca (7.6:1 sobre blanco), que es la misma familia. */
 html:not([data-tema='oscuro']) .bg-night .text-brand { color: var(--color-brand-ink); }
 
+/* ---------- TEMA OSCURO: bloque de la campaña (data-bloque="senderos") ----------
+   La tarjeta se armó con filetes negros (border-black/10 y /15) y velo negro
+   al pasar el ratón. Sobre la tarjeta oscura el contorno del botón secundario
+   se funde con el fondo: acá pasa a tinta clara translúcida. Se limita al
+   bloque para no tocar el resto del tema oscuro. */
+html[data-tema='oscuro'] [data-bloque='senderos'] .border-black\/10 {
+  border-color: rgb(244 241 243 / 0.14);
+}
+html[data-tema='oscuro'] [data-bloque='senderos'] .border-black\/15 {
+  border-color: rgb(244 241 243 / 0.34);
+}
+html[data-tema='oscuro'] [data-bloque='senderos'] .hover\:bg-black\/5:hover {
+  background-color: rgb(244 241 243 / 0.09);
+}
+
 /* ---------- TEMA CLARO: el hero de la home con foto ----------
    La foto TIENE que verse (pedido de Ney: «casi no se ve»), pero el titular
    verde y el antetítulo van encima. Se resuelve con un velo por tramos:

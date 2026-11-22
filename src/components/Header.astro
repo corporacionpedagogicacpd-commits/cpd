@@ -9,7 +9,13 @@ interface Props {
 
 const { dark = false } = Astro.props;
 
-const navItems: { href: string; label: string; external?: boolean; soloXl?: boolean }[] = [
+const navItems: {
+  href: string;
+  label: string;
+  external?: boolean;
+  soloXl?: boolean;
+  destacado?: boolean;
+}[] = [
   // «Inicio» se oculta entre 1024 y 1279px: el lockup nuevo del cliente es
   // muy ancho (6.6:1) y ahí no caben los 10 ítems; el logo ya lleva a la home.
   // En móvil y en el desplegable sí aparece.
@@ -22,6 +28,12 @@ const navItems: { href: string; label: string; external?: boolean; soloXl?: bool
   { href: '/galeria', label: 'Galería' },
   { href: '/alianza', label: 'Alianza' },
   { href: '/donaciones', label: 'Donaciones' },
+  {
+    href: 'https://senderos-neurodivergente.corpedagogicadiversidad.org',
+    label: 'Senderos',
+    external: true,
+    destacado: true,
+  },
   { href: '/contacto', label: 'Contacto' },
 ];
 
@@ -82,7 +94,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
          arrancar (el tema vive en localStorage); el CSS ya muestra el icono
          correcto desde el primer pintado. -->
     <div class="flex items-center gap-2">
-      <ul class="hidden items-center gap-1 lg:flex">
+      <ul class="hidden items-center gap-1 lg:flex lg:gap-0 xl:gap-1">
         {
           navItems.map((item) => {
             const itemPath = item.href.replace(/\/$/, '') || '/';
@@ -95,14 +107,16 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
                   rel={item.external ? 'noopener' : undefined}
                   aria-current={isActive ? 'page' : undefined}
                   class:list={[
-                    'rounded px-2 py-2 text-sm transition-colors xl:px-3',
-                    dark
-                      ? isActive
-                        ? 'font-bold text-brand'
-                        : 'text-mist/85 hover:text-brand'
-                      : isActive
-                        ? 'font-bold text-brand'
-                        : 'text-ink/80 hover:text-brand',
+                    'rounded px-2 py-2 text-sm transition-colors lg:px-1.5 xl:px-3',
+                    item.destacado
+                      ? 'ml-1 bg-brand font-bold text-white hover:bg-brand-ink lg:ml-0.5 xl:ml-1'
+                      : dark
+                        ? isActive
+                          ? 'font-bold text-brand'
+                          : 'text-mist/85 hover:text-brand'
+                        : isActive
+                          ? 'font-bold text-brand'
+                          : 'text-ink/80 hover:text-brand',
                   ]}
                 >
                   {item.label}
@@ -174,7 +188,11 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
                   rel={item.external ? 'noopener' : undefined}
                   class:list={[
                     'block rounded px-3 py-2 text-sm',
-                    dark ? 'text-mist/85 hover:bg-white/10' : 'text-ink/80 hover:bg-black/5',
+                    item.destacado
+                      ? 'mt-1 bg-brand font-bold text-white hover:bg-brand-ink'
+                      : dark
+                        ? 'text-mist/85 hover:bg-white/10'
+                        : 'text-ink/80 hover:bg-black/5',
                   ]}
                 >
                   {item.label}
