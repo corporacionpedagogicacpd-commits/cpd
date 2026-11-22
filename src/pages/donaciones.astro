@@ -49,6 +49,8 @@ const razones = [
 ];
 
 const wompi = 'https://checkout.wompi.co/l/VPOS_ddGDbY';
+const epayco =
+  'https://secure.payco.co/checkoutopen/6a93c332-8934-4da4-b33c-f0291b346984';
 const datosBancarios = {
   titular: 'John Mario Muñoz Arenas',
   nequi: '3003079290',
@@ -108,11 +110,11 @@ const datosBancarios = {
   <section id="donar" class="container-content scroll-mt-24 py-12 sm:py-16" aria-labelledby="donar-titulo">
     <h2 id="donar-titulo" class="text-3xl sm:text-4xl">Donar ahora</h2>
     <p class="mt-4 max-w-2xl text-base text-ink/75">
-      Paga con tarjeta débito o crédito, PSE o transferencia Bancolombia por Wompi. También puedes
-      consignar directamente por Nequi o Bre-B.
+      Paga con tarjeta débito o crédito, PSE o transferencia Bancolombia por Wompi, o con ePayco.
+      También puedes consignar directamente por Nequi o Bre-B.
     </p>
 
-    <div class="mt-8">
+    <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
       <a
         href={wompi}
         target="_blank"
@@ -121,10 +123,18 @@ const datosBancarios = {
       >
         Donar con Wompi
       </a>
-      <p class="mt-3 text-sm text-ink/60">
-        En Wompi escribe el valor de tu aporte. Tarjetas, PSE y Bancolombia.
-      </p>
+      <a
+        href={epayco}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex w-full items-center justify-center rounded-full border-2 border-brand bg-surface px-8 py-4 text-center text-base font-bold text-brand-ink transition hover:bg-brand/5 sm:w-auto"
+      >
+        Donar con ePayco
+      </a>
     </div>
+    <p class="mt-3 text-sm text-ink/60">
+      En Wompi o ePayco escribe el valor de tu aporte. Tarjetas, PSE y Bancolombia.
+    </p>
 
     <div class="mt-10 grid gap-4 sm:grid-cols-2">
       <div class="rounded-2xl border border-black/10 bg-surface p-6 shadow-sm">
