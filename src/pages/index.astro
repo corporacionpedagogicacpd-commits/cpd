@@ -128,7 +128,76 @@ const carrete = [
     </div>
   </section>
 
-  <!-- ══════════════ 02 · CIFRAS ══════════════ -->
+  <!-- ══════════════ 02 · CAMPAÑA SENDEROS (BONOS) ══════════════ -->
+  <section id="senderos" class="scroll-mt-24 bg-surface py-24 sm:py-28" aria-labelledby="senderos-titulo">
+    <div class="container-content">
+      <div
+        data-bloque="senderos"
+        class="reveal grid overflow-hidden rounded-3xl border border-black/10 bg-night-soft lg:grid-cols-[1.05fr_1fr]"
+      >
+        <div class="relative min-h-72 sm:min-h-80 lg:min-h-full">
+          <Image
+            src={campanaSenderos}
+            alt="Niños y niñas aprendiendo juntos en un aula inclusiva de la Corporación"
+            widths={[640, 1024, 1400]}
+            sizes="(max-width: 1024px) 100vw, 52vw"
+            class="absolute inset-0 h-full w-full object-cover object-center"
+            loading="lazy"
+          />
+          <p
+            class="absolute left-4 top-4 rounded-full bg-brand px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white"
+          >
+            Campaña abierta
+          </p>
+        </div>
+
+        <div class="p-8 pt-9 sm:p-12">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] text-brand">
+            Senderos de aprendizaje neurodiversos
+          </p>
+          <h2 id="senderos-titulo" class="mt-4 text-balance text-display font-bold text-ink">
+            Cada niño aprende distinto.
+          </h2>
+          <p class="mt-6 text-pretty text-base leading-relaxed text-ink/80 sm:text-lg">
+            Bonos solidarios para sostener materiales, acompañamiento y espacios de aprendizaje
+            para niños y niñas neurodivergentes de Medellín.
+          </p>
+
+          <ul class="mt-8 space-y-3 text-sm text-ink/75">
+            <li class="flex gap-3">
+              <span aria-hidden="true" class="mt-0.5 font-bold text-brand">✓</span>
+              <span class="text-pretty">Aporte voluntario y directo a la campaña.</span>
+            </li>
+            <li class="flex gap-3">
+              <span aria-hidden="true" class="mt-0.5 font-bold text-brand">✓</span>
+              <span class="text-pretty">Cada aporte y su certificado se publican en el muro.</span>
+            </li>
+            <li class="flex gap-3">
+              <span aria-hidden="true" class="mt-0.5 font-bold text-brand">✓</span>
+              <span class="text-pretty">Recaudo y avance visibles en la página de transparencia.</span>
+            </li>
+          </ul>
+
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a
+              href={urlSenderos}
+              class="rounded-full bg-brand px-7 py-3.5 text-center text-sm font-bold text-white transition hover:bg-brand-ink"
+            >
+              Quiero ser parte del Sendero
+            </a>
+            <a
+              href={`${urlSenderos}/transparencia`}
+              class="rounded-full border border-black/15 px-7 py-3.5 text-center text-sm font-bold text-ink transition hover:bg-black/5"
+            >
+              Ver transparencia
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ 03 · CIFRAS ══════════════ -->
   <section class="border-b border-night-line bg-night-soft py-16 sm:py-20" aria-labelledby="cifras-titulo">
     <div class="container-content">
       <h2 id="cifras-titulo" class="sr-only">Nuestro impacto en cifras</h2>
@@ -359,79 +428,6 @@ const carrete = [
               <p class="mt-6 text-mist/50">Aún no hay eventos publicados.</p>
             )
           }
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════ 08 · CAMPAÑA SENDEROS (BONOS) ══════════════ -->
-  <section class="bg-surface py-24 sm:py-28" aria-labelledby="senderos-titulo">
-    <div class="container-content">
-      <div
-        data-bloque="senderos"
-        class="reveal grid overflow-hidden rounded-3xl border border-black/10 bg-night-soft lg:grid-cols-[1.05fr_1fr]"
-      >
-        <div class="relative min-h-72 sm:min-h-80 lg:min-h-full">
-          <Image
-            src={campanaSenderos}
-            alt="Niños y niñas aprendiendo juntos en un aula inclusiva de la Corporación"
-            widths={[640, 1024, 1400]}
-            sizes="(max-width: 1024px) 100vw, 52vw"
-            class="absolute inset-0 h-full w-full object-cover object-center"
-            loading="lazy"
-          />
-          <p
-            class="absolute left-4 top-4 rounded-full bg-brand px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white"
-          >
-            Campaña abierta
-          </p>
-        </div>
-
-        <div class="p-8 pt-9 sm:p-12">
-          <p class="text-xs font-bold uppercase tracking-[0.22em] text-brand">
-            Senderos de aprendizaje neurodiversos
-          </p>
-          <h2 id="senderos-titulo" class="mt-4 text-balance text-display font-bold text-ink">
-            Cada niño aprende distinto.
-          </h2>
-          <p class="mt-6 text-pretty text-base leading-relaxed text-ink/80 sm:text-lg">
-            Bonos solidarios para sostener materiales, acompañamiento y espacios de aprendizaje
-            para niños y niñas neurodivergentes de Medellín.
-          </p>
-
-          <ul class="mt-8 space-y-3 text-sm text-ink/75">
-            <li class="flex gap-3">
-              <span aria-hidden="true" class="mt-0.5 font-bold text-brand">✓</span>
-              <span class="text-pretty">Aporte voluntario y directo a la campaña.</span>
-            </li>
-            <li class="flex gap-3">
-              <span aria-hidden="true" class="mt-0.5 font-bold text-brand">✓</span>
-              <span class="text-pretty">Cada aporte y su certificado se publican en el muro.</span>
-            </li>
-            <li class="flex gap-3">
-              <span aria-hidden="true" class="mt-0.5 font-bold text-brand">✓</span>
-              <span class="text-pretty">Recaudo y avance visibles en la página de transparencia.</span>
-            </li>
-          </ul>
-
-          <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a
-              href={urlSenderos}
-              target="_blank"
-              rel="noopener"
-              class="rounded-full bg-brand px-7 py-3.5 text-center text-sm font-bold text-white transition hover:bg-brand-ink"
-            >
-              Quiero ser parte del Sendero
-            </a>
-            <a
-              href={`${urlSenderos}/transparencia`}
-              target="_blank"
-              rel="noopener"
-              class="rounded-full border border-black/15 px-7 py-3.5 text-center text-sm font-bold text-ink transition hover:bg-black/5"
-            >
-              Ver transparencia
-            </a>
-          </div>
         </div>
       </div>
     </div>

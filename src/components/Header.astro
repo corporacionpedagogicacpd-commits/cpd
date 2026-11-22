@@ -12,7 +12,7 @@ const { dark = false } = Astro.props;
 const navItems: {
   href: string;
   label: string;
-  external?: boolean;
+  sub?: { href: string; label: string };
   soloXl?: boolean;
   destacado?: boolean;
 }[] = [
@@ -20,18 +20,16 @@ const navItems: {
   // muy ancho (6.6:1) y ahí no caben los 10 ítems; el logo ya lleva a la home.
   // En móvil y en el desplegable sí aparece.
   { href: '/', label: 'Inicio', soloXl: true },
-  { href: '/nosotros', label: 'Nosotros' },
+  { href: '/nosotros', label: 'Nosotros', sub: { href: '/galeria', label: 'Galería' } },
   { href: '/educacion', label: 'Educación' },
   { href: '/proyectos', label: 'Proyectos' },
-  { href: 'https://papeleria.corpedagogicadiversidad.org', label: 'Papelería', external: true },
+  { href: 'https://papeleria.corpedagogicadiversidad.org', label: 'Papelería' },
   { href: '/eventos', label: 'Eventos' },
-  { href: '/galeria', label: 'Galería' },
   { href: '/alianza', label: 'Alianza' },
   { href: '/donaciones', label: 'Donaciones' },
   {
     href: 'https://senderos-neurodivergente.corpedagogicadiversidad.org',
     label: 'Senderos',
-    external: true,
     destacado: true,
   },
   { href: '/contacto', label: 'Contacto' },
@@ -99,28 +97,78 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
           navItems.map((item) => {
             const itemPath = item.href.replace(/\/$/, '') || '/';
             const isActive = currentPath === itemPath;
+            const subActive = item.sub ? currentPath === item.sub.href.replace(/\/$/, '') : false;
             return (
               <li class:list={[item.soloXl && 'hidden xl:block']}>
-                <a
-                  href={item.href}
-                  target={item.external ? '_blank' : undefined}
-                  rel={item.external ? 'noopener' : undefined}
-                  aria-current={isActive ? 'page' : undefined}
-                  class:list={[
-                    'rounded px-2 py-2 text-sm transition-colors lg:px-1.5 xl:px-3',
-                    item.destacado
-                      ? 'ml-1 bg-brand font-bold text-white hover:bg-brand-ink lg:ml-0.5 xl:ml-1'
-                      : dark
-                        ? isActive
-                          ? 'font-bold text-brand'
-                          : 'text-mist/85 hover:text-brand'
-                        : isActive
-                          ? 'font-bold text-brand'
-                          : 'text-ink/80 hover:text-brand',
-                  ]}
-                >
-                  {item.label}
-                </a>
+                {item.sub ? (
+                  <div class="group relative">
+                    <a
+                      href={item.href}
+                      aria-current={isActive ? 'page' : undefined}
+                      class:list={[
+                        'inline-flex items-center gap-1 rounded px-2 py-2 text-sm transition-colors lg:px-1.5 xl:px-3',
+                        dark
+                          ? isActive
+                            ? 'font-bold text-brand'
+                            : 'text-mist/85 hover:text-brand'
+                          : isActive
+                            ? 'font-bold text-brand'
+                            : 'text-ink/80 hover:text-brand',
+                      ]}
+                    >
+                      {item.label}
+                      <svg
+                        class="h-3 w-3 opacity-50"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M6 9l6 6 6-6"></path>
+                      </svg>
+                    </a>
+                    <div class="invisible absolute left-0 top-full z-50 w-max min-w-full translate-y-1 pt-1 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                      <a
+                        href={item.sub.href}
+                        aria-current={subActive ? 'page' : undefined}
+                        class:list={[
+                          'block whitespace-nowrap rounded-lg border bg-surface py-2 pl-3 pr-5 text-sm shadow-lg transition-colors',
+                          dark
+                            ? subActive
+                              ? 'border-white/15 font-bold text-brand'
+                              : 'border-white/15 text-mist/85 hover:text-brand'
+                            : subActive
+                              ? 'border-black/10 font-bold text-brand'
+                              : 'border-black/10 text-ink/80 hover:text-brand',
+                        ]}
+                      >
+                        {item.sub.label}
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <a
+                    href={item.href}
+                    aria-current={isActive ? 'page' : undefined}
+                    class:list={[
+                      'rounded px-2 py-2 text-sm transition-colors lg:px-1.5 xl:px-3',
+                      item.destacado
+                        ? 'ml-1 bg-brand font-bold text-white hover:bg-brand-ink lg:ml-0.5 xl:ml-1'
+                        : dark
+                          ? isActive
+                            ? 'font-bold text-brand'
+                            : 'text-mist/85 hover:text-brand'
+                          : isActive
+                            ? 'font-bold text-brand'
+                            : 'text-ink/80 hover:text-brand',
+                    ]}
+                  >
+                    {item.label}
+                  </a>
+                )}
               </li>
             );
           })
@@ -182,21 +230,42 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
           {
             navItems.map((item) => (
               <li>
-                <a
-                  href={item.href}
-                  target={item.external ? '_blank' : undefined}
-                  rel={item.external ? 'noopener' : undefined}
-                  class:list={[
-                    'block rounded px-3 py-2 text-sm',
-                    item.destacado
-                      ? 'mt-1 bg-brand font-bold text-white hover:bg-brand-ink'
-                      : dark
-                        ? 'text-mist/85 hover:bg-white/10'
-                        : 'text-ink/80 hover:bg-black/5',
-                  ]}
-                >
-                  {item.label}
-                </a>
+                {item.sub ? (
+                  <div class="flex flex-col">
+                    <a
+                      href={item.href}
+                      class:list={[
+                        'block rounded px-3 pt-2 pb-0.5 text-sm',
+                        dark ? 'text-mist/85 hover:bg-white/10' : 'text-ink/80 hover:bg-black/5',
+                      ]}
+                    >
+                      {item.label}
+                    </a>
+                    <a
+                      href={item.sub.href}
+                      class:list={[
+                        'block rounded px-3 pt-0 pb-2 pl-6 text-xs',
+                        dark ? 'text-mist/60 hover:bg-white/10' : 'text-ink/55 hover:bg-black/5',
+                      ]}
+                    >
+                      {item.sub.label}
+                    </a>
+                  </div>
+                ) : (
+                  <a
+                    href={item.href}
+                    class:list={[
+                      'block rounded px-3 py-2 text-sm',
+                      item.destacado
+                        ? 'mt-1 bg-brand font-bold text-white hover:bg-brand-ink'
+                        : dark
+                          ? 'text-mist/85 hover:bg-white/10'
+                          : 'text-ink/80 hover:bg-black/5',
+                    ]}
+                  >
+                    {item.label}
+                  </a>
+                )}
               </li>
             ))
           }

@@ -49,8 +49,11 @@ const razones = [
 ];
 
 const wompi = 'https://checkout.wompi.co/l/VPOS_ddGDbY';
-const epayco =
-  'https://secure.payco.co/checkoutopen/6a93c332-8934-4da4-b33c-f0291b346984';
+const datosBancarios = {
+  titular: 'John Mario Muñoz Arenas',
+  nequi: '3003079290',
+  breB: '@3003079290',
+};
 ---
 
 <BaseLayout
@@ -101,35 +104,44 @@ const epayco =
     </ul>
   </section>
 
-  <!-- 4. Botones de donación -->
-  <section class="container-content py-12 sm:py-16" aria-labelledby="donar-titulo">
+  <!-- 4. Medios de donación -->
+  <section id="donar" class="container-content scroll-mt-24 py-12 sm:py-16" aria-labelledby="donar-titulo">
     <h2 id="donar-titulo" class="text-3xl sm:text-4xl">Donar ahora</h2>
     <p class="mt-4 max-w-2xl text-base text-ink/75">
-      Elige el medio que prefieras. Ambos enlaces te llevan a los canales oficiales de la
-      corporación.
+      Paga con tarjeta débito o crédito, PSE o transferencia Bancolombia por Wompi. También puedes
+      consignar directamente por Nequi o Bre-B.
     </p>
 
-    <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+    <div class="mt-8">
       <a
         href={wompi}
         target="_blank"
         rel="noopener"
-        class="inline-flex w-full items-center justify-center rounded-full bg-brand px-8 py-4 text-center text-base font-bold text-white transition hover:opacity-90 sm:w-auto"
+        class="inline-flex w-full items-center justify-center rounded-full bg-brand px-8 py-4 text-center text-base font-bold text-white transition hover:bg-brand-ink sm:w-auto"
       >
         Donar con Wompi
       </a>
-      <a
-        href={epayco}
-        target="_blank"
-        rel="noopener"
-        class="inline-flex w-full items-center justify-center rounded-full border-2 border-brand bg-surface px-8 py-4 text-center text-base font-bold text-brand-ink transition hover:bg-brand/5 sm:w-auto"
-      >
-        Donar con Epayco
-      </a>
+      <p class="mt-3 text-sm text-ink/60">
+        En Wompi escribe el valor de tu aporte. Tarjetas, PSE y Bancolombia.
+      </p>
     </div>
 
-    <p class="text-xs text-ink/50">
-      [Datos bancarios y certificado de donación pendientes de validación con el cliente]
+    <div class="mt-10 grid gap-4 sm:grid-cols-2">
+      <div class="rounded-2xl border border-black/10 bg-surface p-6 shadow-sm">
+        <p class="text-sm font-bold uppercase tracking-wide text-brand-ink">Nequi</p>
+        <p class="mt-2 select-all font-mono text-2xl font-bold text-ink">{datosBancarios.nequi}</p>
+        <p class="mt-1 text-sm text-ink/60">A nombre de {datosBancarios.titular}</p>
+      </div>
+      <div class="rounded-2xl border border-black/10 bg-surface p-6 shadow-sm">
+        <p class="text-sm font-bold uppercase tracking-wide text-brand-ink">Bre-B</p>
+        <p class="mt-2 select-all font-mono text-2xl font-bold text-ink">{datosBancarios.breB}</p>
+        <p class="mt-1 text-sm text-ink/60">A nombre de {datosBancarios.titular}</p>
+      </div>
+    </div>
+
+    <p class="mt-6 text-sm text-ink/60">
+      Titular: {datosBancarios.titular}. Guarda el comprobante de tu aporte para solicitar el
+      certificado de donación.
     </p>
   </section>
 
